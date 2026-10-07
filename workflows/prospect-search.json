@@ -9,7 +9,7 @@
       "typeVersion": 1.2,
       "position": [
         0,
-        80
+        0
       ],
       "parameters": {
         "rule": {
@@ -28,8 +28,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        544,
-        80
+        1120,
+        0
       ],
       "parameters": {
         "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst chiavi = new Set();\nconst nomi = new Set();\n\n// Archivio = prospect salvati + scartati definitivi.\n// Gli scartati 'Da riprovare' NON bloccano: vengono ripresi.\nconst righe = [\n  ...$('Read Prospect').all(),\n  ...$('Read Scartati').all().filter(i =>\n    !String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n  )\n];\n\nfor (const item of righe) {\n  const nome = norm(item.json.Nome);\n  const azienda = normCompany(item.json.Azienda);\n  if (!nome || !azienda) continue;\n  chiavi.add(`${nome}|${azienda}`);\n  nomi.add(nome);\n}\n\nreturn [{\n  json: {\n    paese: 'Singapore',\n    chiavi_esistenti: [...chiavi],\n    nomi_esistenti: [...nomi],\n    totale_esistenti: chiavi.size\n  }\n}];"
@@ -41,8 +41,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1072,
-        80
+        1620,
+        0
       ],
       "parameters": {
         "promptType": "define",
@@ -59,8 +59,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        1072,
-        288
+        1620,
+        240
       ],
       "parameters": {
         "model": {
@@ -91,8 +91,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1424,
-        80
+        2380,
+        0
       ],
       "parameters": {
         "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\n\n// --------------------------------------------------\n// PARSE JSON AI\n// --------------------------------------------------\n\nconst parse = (raw) => {\n\n  if (typeof raw !== 'string') {\n    return null;\n  }\n\n  let s = raw\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, '')\n    .replace(/```\\s*$/i, '')\n    .trim();\n\n  const a = s.indexOf('{');\n  const b = s.lastIndexOf('}');\n\n  if (a >= 0 && b > a) {\n    s = s.slice(a, b + 1);\n  }\n\n  try {\n    return JSON.parse(s);\n  } catch {\n    return null;\n  }\n};\n\n\n// --------------------------------------------------\n// ESTRAZIONE DOMINIO\n// --------------------------------------------------\n\nconst getDomain = (sito) => {\n\n  let dominio = String(sito ?? '')\n    .trim()\n    .toLowerCase()\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^www\\./i, '')\n    .split('/')[0]\n    .split('?')[0]\n    .split('#')[0]\n    .trim();\n\n  return dominio;\n};\n\n\n// --------------------------------------------------\n// PULIZIA PARTI DEL NOME\n// --------------------------------------------------\n\nconst cleanNamePart = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/[^a-z0-9]/g, '');\n\n\n// --------------------------------------------------\n// TITOLI DA IGNORARE\n// --------------------------------------------------\n\nconst prefissiDaIgnorare = new Set([\n  'dr',\n  'doctor',\n  'mr',\n  'mrs',\n  'ms',\n  'miss',\n  'prof',\n  'professor',\n  'sir',\n  'madam',\n  'md'\n]);\n\n\n// --------------------------------------------------\n// GENERAZIONE EMAIL PROBABILI\n// --------------------------------------------------\n\nconst generaEmail = (\n  nomeCompleto,\n  dominio\n) => {\n\n  if (\n    !nomeCompleto ||\n    !dominio\n  ) {\n    return [];\n  }\n\n  let parti = String(nomeCompleto)\n    .trim()\n    .split(/\\s+/)\n    .map(cleanNamePart)\n    .filter(Boolean);\n\n\n  // Rimuove eventuali titoli iniziali\n  while (\n    parti.length > 1 &&\n    prefissiDaIgnorare.has(\n      parti[0]\n    )\n  ) {\n    parti.shift();\n  }\n\n\n  if (parti.length === 0) {\n    return [];\n  }\n\n\n  const first =\n    parti[0];\n\n\n  // Caso con un solo nome\n  if (parti.length === 1) {\n\n    return [\n      `${first}@${dominio}`\n    ];\n\n  }\n\n\n  const last =\n    parti[\n      parti.length - 1\n    ];\n\n\n  return [\n\n    `${first}.${last}@${dominio}`,\n\n    `${first}@${dominio}`,\n\n    `${first.charAt(0)}${last}@${dominio}`\n\n  ];\n};\n\n\n// --------------------------------------------------\n// ARCHIVIO PROSPECT GIÀ PRESENTI\n// --------------------------------------------------\n\nconst archivio =\n  $('Prepara archivio')\n    .first()\n    .json;\n\n\nconst visti =\n  new Set(\n    archivio\n      .chiavi_esistenti ||\n    []\n  );\n\n\nconst nomiVisti =\n  new Set(\n    archivio\n      .nomi_esistenti ||\n    []\n  );\n\n\nconst nuovi = [];\n\n\n// --------------------------------------------------\n// ELABORAZIONE RISULTATI AI\n// --------------------------------------------------\n\nfor (\n  const item of $input.all()\n) {\n\n  const dati =\n    parse(\n      item.json.output\n    );\n\n\n  if (\n    !dati ||\n    !Array.isArray(\n      dati.candidati\n    )\n  ) {\n    continue;\n  }\n\n\n  for (\n    const c of dati.candidati\n  ) {\n\n\n    // --------------------------------------------------\n    // NOME COMPLETO\n    // --------------------------------------------------\n\n    const nome =\n      String(\n        c?.nome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // NOME PROPRIO PER MAILUP\n    // --------------------------------------------------\n\n    const nomeMailup =\n      String(\n        c?.nome_proprio ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // COGNOME PER MAILUP\n    // --------------------------------------------------\n\n    const cognomeMailup =\n      String(\n        c?.cognome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // AZIENDA\n    // --------------------------------------------------\n\n    const azienda =\n      String(\n        c?.azienda ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    const nomeN =\n      norm(nome);\n\n    const aziendaN =\n      normCompany(\n        azienda\n      );\n\n\n    if (\n      !nomeN ||\n      !aziendaN\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // CHIAVE DUPLICATO\n    // --------------------------------------------------\n\n    const key =\n      `${nomeN}|${aziendaN}`;\n\n\n    // Nome + azienda già presenti\n    if (\n      visti.has(key)\n    ) {\n      continue;\n    }\n\n\n    // Persona già presente\n    if (\n      nomiVisti.has(\n        nomeN\n      )\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // FONTE\n    // --------------------------------------------------\n\n    const fonte =\n      typeof c?.fonte ===\n        'string' &&\n      /^https?:\\/\\//i.test(\n        c.fonte.trim()\n      )\n        ? c.fonte.trim()\n        : '';\n\n\n    if (!fonte) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // SITO\n    // --------------------------------------------------\n\n    const sito =\n      c?.sito\n        ? String(\n            c.sito\n          ).trim()\n        : '';\n\n\n    // Scarta prospect senza sito\n    if (!sito) {\n      continue;\n    }\n\n\n    const dominio =\n      getDomain(\n        sito\n      );\n\n\n    // Scarta siti da cui non\n    // ricaviamo un dominio valido\n    if (!dominio) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // EMAIL PROBABILI\n    // --------------------------------------------------\n\n    const emailProbabili =\n      generaEmail(\n        nome,\n        dominio\n      );\n\n\n    // --------------------------------------------------\n    // SEGNA COME VISTO\n    // --------------------------------------------------\n\n    visti.add(\n      key\n    );\n\n    nomiVisti.add(\n      nomeN\n    );\n\n\n    // --------------------------------------------------\n    // OUTPUT\n    // --------------------------------------------------\n\n    nuovi.push({\n\n      json: {\n\n        // Nome completo usato\n        // dal workflow attuale\n        'Nome':\n          nome,\n\n\n        // Campi aggiuntivi\n        // per il foglio Mailup\n        'Nome Mailup':\n          nomeMailup,\n\n        'Cognome Mailup':\n          cognomeMailup,\n\n\n        'Azienda':\n          azienda,\n\n\n        'Ruolo proposto':\n          String(\n            c?.ruolo ?? ''\n          ).trim(),\n\n\n        'Settore':\n          String(\n            c?.settore ?? ''\n          ).trim(),\n\n\n        'Sito':\n          sito,\n\n\n        'Email probabile/i':\n          emailProbabili\n            .join(', '),\n\n\n        'Fonte analizzata':\n          fonte\n\n      }\n\n    });\n\n  }\n\n}\n\n\n// --------------------------------------------------\n// RISULTATO\n// --------------------------------------------------\n\nreturn nuovi;"
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2064,
-        80
+        3520,
+        0
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -119,8 +119,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2336,
-        80
+        3740,
+        0
       ],
       "parameters": {
         "conditions": {
@@ -153,8 +153,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2848,
-        -48
+        4180,
+        -180
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -167,8 +167,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        3088,
-        80
+        4400,
+        0
       ],
       "parameters": {}
     },
@@ -178,8 +178,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3360,
-        80
+        4620,
+        0
       ],
       "parameters": {
         "conditions": {
@@ -212,8 +212,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5216,
-        80
+        6860,
+        240
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -226,8 +226,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5376,
-        80
+        7080,
+        240
       ],
       "parameters": {
         "conditions": {
@@ -260,8 +260,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        5472,
-        -272
+        7380,
+        0
       ],
       "parameters": {
         "numberInputs": 6
@@ -273,8 +273,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5824,
-        -256
+        7600,
+        0
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -287,8 +287,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3968,
-        96
+        5540,
+        240
       ],
       "parameters": {
         "conditions": {
@@ -321,8 +321,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        4272,
-        80
+        5760,
+        240
       ],
       "parameters": {
         "amount": 20,
@@ -336,8 +336,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        6304,
-        -176
+        8060,
+        0
       ],
       "parameters": {
         "jsCode": "const items = $input.all();\n\nconst output = [];\n\nfor (const item of items) {\n\n  const j = item.json;\n\n  const email = String(\n    j['Email certa'] ?? ''\n  ).trim();\n\n  // Nel foglio Mailup vogliamo solo\n  // prospect che hanno una email certa.\n  if (!email) {\n    continue;\n  }\n\n  const nome = String(\n    j['Nome Mailup'] ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const cognome = String(\n    j['Cognome Mailup'] ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const azienda = String(\n    j.Azienda ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const ruolo = String(\n    j.Ruolo ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const settore = String(\n    j.Settore ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  output.push({\n    json: {\n      Nome: nome,\n      Cognome: cognome,\n      Azienda: azienda,\n      Ruolo: ruolo,\n      Settore: settore,\n      Email: email\n    }\n  });\n}\n\nreturn output;"
@@ -349,8 +349,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        288,
-        80
+        240,
+        0
       ],
       "parameters": {
         "documentId": {
@@ -384,8 +384,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        3712,
-        96
+        5320,
+        240
       ],
       "parameters": {
         "url": "https://api.rocketreach.co/api/v2/person/lookup",
@@ -439,8 +439,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        2608,
-        -48
+        3960,
+        -180
       ],
       "parameters": {
         "url": "={{ $json[\"Pagina da controllare\"] }}",
@@ -482,8 +482,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        1792,
-        80
+        3300,
+        0
       ],
       "parameters": {
         "url": "={{ /^https?:\\/\\//i.test($json.Sito) ? $json.Sito : 'https://' + $json.Sito }}",
@@ -525,8 +525,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        4560,
-        80
+        5980,
+        240
       ],
       "parameters": {
         "url": "https://api.rocketreach.co/api/v2/person/checkStatus",
@@ -568,8 +568,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        6304,
-        -416
+        8060,
+        -220
       ],
       "parameters": {
         "operation": "append",
@@ -733,8 +733,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        6576,
-        -176
+        8280,
+        0
       ],
       "parameters": {
         "operation": "append",
@@ -832,8 +832,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        6784,
-        -256
+        8520,
+        -300
       ],
       "parameters": {
         "mode": "chooseBranch",
@@ -846,8 +846,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        7088,
-        -256
+        8740,
+        -300
       ],
       "parameters": {
         "jsCode": "const prospectTotali =\n  $('Prepara righe finali').all().length;\n\nconst mailupTotali =\n  $('Prepara Mailup').all().length;\n\nreturn [\n  {\n    json: {\n      workflowName: $workflow.name,\n      executionId: $execution.id,\n      prospectTotali,\n      mailupTotali\n    }\n  }\n];"
@@ -860,8 +860,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        7312,
-        -256
+        8960,
+        -300
       ],
       "parameters": {
         "workflowId": {
@@ -937,8 +937,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        816,
-        80
+        1340,
+        0
       ],
       "parameters": {
         "jsCode": "// Rotazione dei temi: dalla scheda Temi prendiamo le 5 nicchie\n// attive usate meno di recente (a parita: meno usate, poi a caso),\n// bilanciando i paesi (SG / MY / ID).\n// Cosi l'AI non torna sempre sugli stessi nomi.\nconst NUM_LOTTI = 5;\nconst TARGET_LOTTO = 25;\n\nconst temi = $('Read Temi').all()\n  .map(i => i.json)\n  .filter(t =>\n    t.ID &&\n    t.Tema &&\n    String(t.Attivo ?? 'SI').trim().toUpperCase() !== 'NO'\n  );\n\nlet scelti;\n\nif (temi.length) {\n  scelti = temi\n    .map(t => ({ t, r: Math.random() }))\n    .sort((a, b) =>\n      String(a.t['Ultimo uso'] || '').localeCompare(String(b.t['Ultimo uso'] || '')) ||\n      (Number(a.t.Usi) || 0) - (Number(b.t.Usi) || 0) ||\n      a.r - b.r\n    )\n    .map(x => x.t);\n\n  // Bilanciamento paesi: al massimo ceil(5 / n. paesi) lotti per paese,\n  // poi si completa con i temi rimasti nell'ordine di rotazione.\n  const paesi = [...new Set(scelti.map(t => t.Paese || 'Singapore'))];\n  const maxPerPaese = Math.ceil(NUM_LOTTI / paesi.length);\n  const perPaese = {};\n  const bilanciati = [];\n  for (const t of scelti) {\n    const p = t.Paese || 'Singapore';\n    if ((perPaese[p] || 0) >= maxPerPaese) continue;\n    perPaese[p] = (perPaese[p] || 0) + 1;\n    bilanciati.push(t);\n    if (bilanciati.length >= NUM_LOTTI) break;\n  }\n  for (const t of scelti) {\n    if (bilanciati.length >= NUM_LOTTI) break;\n    if (!bilanciati.includes(t)) bilanciati.push(t);\n  }\n  scelti = bilanciati;\n} else {\n  // Fallback se la scheda Temi e vuota o illeggibile\n  scelti = [\n    'law firms lawyers corporate law M&A private equity venture capital',\n    'law firms lawyers dispute resolution litigation arbitration',\n    'law firms lawyers intellectual property technology law data privacy',\n    'law firms lawyers employment law tax law regulatory restructuring',\n    'accounting tax consulting corporate services business advisory HR'\n  ].map((tema, i) => ({ ID: '', Paese: 'Singapore', Settore: '', Tema: tema }));\n}\n\nreturn scelti.map((t, i) => ({\n  json: {\n    paese: t.Paese || 'Singapore',\n    lotto: i + 1,\n    tema: t.Tema,\n    settore: t.Settore || '',\n    tema_id: t.ID || '',\n    target_lotto: TARGET_LOTTO\n  }\n}));"
@@ -950,8 +950,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        416,
-        256
+        460,
+        0
       ],
       "parameters": {
         "documentId": {
@@ -985,8 +985,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4272,
-        288
+        5760,
+        600
       ],
       "parameters": {
         "jsCode": "// RocketReach non ha restituito un ID: persona non trovata\n// oppure richiesta respinta per rate limit (da riprovare).\nconst prospect = $('Email certa trovata?').item.json;\nconst testo = String($json.response ?? $json.detail ?? $json.message ?? '');\nconst stato = /rate limit/i.test(testo) ? 'RATE LIMIT' : 'PERSONA NON TROVATA';\n\nreturn {\n  json: {\n    ...prospect,\n    'Email RocketReach': '',\n    'Email RocketReach tutte': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': stato\n  }\n};",
@@ -999,8 +999,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5984,
-        -256
+        7820,
+        0
       ],
       "parameters": {
         "conditions": {
@@ -1033,8 +1033,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        6160,
-        96
+        8060,
+        220
       ],
       "parameters": {
         "assignments": {
@@ -1124,8 +1124,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        6496,
-        96
+        8280,
+        220
       ],
       "parameters": {
         "columns": {
@@ -1168,8 +1168,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1248,
-        80
+        1900,
+        0
       ],
       "parameters": {
         "jsCode": "// Rende robusto l'output dell'AI: un lotto con JSON malformato,\n// troncato o in errore non deve far perdere gli altri lotti.\nconst raw = $json.output;\nconst errore = $json.error ? String($json.error.message ?? $json.error) : '';\n\nconst pulisci = (s) => String(s)\n  .trim()\n  .replace(/^```(?:json)?\\s*/i, '')\n  .replace(/```\\s*$/i, '')\n  .trim();\n\nconst tryParse = (s) => {\n  try {\n    return JSON.parse(s);\n  } catch {\n    return null;\n  }\n};\n\nlet candidati = null;\nlet stato = 'OK';\n\nif (errore) {\n  stato = 'ERRORE';\n} else if (raw && typeof raw === 'object') {\n  candidati = Array.isArray(raw.candidati)\n    ? raw.candidati\n    : (Array.isArray(raw) ? raw : null);\n} else if (typeof raw === 'string') {\n  const s = pulisci(raw);\n  const a = s.indexOf('{');\n  const b = s.lastIndexOf('}');\n  const dati = tryParse(s) ?? (a >= 0 && b > a ? tryParse(s.slice(a, b + 1)) : null);\n\n  if (dati && Array.isArray(dati.candidati)) {\n    candidati = dati.candidati;\n  } else {\n    // Recupero: prendiamo i singoli candidati validi\n    // anche se il JSON complessivo e rotto.\n    const oggetti = s.match(/\\{[^{}]*\\}/g) || [];\n    const recuperati = oggetti\n      .map(tryParse)\n      .filter(o => o && o.nome);\n\n    if (recuperati.length) {\n      candidati = recuperati;\n      stato = 'RECUPERATO';\n    }\n  }\n}\n\nif (!candidati) {\n  candidati = [];\n  if (stato === 'OK') stato = 'JSON NON VALIDO';\n}\n\nlet lotto = '';\nlet paese = '';\ntry {\n  const g = $('Genera 5 Lotti').all()[$itemIndex]?.json ?? $('Genera 5 Lotti').item.json;\n  lotto = g.lotto;\n  paese = g.paese || '';\n} catch {}\n\n// Ogni candidato porta con se il paese del lotto.\ncandidati = candidati.map(c => ({ ...c, paese: c?.paese || paese }));\n\nreturn {\n  json: {\n    output: JSON.stringify({ candidati }),\n    lotto,\n    stato_lotto: stato,\n    candidati_lotto: candidati.length,\n    errore\n  }\n};",
@@ -1182,8 +1182,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        7120,
-        384
+        8740,
+        0
       ],
       "parameters": {
         "jsCode": "// Una riga di statistiche per esecuzione (scheda Log).\n// Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst conta = (nome, ramo, f) => {\n  try {\n    return $(nome).all(ramo ?? 0).filter(f).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst tutti = $('Aggiungi da riprovare').all().map(i => i.json);\nconst lotti = tutti.filter(l => l.stato_lotto !== 'RIPROVA');\nconst riprovati = tutti.reduce((s, l) => s + (l.riprovati || 0), 0);\n\nconst candidatiAI = lotti.reduce((s, l) => s + (l.candidati_lotto || 0), 0);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi prospect.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nconst nuoviAI = Math.max(nuovi - riprovati, 0);\n\nconst stato = (s) => conta('Prepara righe finali', 0, i => i.json['Stato RocketReach'] === s);\nconst daRiprovare = conta('Prepara scartati', 0, i =>\n  String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n);\nconst escluse = conta('Prepara righe finali', 0, i =>\n  String(i.json['Stato RocketReach'] ?? '').startsWith('ESCLUSA')\n);\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': Math.max(candidatiAI - nuoviAI, 0),\n    'Nuovi candidati': nuoviAI,\n    '% nuovi': candidatiAI ? Math.round(nuoviAI / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': stato('PERSONA NON TROVATA'),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1) - daRiprovare - escluse,\n    'Righe Mailup': n('Prepara Mailup'),\n    'Riprovati da Scartati': riprovati,\n    'Ricontrolli RocketReach': n('RocketReach - Status check 2'),\n    'RocketReach rate limit': stato('RATE LIMIT'),\n    'Da riprovare': daRiprovare,\n    'Rinviati tetto RocketReach': stato('RINVIATO (TETTO)'),\n    'Escluse grandi aziende': escluse\n  }\n}];"
@@ -1197,8 +1197,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        7360,
-        384
+        8960,
+        0
       ],
       "parameters": {
         "columns": {
@@ -1241,8 +1241,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1568,
-        80
+        2600,
+        0
       ],
       "parameters": {
         "conditions": {
@@ -1275,8 +1275,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        6880,
-        384
+        8520,
+        0
       ],
       "parameters": {
         "numberInputs": 4
@@ -1288,8 +1288,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4720,
-        80
+        6200,
+        240
       ],
       "parameters": {
         "conditions": {
@@ -1322,8 +1322,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        4880,
-        288
+        6420,
+        420
       ],
       "parameters": {
         "amount": 30,
@@ -1337,8 +1337,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        5040,
-        288
+        6640,
+        420
       ],
       "parameters": {
         "authentication": "genericCredentialType",
@@ -1380,8 +1380,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1336,
-        256
+        2160,
+        0
       ],
       "parameters": {
         "jsCode": "// Reinserisce (max 40) i prospect scartati 'Da riprovare'\n// (limite RocketReach): ripassano dalla ricerca email\n// senza pagare una nuova ricerca AI. Hanno la precedenza\n// nel tetto RocketReach.\nconst items = $input.all();\nconst archivio = $('Prepara archivio').first().json;\nconst bloccati = new Set(archivio.nomi_esistenti || []);\n\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst MAX = 40;\nconst visti = new Set();\nconst candidati = [];\n\nfor (const r of $('Read Scartati').all()) {\n  const j = r.json;\n  if (!String(j['Motivo scarto'] ?? '').startsWith('Da riprovare')) continue;\n\n  const n = norm(j.Nome);\n  const sito = String(j.Sito ?? '').trim();\n  if (!n || !sito || bloccati.has(n) || visti.has(n)) continue;\n\n  visti.add(n);\n  const parti = String(j.Nome).trim().split(/\\s+/);\n\n  candidati.push({\n    nome: j.Nome,\n    nome_proprio: j['Nome Mailup'] || parti[0],\n    cognome: j['Cognome Mailup'] || parti.slice(1).join(' '),\n    azienda: j.Azienda,\n    paese: j.Paese || '',\n    ruolo: j.Ruolo,\n    settore: j.Settore,\n    sito,\n    fonte: /^https?:\\/\\//i.test(sito) ? sito : 'https://' + sito\n  });\n\n  if (candidati.length >= MAX) break;\n}\n\nif (candidati.length) {\n  items.push({\n    json: {\n      output: JSON.stringify({ candidati }),\n      lotto: 'riprova',\n      stato_lotto: 'RIPROVA',\n      candidati_lotto: 0,\n      riprovati: candidati.length\n    }\n  });\n}\n\nreturn items;"
@@ -1393,8 +1393,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        416,
-        432
+        680,
+        0
       ],
       "parameters": {
         "documentId": {
@@ -1428,8 +1428,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1248,
-        -224
+        2160,
+        -300
       ],
       "parameters": {
         "jsCode": "// Aggiorna la scheda Temi: ultimo uso, numero di usi,\n// candidati restituiti e quanti erano nuovi (non in archivio).\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst temi = Object.fromEntries(\n  $('Read Temi').all().map(i => [String(i.json.ID), i.json])\n);\nconst genera = $('Genera 5 Lotti').all().map(i => i.json);\nconst lotti = Object.fromEntries(genera.map(g => [String(g.lotto), g]));\nconst archivio = $('Prepara archivio').first().json;\nconst nomiEsistenti = new Set(archivio.nomi_esistenti || []);\n\nconst ora = $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm');\nconst out = [];\n\n$input.all().forEach((it, idx) => {\n  const j = it.json;\n  // Un lotto AI per ogni lotto generato, nello stesso ordine.\n  const g = lotti[String(j.lotto)] || genera[idx];\n  if (!g || !g.tema_id) return;\n\n  const t = temi[String(g.tema_id)] || {};\n\n  let candidati = [];\n  try {\n    candidati = JSON.parse(j.output).candidati || [];\n  } catch {}\n\n  const nuovi = candidati.filter(c => {\n    const n = norm(c?.nome);\n    return n && !nomiEsistenti.has(n);\n  }).length;\n\n  out.push({\n    json: {\n      ID: g.tema_id,\n      'Ultimo uso': ora,\n      'Usi': String((Number(t.Usi) || 0) + 1),\n      'Candidati totali': String((Number(t['Candidati totali']) || 0) + candidati.length),\n      'Nuovi totali': String((Number(t['Nuovi totali']) || 0) + nuovi),\n      'Ultimo esito': `${j.stato_lotto}: ${nuovi}/${candidati.length} nuovi`\n    }\n  });\n});\n\nreturn out;"
@@ -1442,8 +1442,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1488,
-        -224
+        2380,
+        -300
       ],
       "parameters": {
         "columns": {
@@ -1580,8 +1580,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3488,
-        288
+        4880,
+        240
       ],
       "parameters": {
         "jsCode": "// Tetto alle ricerche RocketReach per esecuzione: RocketReach ha un\n// limite orario (~70 ricerche). Precedenza ai prospect ripresi da\n// 'Da riprovare'; chi resta fuori va negli Scartati come 'Da riprovare'.\nconst TETTO = 60;\n\nconst norm = (v) => String(v ?? '').trim().toLowerCase();\n\nconst ripresi = new Set();\ntry {\n  for (const it of $('Aggiungi da riprovare').all()) {\n    if (it.json.stato_lotto !== 'RIPROVA') continue;\n    const candidati = JSON.parse(it.json.output || '{}').candidati || [];\n    for (const c of candidati) ripresi.add(norm(c?.nome));\n  }\n} catch {}\n\nconst ordinati = $input.all()\n  .map((it, i) => ({ it, i, prio: ripresi.has(norm(it.json.Nome)) ? 0 : 1 }))\n  .sort((a, b) => a.prio - b.prio || a.i - b.i);\n\nreturn ordinati.map((x, pos) => ({\n  json: { ...x.it.json, entro_tetto_rr: pos < TETTO },\n  pairedItem: { item: x.i }\n}));"
@@ -1593,8 +1593,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3600,
-        288
+        5100,
+        240
       ],
       "parameters": {
         "conditions": {
@@ -1627,8 +1627,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3712,
-        480
+        5320,
+        600
       ],
       "parameters": {
         "jsCode": "// Oltre il tetto: niente ricerca RocketReach in questa esecuzione.\n// Finisce negli Scartati come 'Da riprovare' e viene ripreso dopo.\nreturn {\n  json: {\n    ...$json,\n    'Email RocketReach': '',\n    'Email RocketReach tutte': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': 'RINVIATO (TETTO)'\n  }\n};",
@@ -1641,8 +1641,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        416,
-        608
+        900,
+        0
       ],
       "parameters": {
         "documentId": {
@@ -1676,8 +1676,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1680,
-        288
+        2820,
+        0
       ],
       "parameters": {
         "jsCode": "// Esclude SOLO le grandi aziende palesi (nessuna stima dell'AI):\n// 1) marchio nella scheda Esclusioni, riconosciuto dal dominio del sito\n//    (es. deloitte.com) o dal nome, se il marchio e di 2+ parole o il nome\n//    coincide esattamente (cosi \"Apple Dental Clinic\" NON viene escluso);\n// 2) forma societaria da quotata/pubblica: Tbk, Berhad/Bhd senza Sdn, plc.\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst azienda = norm($json.Azienda);\nconst host = String($json.Sito ?? '')\n  .toLowerCase()\n  .replace(/^https?:\\/\\//, '')\n  .split('/')[0]\n  .replace(/^www\\./, '');\nconst etichette = host.split('.');\n\nlet motivo = '';\n\nfor (const r of $('Read Esclusioni').all()) {\n  const j = r.json;\n  if (String(j.Attivo ?? 'SI').trim().toUpperCase() === 'NO') continue;\n\n  const p = norm(j['Nome o marchio']);\n  if (!p) continue;\n\n  const compatti = [p.replace(/ /g, ''), p.replace(/ and /g, ' ').replace(/ /g, '')];\n  const perDominio = compatti.some(c => etichette.includes(c));\n  const perNome =\n    azienda === p ||\n    (p.includes(' ') && ` ${azienda} `.includes(` ${p} `));\n\n  if (perDominio || perNome) {\n    motivo = `in lista Esclusioni (${j['Nome o marchio']})`;\n    break;\n  }\n}\n\nif (!motivo) {\n  if (/\\btbk\\b/.test(azienda)) {\n    motivo = 'quotata in Indonesia (Tbk)';\n  } else if (/\\b(berhad|bhd)\\b/.test(azienda) && !/\\bsdn\\b/.test(azienda)) {\n    motivo = 'societa pubblica in Malesia (Berhad)';\n  } else if (/\\bplc\\b/.test(azienda)) {\n    motivo = 'societa quotata (plc)';\n  }\n}\n\nreturn {\n  json: {\n    ...$json,\n    esclusa: Boolean(motivo),\n    motivo_esclusione: motivo\n  }\n};\n",
@@ -1690,8 +1690,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1792,
-        288
+        3040,
+        0
       ],
       "parameters": {
         "conditions": {
@@ -1724,12 +1724,28 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1904,
-        480
+        3300,
+        360
       ],
       "parameters": {
         "jsCode": "// Grande azienda palese: niente ricerca email ne RocketReach.\n// Finisce negli Scartati con motivo definitivo.\nreturn {\n  json: {\n    ...$json,\n    'Email trovata sito': '',\n    'Email RocketReach': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': 'ESCLUSA: ' + $json.motivo_esclusione\n  }\n};",
         "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "a868cdd0-9c71-4d70-8fd9-a29d7c9f1417",
+      "name": "Nota: come funziona",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -460
+      ],
+      "parameters": {
+        "color": 7,
+        "content": "## Prospect | Search\nCerca prospect PMI per i **Le Fonti Awards** a **Singapore, Malesia e Indonesia** e salva **solo chi ha un'email**.\n\n**Flusso:** archivio e temi → 5 ricerche AI (temi a rotazione, paesi bilanciati) → deduplica ed esclusione grandi aziende → email gratis dal sito → RocketReach (max 60 ricerche) → salvataggio + Log.\n\n**Si configura dal foglio Google *TEST | Prospect | Search*:**\n- **Temi**: nicchie di ricerca (scrivi `NO` in *Attivo* per spegnerne una)\n- **Esclusioni**: grandi aziende da non contattare mai\n- **Log**: una riga di statistiche per ogni esecuzione\n\nChi non ha email va in **Scartati**: quelli *Da riprovare* vengono ripresi automaticamente al giro dopo.\n\nRoadmap e storico: GitHub `marcoscazzari03/prospect`",
+        "height": 380,
+        "width": 1180
       }
     }
   ],
@@ -2361,5 +2377,151 @@
     "executionOrder": "v1",
     "availableInMCP": true,
     "callerPolicy": "workflowsFromSameOwner"
-  }
+  },
+  "nodeGroups": [
+    {
+      "id": "f8cd98fa-bc76-49a5-af71-5315aa1b4b3e",
+      "name": "1 · Archivio e temi",
+      "nodeNames": [
+        "Read Prospect",
+        "Read Scartati",
+        "Read Temi",
+        "Read Esclusioni",
+        "Prepara archivio",
+        "Genera 5 Lotti"
+      ],
+      "description": "Legge prospect, scartati, temi ed esclusioni dal foglio e sceglie i 5 temi della rotazione."
+    },
+    {
+      "id": "a490d05f-0a5d-4307-a58c-96dc82043f7c",
+      "name": "2 · Ricerca AI",
+      "nodeNames": [
+        "Ricerca prospect AI",
+        "OpenAI + Web Search",
+        "Normalizza output AI"
+      ],
+      "description": "5 ricerche OpenAI con web search (una per tema) e recupero dell'output anche se malformato."
+    },
+    {
+      "id": "e51f661a-de21-4170-807c-e1cc29bbbde1",
+      "name": "3 · Aggiorna temi",
+      "nodeNames": [
+        "Prepara aggiornamento temi",
+        "Update - Temi"
+      ],
+      "description": "Registra nella scheda Temi uso, candidati e nuovi trovati per ogni tema."
+    },
+    {
+      "id": "e9c71240-74ef-485c-8b0a-b5b52cfb8761",
+      "name": "4 · Riprova e deduplica",
+      "nodeNames": [
+        "Aggiungi da riprovare",
+        "Deduplica e prepara righe"
+      ],
+      "description": "Aggiunge i prospect 'Da riprovare' e scarta chi e gia in archivio."
+    },
+    {
+      "id": "d8b035f7-9208-48d2-98ea-d7e24a45dd24",
+      "name": "5 · Filtro grandi aziende",
+      "nodeNames": [
+        "Controllo grandi aziende",
+        "Grande azienda?"
+      ],
+      "description": "Esclude solo i casi palesi: scheda Esclusioni e forme da quotata (Tbk, Berhad, plc)."
+    },
+    {
+      "id": "e946992f-0bd5-41cc-990d-0350cd5cdd00",
+      "name": "6 · Email dal sito (gratis)",
+      "nodeNames": [
+        "HTTP - Homepage",
+        "Estrai email homepage",
+        "Ha pagina secondaria?",
+        "HTTP - Pagina secondaria",
+        "Estrai email pagina secondaria",
+        "Riunisci risultati email",
+        "Email certa trovata?"
+      ],
+      "description": "Cerca l'email aziendale in homepage e, se serve, nella pagina contatti/about/team."
+    },
+    {
+      "id": "27b3d482-65a0-48e9-a941-32fb49b32ebd",
+      "name": "7 · Tetto RocketReach",
+      "nodeNames": [
+        "Applica tetto RocketReach",
+        "Entro tetto RocketReach?"
+      ],
+      "description": "Max 60 ricerche per esecuzione, precedenza ai 'Da riprovare'. Oltre il tetto: rinviati."
+    },
+    {
+      "id": "56ac486b-1a99-4af3-a2c3-b562a0d2e6be",
+      "name": "8 · Ricerca RocketReach",
+      "nodeNames": [
+        "RocketReach - Lookup persona",
+        "RocketReach ha ID?"
+      ],
+      "description": "Cerca la persona su RocketReach (una ricerca ogni 5 secondi)."
+    },
+    {
+      "id": "10d20d75-b975-4667-a497-ad13542b69a0",
+      "name": "9 · Esito RocketReach",
+      "nodeNames": [
+        "Attendi RocketReach",
+        "RocketReach - Status check",
+        "Ricontrollare RocketReach?",
+        "Attendi RocketReach 2",
+        "RocketReach - Status check 2",
+        "Normalizza RocketReach",
+        "Email RocketReach trovata?"
+      ],
+      "description": "Controlla lo stato dopo 20s e, se serve, di nuovo dopo 30s; tiene solo email professionali validate."
+    },
+    {
+      "id": "9a632ed2-24f0-4d51-ba47-da1e9fc62398",
+      "name": "10 · Righe finali",
+      "nodeNames": [
+        "Riunisci risultati finali",
+        "Prepara righe finali",
+        "Ha email?"
+      ],
+      "description": "Unisce tutti i risultati e separa chi ha l'email da chi no."
+    },
+    {
+      "id": "f5084d21-3ede-45d8-a921-b0bf28f56e20",
+      "name": "11 · Mailup",
+      "nodeNames": [
+        "Prepara Mailup",
+        "Append - Mailup"
+      ],
+      "description": "Prospect con email nel formato del foglio Mailup."
+    },
+    {
+      "id": "dd8daba0-edeb-4afd-bd73-6a04e010ff8c",
+      "name": "12 · Scartati",
+      "nodeNames": [
+        "Prepara scartati",
+        "Append - Scartati"
+      ],
+      "description": "Senza email o esclusi: scheda Scartati (i 'Da riprovare' vengono ripresi al giro dopo)."
+    },
+    {
+      "id": "1d5d1bf6-01cf-44c1-bd4b-898e5368cb66",
+      "name": "13 · Log esecuzione",
+      "nodeNames": [
+        "Fine esecuzione",
+        "Calcola statistiche",
+        "Append - Log"
+      ],
+      "description": "A fine esecuzione scrive una riga di statistiche nella scheda Log."
+    },
+    {
+      "id": "7635d72c-3300-4706-bc3a-55e3114ec4d3",
+      "name": "Success Monitor (disattivato)",
+      "nodeNames": [
+        "Fine salvataggi",
+        "Prepara notifica successo",
+        "Call Singapore V3.3 | Success Monitor"
+      ],
+      "description": "Notifica al monitor di produzione: spenta nella versione di test."
+    }
+  ]
 }
