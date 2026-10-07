@@ -33,9 +33,13 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 - ✅ Seconda esecuzione reale (3359):
   - RocketReach ora funziona (15 email da 41 ricerche, nessun errore per limite di frequenza);
   - i duplicati sono già al 38%.
-- ⏳ **Rotazione dei temi. È la priorità successiva:** alla 2ª esecuzione il 38% dei candidati pagati era già in archivio. Oggi i 5 temi sono fissi, e l'AI restituisce sempre gli stessi nomi "ovvi".
-  - Serve una tabella di nicchie paese × settore × città/fonte.
-  - A ogni esecuzione si scelgono quelle meno usate.
+- ✅ **Rotazione dei temi.** Alla 2ª esecuzione il 38% dei candidati pagati era già in archivio, perché i 5 temi fissi riportano sempre gli stessi nomi.
+  - Ora c'è la scheda **Temi** nel file di test, con 52 nicchie su legal, servizi professionali, finanza/fintech, tech, industria, consumer e liste di premi. L'elenco iniziale è in `data/temi-iniziali.csv`.
+  - A ogni esecuzione vengono scelte le 5 nicchie attive usate meno di recente.
+  - Per ogni nicchia vengono aggiornati Ultimo uso, Usi, Candidati totali, Nuovi totali e Ultimo esito.
+  - Per spegnere una nicchia basta scrivere `NO` in "Attivo".
+- 🔄 Prima esecuzione reale con la rotazione, per misurare la % di nuovi.
+- ⏳ **Scelta dei temi in base alla resa.** Quando avremo abbastanza dati (Nuovi totali / Candidati totali per tema), dare la precedenza alle nicchie che rendono di più e spegnere quelle esaurite.
 - ⏳ **Partire da liste.**
   - Fonti: classifiche di premi per PMI, liste di finalisti, elenchi di camere di commercio.
   - Le pagine si scaricano gratis via HTTP.

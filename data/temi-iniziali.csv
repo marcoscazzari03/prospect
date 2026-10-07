@@ -1,0 +1,53 @@
+ID,Paese,Settore,Tema,Attivo
+T01,Singapore,Legal,"corporate and M&A boutique law firms (local independent firms, not Big Law or international firm offices)",SI
+T02,Singapore,Legal,"dispute resolution, litigation and international arbitration boutique law firms",SI
+T03,Singapore,Legal,"intellectual property and technology law firms, IP agencies and patent attorneys",SI
+T04,Singapore,Legal,employment and labour law firms and practitioners,SI
+T05,Singapore,Legal,"family law, private client, trusts and estate planning law firms",SI
+T06,Singapore,Legal,"real estate, conveyancing and construction law firms",SI
+T07,Singapore,Legal,"shipping, maritime, trade and commodities law firms",SI
+T08,Singapore,Legal,"fintech, crypto, funds and financial regulatory law boutiques",SI
+T09,Singapore,Legal,"restructuring, insolvency and debt recovery law firms and practitioners",SI
+T10,Singapore,Legal,legal tech companies and alternative legal service providers,SI
+T11,Singapore,Professional services,mid-tier and independent accounting and audit firms (not Big Four),SI
+T12,Singapore,Professional services,"tax advisory, GST and transfer pricing boutiques",SI
+T13,Singapore,Professional services,"corporate secretarial, incorporation and corporate services providers",SI
+T14,Singapore,Professional services,independent management and strategy consulting boutiques,SI
+T15,Singapore,Professional services,"executive search, headhunting and recruitment agencies",SI
+T16,Singapore,Professional services,"payroll, HR outsourcing, PEO/EOR and HR consulting firms",SI
+T17,Singapore,Finance,"independent wealth managers, multi-family offices and family office advisory firms",SI
+T18,Singapore,Professional services,"compliance, AML, risk and governance advisory firms",SI
+T19,Singapore,Professional services,"PR, investor relations and corporate communications agencies",SI
+T20,Singapore,Professional services,"digital marketing, branding and creative agencies",SI
+T21,Singapore,Fintech,"payments, remittance and cross-border payment fintech companies",SI
+T22,Singapore,Fintech,"wealthtech, robo-advisory and digital investment platforms",SI
+T23,Singapore,Insurance,insurtech companies and independent insurance brokers,SI
+T24,Singapore,Finance,local venture capital and small/mid private equity firms,SI
+T25,Singapore,Fintech,"regtech, banking infrastructure and embedded finance companies",SI
+T26,Singapore,Fintech,MAS-licensed digital asset and blockchain infrastructure companies,SI
+T27,Singapore,Tech,B2B SaaS companies,SI
+T28,Singapore,Tech,cybersecurity companies,SI
+T29,Singapore,Tech,"AI, machine learning and data analytics companies",SI
+T30,Singapore,Healthcare,healthtech and medtech companies,SI
+T31,Singapore,Education,"edtech companies, corporate training and professional education providers",SI
+T32,Singapore,Real estate,proptech companies,SI
+T33,Singapore,Logistics,logistics tech and supply chain software companies,SI
+T34,Singapore,Sustainability,"cleantech, renewable energy, sustainability and ESG consulting companies",SI
+T35,Singapore,Food,"agritech, foodtech and alternative protein companies",SI
+T36,Singapore,Tech,"IT services, system integrators and managed service providers",SI
+T37,Singapore,Industry,manufacturing and precision engineering SMEs,SI
+T38,Singapore,Logistics,"freight forwarding, shipping and third-party logistics companies",SI
+T39,Singapore,Industry,"construction, engineering and M&E contractors",SI
+T40,Singapore,Real estate,architecture and interior design firms,SI
+T41,Singapore,Real estate,"boutique real estate developers, real estate agencies and property managers",SI
+T42,Singapore,Food,local F&B groups and restaurant chains,SI
+T43,Singapore,Hospitality,"boutique hotel groups, serviced apartments and hospitality companies",SI
+T44,Singapore,Healthcare,"private medical clinic groups, dental groups and specialist practices",SI
+T45,Singapore,Consumer,"homegrown retail, e-commerce and consumer brands",SI
+T46,Singapore,Industry,"trading, distribution and commodities companies",SI
+T47,Singapore,Consumer,"aesthetics, beauty, spa and wellness groups",SI
+T48,Singapore,Education,"private schools, international preschools and enrichment centre groups",SI
+T49,Singapore,Award lists,"winners and finalists of SME awards (e.g. SME100, Singapore Prestige Brand Award, Enterprise 50, SBR awards), any sector",SI
+T50,Singapore,Award lists,"companies in fastest-growing companies rankings (e.g. Straits Times/Statista Singapore Fastest Growing Companies, FT High-Growth Companies Asia-Pacific)",SI
+T51,Singapore,Award lists,"scale-ups expanding regionally with Enterprise Singapore support, or featured in local business media for expansion",SI
+T52,Singapore,Award lists,"companies recently announcing funding rounds, new offices or regional expansion in Singapore business news",SI

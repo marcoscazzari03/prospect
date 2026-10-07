@@ -31,7 +31,12 @@ Il file di test (account `ads.lefonti@gmail.com`) ha quattro schede:
 - **Prospect AI**: prospect con email;
 - **Mailup**: gli stessi prospect, nel formato per Mailup;
 - **Scartati**: chi non ha email. Se il motivo è "Da riprovare", la persona viene ripresa all'esecuzione successiva;
-- **Log**: una riga di statistiche per ogni esecuzione.
+- **Log**: una riga di statistiche per ogni esecuzione;
+- **Temi**: le nicchie di ricerca. A ogni esecuzione ne vengono usate 5, a rotazione. Si possono aggiungere righe o spegnerle scrivendo `NO` in "Attivo".
+
+Nel repository:
+
+- `data/temi-iniziali.csv` contiene l'elenco iniziale delle nicchie.
 
 ## Come aggiornare l'istantanea
 

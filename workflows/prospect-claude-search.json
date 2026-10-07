@@ -931,7 +931,7 @@
         80
       ],
       "parameters": {
-        "jsCode": "const temi = [\n  // 1 - LEGAL CORPORATE / M&A\n  'law firms lawyers legal services corporate law commercial law M&A mergers acquisitions private equity venture capital corporate finance lawyers',\n\n  // 2 - LEGAL DISPUTES / ARBITRATION\n  'law firms lawyers dispute resolution litigation arbitration international arbitration commercial disputes mediation',\n\n  // 3 - LEGAL TECH / IP / PRIVACY\n  'law firms lawyers intellectual property technology law fintech law data privacy cybersecurity law regulatory compliance telecommunications law',\n\n  // 4 - LEGAL EMPLOYMENT / TAX / REGULATORY\n  'law firms lawyers employment law labour law tax law regulatory law compliance corporate governance restructuring insolvency',\n\n  // 5 - PROFESSIONAL SERVICES\n  'accounting tax consulting corporate services business advisory HR recruitment professional services'\n];\n\nreturn temi.map((tema, i) => ({\n  json: {\n    paese: $json.paese,\n    lotto: i + 1,\n    tema,\n    target_lotto: 25\n  }\n}));"
+        "jsCode": "// Rotazione dei temi: dalla scheda Temi prendiamo le 5 nicchie\n// attive usate meno di recente (a parita: meno usate, poi a caso).\n// Cosi l'AI non torna sempre sugli stessi nomi.\nconst NUM_LOTTI = 5;\nconst TARGET_LOTTO = 25;\n\nconst temi = $('Read Temi').all()\n  .map(i => i.json)\n  .filter(t =>\n    t.ID &&\n    t.Tema &&\n    String(t.Attivo ?? 'SI').trim().toUpperCase() !== 'NO'\n  );\n\nlet scelti;\n\nif (temi.length) {\n  scelti = temi\n    .map(t => ({ t, r: Math.random() }))\n    .sort((a, b) =>\n      String(a.t['Ultimo uso'] || '').localeCompare(String(b.t['Ultimo uso'] || '')) ||\n      (Number(a.t.Usi) || 0) - (Number(b.t.Usi) || 0) ||\n      a.r - b.r\n    )\n    .slice(0, NUM_LOTTI)\n    .map(x => x.t);\n} else {\n  // Fallback se la scheda Temi e vuota o illeggibile\n  scelti = [\n    'law firms lawyers corporate law M&A private equity venture capital',\n    'law firms lawyers dispute resolution litigation arbitration',\n    'law firms lawyers intellectual property technology law data privacy',\n    'law firms lawyers employment law tax law regulatory restructuring',\n    'accounting tax consulting corporate services business advisory HR'\n  ].map((tema, i) => ({ ID: '', Paese: 'Singapore', Settore: '', Tema: tema }));\n}\n\nreturn scelti.map((t, i) => ({\n  json: {\n    paese: t.Paese || $json.paese,\n    lotto: i + 1,\n    tema: t.Tema,\n    settore: t.Settore || '',\n    tema_id: t.ID || '',\n    target_lotto: TARGET_LOTTO\n  }\n}));"
       }
     },
     {
@@ -1370,6 +1370,193 @@
       "parameters": {
         "jsCode": "// Reinserisce (max 20) i prospect scartati 'Da riprovare'\n// (rate limit RocketReach): ripassano dalla ricerca email\n// senza pagare una nuova ricerca AI.\nconst items = $input.all();\nconst archivio = $('Prepara archivio').first().json;\nconst bloccati = new Set(archivio.nomi_esistenti || []);\n\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst MAX = 20;\nconst visti = new Set();\nconst candidati = [];\n\nfor (const r of $('Read Scartati').all()) {\n  const j = r.json;\n  if (!String(j['Motivo scarto'] ?? '').startsWith('Da riprovare')) continue;\n\n  const n = norm(j.Nome);\n  const sito = String(j.Sito ?? '').trim();\n  if (!n || !sito || bloccati.has(n) || visti.has(n)) continue;\n\n  visti.add(n);\n  const parti = String(j.Nome).trim().split(/\\s+/);\n\n  candidati.push({\n    nome: j.Nome,\n    nome_proprio: j['Nome Mailup'] || parti[0],\n    cognome: j['Cognome Mailup'] || parti.slice(1).join(' '),\n    azienda: j.Azienda,\n    ruolo: j.Ruolo,\n    settore: j.Settore,\n    sito,\n    fonte: /^https?:\\/\\//i.test(sito) ? sito : 'https://' + sito\n  });\n\n  if (candidati.length >= MAX) break;\n}\n\nif (candidati.length) {\n  items.push({\n    json: {\n      output: JSON.stringify({ candidati }),\n      lotto: 'riprova',\n      stato_lotto: 'RIPROVA',\n      candidati_lotto: 0,\n      riprovati: candidati.length\n    }\n  });\n}\n\nreturn items;"
       }
+    },
+    {
+      "id": "48a87a5f-73f6-43f3-a8fd-eedb80b8af43",
+      "name": "Read Temi",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        432
+      ],
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
+          "mode": "list",
+          "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Temi",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit#gid=555000333",
+          "mode": "list",
+          "value": 555000333
+        }
+      },
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
+    },
+    {
+      "id": "6a7d4d89-755c-41b6-8857-30c3b8f7d800",
+      "name": "Prepara aggiornamento temi",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        -224
+      ],
+      "parameters": {
+        "jsCode": "// Aggiorna la scheda Temi: ultimo uso, numero di usi,\n// candidati restituiti e quanti erano nuovi (non in archivio).\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst temi = Object.fromEntries(\n  $('Read Temi').all().map(i => [String(i.json.ID), i.json])\n);\nconst genera = $('Genera 5 Lotti').all().map(i => i.json);\nconst lotti = Object.fromEntries(genera.map(g => [String(g.lotto), g]));\nconst archivio = $('Prepara archivio').first().json;\nconst nomiEsistenti = new Set(archivio.nomi_esistenti || []);\n\nconst ora = $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm');\nconst out = [];\n\n$input.all().forEach((it, idx) => {\n  const j = it.json;\n  // Un lotto AI per ogni lotto generato, nello stesso ordine.\n  const g = lotti[String(j.lotto)] || genera[idx];\n  if (!g || !g.tema_id) return;\n\n  const t = temi[String(g.tema_id)] || {};\n\n  let candidati = [];\n  try {\n    candidati = JSON.parse(j.output).candidati || [];\n  } catch {}\n\n  const nuovi = candidati.filter(c => {\n    const n = norm(c?.nome);\n    return n && !nomiEsistenti.has(n);\n  }).length;\n\n  out.push({\n    json: {\n      ID: g.tema_id,\n      'Ultimo uso': ora,\n      'Usi': String((Number(t.Usi) || 0) + 1),\n      'Candidati totali': String((Number(t['Candidati totali']) || 0) + candidati.length),\n      'Nuovi totali': String((Number(t['Nuovi totali']) || 0) + nuovi),\n      'Ultimo esito': `${j.stato_lotto}: ${nuovi}/${candidati.length} nuovi`\n    }\n  });\n});\n\nreturn out;"
+      },
+      "notes": "Ramo posizionato in alto: con l'ordine v1 parte prima del ramo principale, cosi l'uso del tema viene registrato anche se dopo qualcosa fallisce."
+    },
+    {
+      "id": "472a1a2a-716f-42a8-b0a2-839a7d7a6c3c",
+      "name": "Update - Temi",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1488,
+        -224
+      ],
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Paese",
+              "id": "Paese",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Settore",
+              "id": "Settore",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tema",
+              "id": "Tema",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Attivo",
+              "id": "Attivo",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Ultimo uso",
+              "id": "Ultimo uso",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Usi",
+              "id": "Usi",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Candidati totali",
+              "id": "Candidati totali",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Nuovi totali",
+              "id": "Nuovi totali",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Ultimo esito",
+              "id": "Ultimo esito",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
+          "mode": "list",
+          "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
+        },
+        "operation": "update",
+        "options": {
+          "cellFormat": "RAW"
+        },
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Temi",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit#gid=555000333",
+          "mode": "list",
+          "value": 555000333
+        }
+      },
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
     }
   ],
   "connections": {
@@ -1664,17 +1851,6 @@
         ]
       ]
     },
-    "Read Scartati": {
-      "main": [
-        [
-          {
-            "node": "Prepara archivio",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Prospect non trovato RocketReach": {
       "main": [
         [
@@ -1862,6 +2038,11 @@
             "node": "Aggiungi da riprovare",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Prepara aggiornamento temi",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1871,6 +2052,39 @@
         [
           {
             "node": "Deduplica e prepara righe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Scartati": {
+      "main": [
+        [
+          {
+            "node": "Read Temi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Temi": {
+      "main": [
+        [
+          {
+            "node": "Prepara archivio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara aggiornamento temi": {
+      "main": [
+        [
+          {
+            "node": "Update - Temi",
             "type": "main",
             "index": 0
           }
