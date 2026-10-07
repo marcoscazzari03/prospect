@@ -38,7 +38,7 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
   - A ogni esecuzione vengono scelte le 5 nicchie attive usate meno di recente.
   - Per ogni nicchia vengono aggiornati Ultimo uso, Usi, Candidati totali, Nuovi totali e Ultimo esito.
   - Per spegnere una nicchia basta scrivere `NO` in "Attivo".
-- 🔄 Prima esecuzione reale con la rotazione, per misurare la % di nuovi.
+- ✅ Prima esecuzione reale con la rotazione (3362): 96% di candidati nuovi (contro il 62% della 3359) e 91 salvati.
 - ⏳ **Scelta dei temi in base alla resa.** Quando avremo abbastanza dati (Nuovi totali / Candidati totali per tema), dare la precedenza alle nicchie che rendono di più e spegnere quelle esaurite.
 - ⏳ **Partire da liste.**
   - Fonti: classifiche di premi per PMI, liste di finalisti, elenchi di camere di commercio.
@@ -65,7 +65,10 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## Fase 5: Costi RocketReach ⏳
 
-- ⏳ Tetto giornaliero di ricerche RocketReach.
+- ⏳ Tetto di ricerche RocketReach per esecuzione.
+  - RocketReach ha anche un **limite orario**: "Lookup hourly rate limit reached" dopo circa 70 ricerche in un'ora.
+  - Una singola esecuzione (~40–50 ricerche) ci sta, ma Singapore A/B/C in parallelo no.
+  - Chi viene respinto finisce comunque in "Da riprovare".
 - ⏳ Valutare se il rapporto email trovate / crediti spesi giustifica RocketReach, o se basta il sito (oggi circa il 64% delle email arriva gratis dal sito).
 
 ## Fase 6: Passaggio in produzione ⏳
@@ -83,3 +86,4 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
 | 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
+| 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | da confermare | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |
