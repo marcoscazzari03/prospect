@@ -46,12 +46,19 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
   - L'AI serve solo a estrarre i nomi, senza ricerca web, oppure con meno ricerche.
 - ⏳ **Dimensione dei lotti:** valutare 10–15 candidati per lotto invece di 25, se il Log mostra timeout o lotti recuperati.
 
-## Fase 3: Malesia e Indonesia ⏳
+## Fase 3: Malesia e Indonesia 🔄
 
-- ⏳ Lotti per paese: SG / MY / ID.
-- ⏳ Normalizzazione dei nomi azienda con le forme locali: Sdn Bhd, Bhd, PT, Tbk.
-- ⏳ Lingua delle richieste HTTP e fonti locali (anche in Bahasa).
-- ⏳ Un solo workflow per tutti i paesi, al posto delle copie A / B / C.
+- ✅ Scheda Temi estesa: 24 nicchie per la Malesia (M01–M24) e 24 per l'Indonesia (I01–I24), oltre alle 52 di Singapore.
+- ✅ La rotazione bilancia i paesi: al massimo 2 lotti per paese a ogni esecuzione.
+- ✅ Prompt e system message usano il paese del lotto, con le forme societarie:
+  - **Singapore:** preferire Pte Ltd; escluse le società quotate SGX.
+  - **Malesia:** preferire Sdn Bhd; escluse le Berhad/Bhd pubbliche e le GLC.
+  - **Indonesia:** preferire PT; escluse le Tbk quotate e le BUMN.
+- ✅ Ricerca della pagina contatti anche in malese e indonesiano (kontak, hubungi-kami, tentang-kami, tim-kami…); intestazione della lingua per lo scaricamento delle pagine estesa a malese e indonesiano.
+- ✅ Colonna **Paese** in Prospect AI e Scartati.
+- 🔄 Prima esecuzione reale con SG / MY / ID.
+- ⏳ Normalizzazione dei nomi azienda con le forme locali (Sdn Bhd, PT, Tbk), per una deduplica per azienda più precisa. Oggi la deduplica per nome della persona già copre la maggior parte dei casi.
+- ⏳ Un solo workflow per tutti i paesi, al posto delle copie A / B / C (in pratica questo workflow lo è già).
 
 ## Fase 4: Qualità PMI ⏳
 
@@ -86,4 +93,4 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
 | 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
-| 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | da confermare | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |
+| 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | ~0,42 $ (~0,0046 $ per salvato) | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |

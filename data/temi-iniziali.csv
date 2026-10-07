@@ -51,3 +51,51 @@ T49,Singapore,Award lists,"winners and finalists of SME awards (e.g. SME100, Sin
 T50,Singapore,Award lists,"companies in fastest-growing companies rankings (e.g. Straits Times/Statista Singapore Fastest Growing Companies, FT High-Growth Companies Asia-Pacific)",SI
 T51,Singapore,Award lists,"scale-ups expanding regionally with Enterprise Singapore support, or featured in local business media for expansion",SI
 T52,Singapore,Award lists,"companies recently announcing funding rounds, new offices or regional expansion in Singapore business news",SI
+M01,Malaysia,Legal,"corporate, commercial and M&A law firms in Kuala Lumpur (local independent firms, not international firm offices)",SI
+M02,Malaysia,Legal,"dispute resolution, litigation and arbitration law firms (incl. AIAC arbitration practitioners)",SI
+M03,Malaysia,Legal,"intellectual property, technology and data protection (PDPA) law firms",SI
+M04,Malaysia,Legal,"conveyancing, real estate and banking law firms",SI
+M05,Malaysia,Professional services,"mid-tier and independent audit, accounting and tax firms (not Big Four)",SI
+M06,Malaysia,Professional services,"corporate secretarial, company incorporation and business advisory firms",SI
+M07,Malaysia,Professional services,"HR consulting, recruitment and executive search firms",SI
+M08,Malaysia,Professional services,"digital marketing, branding and creative agencies",SI
+M09,Malaysia,Finance,"Islamic finance, takaful and shariah advisory firms (private, not GLCs)",SI
+M10,Malaysia,Fintech,"fintech companies: e-wallets, payments, BNPL, digital lending (BNM-licensed or sandbox)",SI
+M11,Malaysia,Tech,"Malaysia Digital (MDEC) status tech companies, software houses and B2B SaaS",SI
+M12,Malaysia,Tech,"IT services, cybersecurity and system integrators",SI
+M13,Malaysia,Industry,electronics and electrical (E&E) suppliers and precision engineering SMEs in Penang and Johor,SI
+M14,Malaysia,Industry,"manufacturing SMEs (plastics, packaging, food processing, furniture)",SI
+M15,Malaysia,Logistics,"freight forwarding, warehousing and logistics companies (Port Klang, Penang)",SI
+M16,Malaysia,Food,"halal F&B brands, food manufacturers and local restaurant groups",SI
+M17,Malaysia,Real estate,"boutique property developers, real estate agencies and interior design firms",SI
+M18,Malaysia,Healthcare,"private medical clinics, specialist centres, dental groups and medical tourism providers",SI
+M19,Malaysia,Education,"private colleges, international schools, training and edtech providers",SI
+M20,Malaysia,Consumer,"homegrown e-commerce, beauty and consumer brands",SI
+M21,Malaysia,Sustainability,"renewable energy, solar EPC, green tech and ESG consulting companies",SI
+M22,Malaysia,Hospitality,"boutique hotels, resorts and travel companies",SI
+M23,Malaysia,Award lists,"winners of Malaysian SME awards (e.g. SME100 Malaysia, Golden Bull Award, SME Corp Enterprise 50 Malaysia, Asia Pacific Enterprise Awards Malaysia), any sector",SI
+M24,Malaysia,Award lists,"Malaysian startups and scale-ups recently announcing funding, expansion or new offices in business news",SI
+I01,Indonesia,Legal,"corporate, commercial and M&A law firms in Jakarta (local independent firms)",SI
+I02,Indonesia,Legal,"capital markets, banking and finance law firms in Jakarta",SI
+I03,Indonesia,Legal,"mining, energy, natural resources and infrastructure law firms",SI
+I04,Indonesia,Legal,"dispute resolution, litigation and arbitration law firms (incl. BANI arbitration practitioners)",SI
+I05,Indonesia,Professional services,"mid-tier public accounting firms (Kantor Akuntan Publik) and tax consultants (konsultan pajak), not Big Four",SI
+I06,Indonesia,Professional services,"business advisory, corporate services and market entry consultants",SI
+I07,Indonesia,Professional services,"HR consulting, recruitment, headhunting and outsourcing companies",SI
+I08,Indonesia,Professional services,"digital marketing, PR and creative agencies",SI
+I09,Indonesia,Fintech,"OJK-licensed fintech companies: P2P lending, payments, digital wallets",SI
+I10,Indonesia,Tech,B2B SaaS and enterprise software startups,SI
+I11,Indonesia,Tech,"IT services, cybersecurity and system integrators",SI
+I12,Indonesia,Consumer,"local D2C and e-commerce consumer brands (fashion, beauty, personal care)",SI
+I13,Indonesia,Food,"local F&B chains and coffee chains, food manufacturers",SI
+I14,Indonesia,Industry,"manufacturing SMEs and mid-size manufacturers (automotive parts, packaging, chemicals)",SI
+I15,Indonesia,Logistics,"logistics, freight forwarding, last-mile delivery and cold chain companies",SI
+I16,Indonesia,Real estate,"property developers (non-listed), real estate agencies, architecture and interior design firms",SI
+I17,Indonesia,Healthcare,"private hospitals, clinic chains, healthtech and pharma distributors (non-listed)",SI
+I18,Indonesia,Education,"private schools, edtech startups and training providers",SI
+I19,Indonesia,Industry,"mining services, energy services and engineering contractors (non-listed)",SI
+I20,Indonesia,Food,"agribusiness, plantation services and agritech SMEs",SI
+I21,Indonesia,Hospitality,"boutique hotels, villas and travel companies in Bali and Jakarta",SI
+I22,Indonesia,Sustainability,"renewable energy, waste management and sustainability companies",SI
+I23,Indonesia,Award lists,"winners of Indonesian business and SME awards, any sector",SI
+I24,Indonesia,Award lists,"Indonesian startups and scale-ups recently announcing funding, expansion or new offices in business news",SI
