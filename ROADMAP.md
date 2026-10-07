@@ -7,6 +7,15 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ---
 
+## 📌 Da ricordare
+
+- **9 ottobre 2026: decidere la priorità per paese su RocketReach.**
+  - Nella verifica 3375 RocketReach non ha trovato 17 persone indonesiane su 24, mentre il tetto di 60 ricerche lascia fuori circa 30 candidati per esecuzione.
+  - Dopo 2 giorni di dati (Log + Scartati) valutare:
+    - mettere l'Indonesia in fondo alla coda RocketReach, o escluderla;
+    - un solo tentativo extra per persona: dopo 2 rinvii, scarto definitivo.
+  - Guardare: email RocketReach per paese, "Rinviati tetto RocketReach" e "Da riprovare" nel Log, e quanti "Da riprovare" restano in Scartati.
+
 ## Fase 0: Setup ✅
 
 - ✅ Export dell'originale "Singapore A | Legal + Professional Services" salvato su GitHub.
@@ -106,4 +115,4 @@ Decisione: **escludere solo le grandi aziende palesi.** Niente stime dell'AI su 
 | 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
 | 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | ~0,42 $ (~0,0046 $ per salvato) | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |
 | 2026-10-07 | 3365 | 108 | 105 (97%) + 19 ripresi | 51 | 0 / 73 (**tutte respinte, limite orario**) | 51 | 0 (+73 da riprovare) | ~0,43 $ (~0,0084 $ per salvato, RocketReach fermo) | **Prima esecuzione SG / MY / ID** (T50, T52, M06, M08, I20). Email dal sito: SG 21/39 (54%), MY 20/42 (48%), ID 10/24 (42%). RocketReach fermo per il limite orario: è partita 11 min dopo la 3362. Durata 11 min 30 s. |
-| 2026-10-07 | 3375 | 121 | 113 (93%) + 40 ripresi | 58 | **14 / 60 ricerche** (0 respinte) | 72 | 46 (+33 rinviati dal tetto) | da confermare | **Verifica completa** (I16, I18, T14, T41, M21). Tetto RocketReach rispettato: 60 ricerche, 0 errori di limite. RocketReach: 38/60 persone non trovate (Indonesia 17/24). Email dal sito: ID 50%, MY 41%, SG 36%. Escluse 2 grandi aziende (Allen & Gledhill, WongPartnership). Durata 11 min. |
+| 2026-10-07 | 3375 | 121 | 113 (93%) + 40 ripresi | 58 | **14 / 60 ricerche** (0 respinte) | 72 | 46 (+33 rinviati dal tetto) | ~0,40 $ (~0,0056 $ per salvato) | **Verifica completa** (I16, I18, T14, T41, M21). Tetto RocketReach rispettato: 60 ricerche, 0 errori di limite. RocketReach: 38/60 persone non trovate (Indonesia 17/24). Email dal sito: ID 50%, MY 41%, SG 36%. Escluse 2 grandi aziende (Allen & Gledhill, WongPartnership). Durata 11 min. |
