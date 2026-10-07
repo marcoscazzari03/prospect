@@ -22,7 +22,7 @@ La roadmap con lo stato dei lavori e i prossimi passi è in [ROADMAP.md](ROADMAP
 
 | | Produzione | Test |
 |---|---|---|
-| Workflow n8n | Singapore A / B / C (attivi) | Prospect \| Search (`f03lATvrzkJYAOw6`, disattivato) |
+| Workflow n8n | Singapore A / B / C (attivi, 00:00 e 12:00) | Prospect \| Search (`f03lATvrzkJYAOw6`, **attivo**, 03:00 e 15:00) |
 | Google Sheets | "Singapore \| Score Articoli a Pagamento" | "TEST \| Prospect \| Search" |
 | Monitor | Success / Error Monitor | nessuno |
 

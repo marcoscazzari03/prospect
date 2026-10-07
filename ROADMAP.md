@@ -14,6 +14,7 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
   - Dopo 2 giorni di dati (Log + Scartati) valutare:
     - mettere l'Indonesia in fondo alla coda RocketReach, o escluderla;
     - un solo tentativo extra per persona: dopo 2 rinvii, scarto definitivo.
+  - Dal 7 ottobre il workflow di test è **attivo** e gira da solo alle **03:00 e 15:00**, sfalsato rispetto a Singapore A/B/C.
   - Guardare: email RocketReach per paese, "Rinviati tetto RocketReach" e "Da riprovare" nel Log, e quanti "Da riprovare" restano in Scartati.
 
 ## Fase 0: Setup ✅
