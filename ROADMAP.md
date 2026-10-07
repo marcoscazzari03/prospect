@@ -56,7 +56,9 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
   - **Indonesia:** preferire PT; escluse le Tbk quotate e le BUMN.
 - ✅ Ricerca della pagina contatti anche in malese e indonesiano (kontak, hubungi-kami, tentang-kami, tim-kami…); intestazione della lingua per lo scaricamento delle pagine estesa a malese e indonesiano.
 - ✅ Colonna **Paese** in Prospect AI e Scartati.
-- 🔄 Prima esecuzione reale con SG / MY / ID.
+- ✅ Prima esecuzione reale con SG / MY / ID (3365): 97% di candidati nuovi.
+  - Email dal sito: Malesia 48% e Indonesia 42%, contro il 54% di Singapore.
+  - Funziona, ma servirà RocketReach per completare.
 - ⏳ Normalizzazione dei nomi azienda con le forme locali (Sdn Bhd, PT, Tbk), per una deduplica per azienda più precisa. Oggi la deduplica per nome della persona già copre la maggior parte dei casi.
 - ⏳ Un solo workflow per tutti i paesi, al posto delle copie A / B / C (in pratica questo workflow lo è già).
 
@@ -72,7 +74,9 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## Fase 5: Costi RocketReach ⏳
 
-- ⏳ Tetto di ricerche RocketReach per esecuzione.
+- ⏳ **Tetto di ricerche RocketReach per esecuzione (~60).**
+  - "Da riprovare" sono arrivati a 73+ dopo le esecuzioni di prova ravvicinate.
+  - Serve smaltirli senza sforare il limite orario: ripresi + nuovi ≤ tetto.
   - RocketReach ha anche un **limite orario**: "Lookup hourly rate limit reached" dopo circa 70 ricerche in un'ora.
   - Una singola esecuzione (~40–50 ricerche) ci sta, ma Singapore A/B/C in parallelo no.
   - Chi viene respinto finisce comunque in "Da riprovare".
@@ -94,3 +98,4 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 | 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
 | 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
 | 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | ~0,42 $ (~0,0046 $ per salvato) | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |
+| 2026-10-07 | 3365 | 108 | 105 (97%) + 19 ripresi | 51 | 0 / 73 (**tutte respinte, limite orario**) | 51 | 0 (+73 da riprovare) | da confermare | **Prima esecuzione SG / MY / ID** (T50, T52, M06, M08, I20). Email dal sito: SG 21/39 (54%), MY 20/42 (48%), ID 10/24 (42%). RocketReach fermo per il limite orario: è partita 11 min dopo la 3362. Durata 11 min 30 s. |
