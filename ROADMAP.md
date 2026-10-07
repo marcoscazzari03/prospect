@@ -1,0 +1,78 @@
+# Roadmap: Prospect Claude | Search
+
+Obiettivi: **più prospect al giorno** e **meno costi API**. Nel foglio finiscono solo persone con email.
+Lavoriamo sulla copia di test. In produzione si porta solo ciò che è stato misurato nel Log.
+
+Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
+
+---
+
+## Fase 0: Setup ✅
+
+- ✅ Export dell'originale "Singapore A | Legal + Professional Services" salvato su GitHub.
+- ✅ Copia "Prospect Claude | Search" creata su n8n, verificata identica all'originale.
+- ✅ Collegata al file Google Sheets di test "TEST | Prospect Claude | Search".
+- ✅ Success Monitor ed Error Monitor scollegati dalla copia.
+
+## Fase 1: Affidabilità e misura ✅
+
+- ✅ **Solo prospect con email** in "Prospect AI" e "Mailup". Gli altri vanno nella scheda **Scartati**.
+- ✅ La deduplica legge anche gli Scartati: chi è già stato scartato non viene ripagato.
+- ✅ **Bug corretto:** i prospect che RocketReach non trova (nessun ID) andavano persi. Ora finiscono negli Scartati.
+- ✅ **Output AI robusto:**
+  - un lotto in errore o in timeout non blocca più l'intera esecuzione;
+  - un JSON troncato viene recuperato candidato per candidato.
+- ✅ **Scheda Log:** una riga per esecuzione con candidati, duplicati, email da sito e da RocketReach, salvati, scartati e riprovati.
+- ✅ **RocketReach:**
+  - ricerche una alla volta ogni 5 s;
+  - controllo dello stato dopo 20 s, con un secondo controllo dopo 30 s.
+- ✅ **"Da riprovare":** chi viene respinto per il limite di frequenza viene ripreso all'esecuzione successiva (max 20), senza una nuova ricerca AI.
+
+## Fase 2: Più prospect a parità di costo 🔄
+
+- 🔄 Seconda esecuzione reale per misurare l'effetto delle modifiche a RocketReach e la % di duplicati con l'archivio pieno.
+- ⏳ **Rotazione dei temi.** Oggi i 5 temi sono fissi, e l'AI restituisce sempre gli stessi nomi "ovvi".
+  - Serve una tabella di nicchie paese × settore × città/fonte.
+  - A ogni esecuzione si scelgono quelle meno usate.
+- ⏳ **Partire da liste.**
+  - Fonti: classifiche di premi per PMI, liste di finalisti, elenchi di camere di commercio.
+  - Le pagine si scaricano gratis via HTTP.
+  - L'AI serve solo a estrarre i nomi, senza ricerca web, oppure con meno ricerche.
+- ⏳ **Dimensione dei lotti:** valutare 10–15 candidati per lotto invece di 25, se il Log mostra timeout o lotti recuperati.
+
+## Fase 3: Malesia e Indonesia ⏳
+
+- ⏳ Lotti per paese: SG / MY / ID.
+- ⏳ Normalizzazione dei nomi azienda con le forme locali: Sdn Bhd, Bhd, PT, Tbk.
+- ⏳ Lingua delle richieste HTTP e fonti locali (anche in Bahasa).
+- ⏳ Un solo workflow per tutti i paesi, al posto delle copie A / B / C.
+
+## Fase 4: Qualità PMI ⏳
+
+- ⏳ Filtro "no multinazionali" anche dopo l'AI, non solo nel prompt.
+  - Forma societaria:
+    - **Singapore:** Pte Ltd = privata.
+    - **Malesia:** Sdn Bhd = privata; Bhd da sola = pubblica.
+    - **Indonesia:** Tbk = quotata.
+  - Lista di esclusione per domini e gruppi grandi.
+- ⏳ Controllo prima di RocketReach: niente crediti spesi su aziende che verrebbero scartate comunque.
+
+## Fase 5: Costi RocketReach ⏳
+
+- ⏳ Tetto giornaliero di ricerche RocketReach.
+- ⏳ Valutare se il rapporto email trovate / crediti spesi giustifica RocketReach, o se basta il sito (oggi circa il 64% delle email arriva gratis dal sito).
+
+## Fase 6: Passaggio in produzione ⏳
+
+- ⏳ Portare le modifiche validate su Singapore A / B / C, oppure sostituirli con il workflow unico.
+- ⏳ **Da verificare:** A / B / C partono tutti alle 00:00 e alle 12:00 sullo stesso account RocketReach. Probabilmente anche in produzione RocketReach viene respinto per il limite di frequenza.
+  - Serve attivare l'accesso MCP sui workflow di produzione per leggere le esecuzioni.
+- ⏳ Ricollegare Success Monitor ed Error Monitor.
+
+---
+
+## Misure
+
+| Data | Esecuzione | Candidati AI | Nuovi | Email da sito | Email RocketReach | Salvati | Scartati | Costo | Note |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
