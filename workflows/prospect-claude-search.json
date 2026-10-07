@@ -1,4 +1,5 @@
 {
+  "id": "f03lATvrzkJYAOw6",
   "name": "Prospect Claude | Search",
   "nodes": [
     {
@@ -49,7 +50,8 @@
         "options": {
           "systemMessage": "Sei un ricercatore commerciale inserito in un workflow automatico n8n.\n\nDevi trovare molti prospect reali di Singapore usando la ricerca web disponibile.\n\nPriorità:\n\n* persone reali;\n* ruoli decisionali;\n* aziende private;\n* aziende con presenza concreta a Singapore;\n* sito ufficiale aziendale obbligatorio;\n* fonti web plausibili;\n* velocità e volume.\n\nREGOLE IMPORTANTI\n\nOgni prospect DEVE avere un sito ufficiale aziendale valido.\n\nSe non riesci a identificare con ragionevole certezza il sito ufficiale dell'azienda, SCARTA il candidato e cercane un altro.\n\nIl sito deve appartenere direttamente all'azienda.\n\nNon considerare come sito ufficiale:\n\n* LinkedIn;\n* Facebook;\n* Instagram;\n* Crunchbase;\n* directory aziendali;\n* articoli;\n* pagine di eventi;\n* marketplace;\n* siti aggregatori;\n* profili personali;\n* pagine di terze parti.\n\nNon fare due diligence approfondite.\n\nNon cercare email in questa fase.\n\nNon fare ricerche aggiuntive inutili se hai già informazioni sufficienti per identificare:\n\n* persona;\n* azienda;\n* ruolo;\n* presenza a Singapore;\n* sito ufficiale;\n* almeno una fonte plausibile.\n\nNon inventare mai:\n\n* persone;\n* aziende;\n* ruoli;\n* siti;\n* URL.\n\nPrivilegia la quantità, purché i candidati siano reali e abbiano un sito ufficiale identificabile.\n\nRestituisci soltanto il JSON richiesto dal prompt utente."
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "id": "367cc261-5855-4455-8cbd-0a9c4586c1fe",
@@ -94,7 +96,8 @@
       ],
       "parameters": {
         "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\n\n// --------------------------------------------------\n// PARSE JSON AI\n// --------------------------------------------------\n\nconst parse = (raw) => {\n\n  if (typeof raw !== 'string') {\n    return null;\n  }\n\n  let s = raw\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, '')\n    .replace(/```\\s*$/i, '')\n    .trim();\n\n  const a = s.indexOf('{');\n  const b = s.lastIndexOf('}');\n\n  if (a >= 0 && b > a) {\n    s = s.slice(a, b + 1);\n  }\n\n  try {\n    return JSON.parse(s);\n  } catch {\n    return null;\n  }\n};\n\n\n// --------------------------------------------------\n// ESTRAZIONE DOMINIO\n// --------------------------------------------------\n\nconst getDomain = (sito) => {\n\n  let dominio = String(sito ?? '')\n    .trim()\n    .toLowerCase()\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^www\\./i, '')\n    .split('/')[0]\n    .split('?')[0]\n    .split('#')[0]\n    .trim();\n\n  return dominio;\n};\n\n\n// --------------------------------------------------\n// PULIZIA PARTI DEL NOME\n// --------------------------------------------------\n\nconst cleanNamePart = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/[^a-z0-9]/g, '');\n\n\n// --------------------------------------------------\n// TITOLI DA IGNORARE\n// --------------------------------------------------\n\nconst prefissiDaIgnorare = new Set([\n  'dr',\n  'doctor',\n  'mr',\n  'mrs',\n  'ms',\n  'miss',\n  'prof',\n  'professor',\n  'sir',\n  'madam',\n  'md'\n]);\n\n\n// --------------------------------------------------\n// GENERAZIONE EMAIL PROBABILI\n// --------------------------------------------------\n\nconst generaEmail = (\n  nomeCompleto,\n  dominio\n) => {\n\n  if (\n    !nomeCompleto ||\n    !dominio\n  ) {\n    return [];\n  }\n\n  let parti = String(nomeCompleto)\n    .trim()\n    .split(/\\s+/)\n    .map(cleanNamePart)\n    .filter(Boolean);\n\n\n  // Rimuove eventuali titoli iniziali\n  while (\n    parti.length > 1 &&\n    prefissiDaIgnorare.has(\n      parti[0]\n    )\n  ) {\n    parti.shift();\n  }\n\n\n  if (parti.length === 0) {\n    return [];\n  }\n\n\n  const first =\n    parti[0];\n\n\n  // Caso con un solo nome\n  if (parti.length === 1) {\n\n    return [\n      `${first}@${dominio}`\n    ];\n\n  }\n\n\n  const last =\n    parti[\n      parti.length - 1\n    ];\n\n\n  return [\n\n    `${first}.${last}@${dominio}`,\n\n    `${first}@${dominio}`,\n\n    `${first.charAt(0)}${last}@${dominio}`\n\n  ];\n};\n\n\n// --------------------------------------------------\n// ARCHIVIO PROSPECT GIÀ PRESENTI\n// --------------------------------------------------\n\nconst archivio =\n  $('Prepara archivio')\n    .first()\n    .json;\n\n\nconst visti =\n  new Set(\n    archivio\n      .chiavi_esistenti ||\n    []\n  );\n\n\nconst nomiVisti =\n  new Set(\n    archivio\n      .nomi_esistenti ||\n    []\n  );\n\n\nconst nuovi = [];\n\n\n// --------------------------------------------------\n// ELABORAZIONE RISULTATI AI\n// --------------------------------------------------\n\nfor (\n  const item of $input.all()\n) {\n\n  const dati =\n    parse(\n      item.json.output\n    );\n\n\n  if (\n    !dati ||\n    !Array.isArray(\n      dati.candidati\n    )\n  ) {\n    continue;\n  }\n\n\n  for (\n    const c of dati.candidati\n  ) {\n\n\n    // --------------------------------------------------\n    // NOME COMPLETO\n    // --------------------------------------------------\n\n    const nome =\n      String(\n        c?.nome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // NOME PROPRIO PER MAILUP\n    // --------------------------------------------------\n\n    const nomeMailup =\n      String(\n        c?.nome_proprio ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // COGNOME PER MAILUP\n    // --------------------------------------------------\n\n    const cognomeMailup =\n      String(\n        c?.cognome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // AZIENDA\n    // --------------------------------------------------\n\n    const azienda =\n      String(\n        c?.azienda ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    const nomeN =\n      norm(nome);\n\n    const aziendaN =\n      normCompany(\n        azienda\n      );\n\n\n    if (\n      !nomeN ||\n      !aziendaN\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // CHIAVE DUPLICATO\n    // --------------------------------------------------\n\n    const key =\n      `${nomeN}|${aziendaN}`;\n\n\n    // Nome + azienda già presenti\n    if (\n      visti.has(key)\n    ) {\n      continue;\n    }\n\n\n    // Persona già presente\n    if (\n      nomiVisti.has(\n        nomeN\n      )\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // FONTE\n    // --------------------------------------------------\n\n    const fonte =\n      typeof c?.fonte ===\n        'string' &&\n      /^https?:\\/\\//i.test(\n        c.fonte.trim()\n      )\n        ? c.fonte.trim()\n        : '';\n\n\n    if (!fonte) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // SITO\n    // --------------------------------------------------\n\n    const sito =\n      c?.sito\n        ? String(\n            c.sito\n          ).trim()\n        : '';\n\n\n    // Scarta prospect senza sito\n    if (!sito) {\n      continue;\n    }\n\n\n    const dominio =\n      getDomain(\n        sito\n      );\n\n\n    // Scarta siti da cui non\n    // ricaviamo un dominio valido\n    if (!dominio) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // EMAIL PROBABILI\n    // --------------------------------------------------\n\n    const emailProbabili =\n      generaEmail(\n        nome,\n        dominio\n      );\n\n\n    // --------------------------------------------------\n    // SEGNA COME VISTO\n    // --------------------------------------------------\n\n    visti.add(\n      key\n    );\n\n    nomiVisti.add(\n      nomeN\n    );\n\n\n    // --------------------------------------------------\n    // OUTPUT\n    // --------------------------------------------------\n\n    nuovi.push({\n\n      json: {\n\n        // Nome completo usato\n        // dal workflow attuale\n        'Nome':\n          nome,\n\n\n        // Campi aggiuntivi\n        // per il foglio Mailup\n        'Nome Mailup':\n          nomeMailup,\n\n        'Cognome Mailup':\n          cognomeMailup,\n\n\n        'Azienda':\n          azienda,\n\n\n        'Ruolo proposto':\n          String(\n            c?.ruolo ?? ''\n          ).trim(),\n\n\n        'Settore':\n          String(\n            c?.settore ?? ''\n          ).trim(),\n\n\n        'Sito':\n          sito,\n\n\n        'Email probabile/i':\n          emailProbabili\n            .join(', '),\n\n\n        'Fonte analizzata':\n          fonte\n\n      }\n\n    });\n\n  }\n\n}\n\n\n// --------------------------------------------------\n// RISULTATO\n// --------------------------------------------------\n\nreturn nuovi;"
-      }
+      },
+      "alwaysOutputData": true
     },
     {
       "id": "e2a0f247-60ce-4193-844b-2650ae77f304",
@@ -102,7 +105,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2016,
+        2064,
         80
       ],
       "parameters": {
@@ -475,7 +478,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        1696,
+        1792,
         80
       ],
       "parameters": {
@@ -1120,6 +1123,126 @@
           "name": "Spreadsheet ads.lefonti@gmail.com"
         }
       }
+    },
+    {
+      "id": "36e20c7b-2091-4a12-8b16-e24d793aac94",
+      "name": "Normalizza output AI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        80
+      ],
+      "parameters": {
+        "jsCode": "// Rende robusto l'output dell'AI: un lotto con JSON malformato,\n// troncato o in errore non deve far perdere gli altri lotti.\nconst raw = $json.output;\nconst errore = $json.error ? String($json.error.message ?? $json.error) : '';\n\nconst pulisci = (s) => String(s)\n  .trim()\n  .replace(/^```(?:json)?\\s*/i, '')\n  .replace(/```\\s*$/i, '')\n  .trim();\n\nconst tryParse = (s) => {\n  try {\n    return JSON.parse(s);\n  } catch {\n    return null;\n  }\n};\n\nlet candidati = null;\nlet stato = 'OK';\n\nif (errore) {\n  stato = 'ERRORE';\n} else if (raw && typeof raw === 'object') {\n  candidati = Array.isArray(raw.candidati)\n    ? raw.candidati\n    : (Array.isArray(raw) ? raw : null);\n} else if (typeof raw === 'string') {\n  const s = pulisci(raw);\n  const a = s.indexOf('{');\n  const b = s.lastIndexOf('}');\n  const dati = tryParse(s) ?? (a >= 0 && b > a ? tryParse(s.slice(a, b + 1)) : null);\n\n  if (dati && Array.isArray(dati.candidati)) {\n    candidati = dati.candidati;\n  } else {\n    // Recupero: prendiamo i singoli candidati validi\n    // anche se il JSON complessivo e rotto.\n    const oggetti = s.match(/\\{[^{}]*\\}/g) || [];\n    const recuperati = oggetti\n      .map(tryParse)\n      .filter(o => o && o.nome);\n\n    if (recuperati.length) {\n      candidati = recuperati;\n      stato = 'RECUPERATO';\n    }\n  }\n}\n\nif (!candidati) {\n  candidati = [];\n  if (stato === 'OK') stato = 'JSON NON VALIDO';\n}\n\nlet lotto = '';\ntry {\n  lotto = $('Genera 5 Lotti').item.json.lotto;\n} catch {}\n\nreturn {\n  json: {\n    output: JSON.stringify({ candidati }),\n    lotto,\n    stato_lotto: stato,\n    candidati_lotto: candidati.length,\n    errore\n  }\n};",
+        "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "96f044c5-370a-41b3-89f5-951aa96fd361",
+      "name": "Calcola statistiche",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7120,
+        384
+      ],
+      "parameters": {
+        "jsCode": "// Una riga di statistiche per esecuzione, per misurare\n// resa e costi (scheda Log). Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst lotti = $('Normalizza output AI').all().map(i => i.json);\n\nconst candidatiAI = lotti.reduce(\n  (s, l) => s + (l.candidati_lotto || 0),\n  0\n);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi\n// prospect: contiamo solo quelli con un nome.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': candidatiAI - nuovi,\n    'Nuovi candidati': nuovi,\n    '% nuovi': candidatiAI ? Math.round(nuovi / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': n('RocketReach ha ID?', 1),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1),\n    'Righe Mailup': n('Prepara Mailup')\n  }\n}];"
+      },
+      "notes": "Ramo posizionato in basso di proposito: con l'ordine di esecuzione v1 parte solo dopo che il ramo principale (sopra) e terminato.",
+      "executeOnce": true
+    },
+    {
+      "id": "2981fadc-c0cb-41c5-b1f5-fe9568b3b7c7",
+      "name": "Append - Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        7360,
+        384
+      ],
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
+          "mode": "list",
+          "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
+        },
+        "operation": "append",
+        "options": {
+          "handlingExtraData": "ignoreIt"
+        },
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit#gid=555000222",
+          "mode": "list",
+          "value": 555000222
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
+    },
+    {
+      "id": "6b5e2ded-9b02-4fac-8521-0cdf70a3b78c",
+      "name": "Nuovo prospect?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1568,
+        80
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "d2b8f1c3-6e4a-4c9f-8b72-3e5a9f8d0c21",
+              "leftValue": "={{ $json.Nome ?? '' }}",
+              "operator": {
+                "operation": "notEmpty",
+                "singleValue": true,
+                "type": "string"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "208d61a2-f755-4060-88af-3b6409f05864",
+      "name": "Fine esecuzione",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        6880,
+        384
+      ],
+      "parameters": {
+        "numberInputs": 4
+      }
     }
   ],
   "connections": {
@@ -1145,34 +1268,12 @@
         ]
       ]
     },
-    "Ricerca prospect AI": {
-      "main": [
-        [
-          {
-            "node": "Deduplica e prepara righe",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "OpenAI + Web Search": {
       "ai_languageModel": [
         [
           {
             "node": "Ricerca prospect AI",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Deduplica e prepara righe": {
-      "main": [
-        [
-          {
-            "node": "HTTP - Homepage",
-            "type": "main",
             "index": 0
           }
         ]
@@ -1378,6 +1479,11 @@
             "node": "Fine salvataggi",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Fine esecuzione",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1387,6 +1493,11 @@
         [
           {
             "node": "Fine salvataggi",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Fine esecuzione",
             "type": "main",
             "index": 1
           }
@@ -1503,12 +1614,95 @@
           }
         ]
       ]
+    },
+    "Ricerca prospect AI": {
+      "main": [
+        [
+          {
+            "node": "Normalizza output AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizza output AI": {
+      "main": [
+        [
+          {
+            "node": "Deduplica e prepara righe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcola statistiche": {
+      "main": [
+        [
+          {
+            "node": "Append - Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplica e prepara righe": {
+      "main": [
+        [
+          {
+            "node": "Nuovo prospect?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nuovo prospect?": {
+      "main": [
+        [
+          {
+            "node": "HTTP - Homepage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fine esecuzione",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Append - Scartati": {
+      "main": [
+        [
+          {
+            "node": "Fine esecuzione",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Fine esecuzione": {
+      "main": [
+        [
+          {
+            "node": "Calcola statistiche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
     "callerPolicy": "workflowsFromSameOwner"
-  },
-  "id": "f03lATvrzkJYAOw6"
+  }
 }
