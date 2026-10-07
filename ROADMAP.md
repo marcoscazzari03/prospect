@@ -30,8 +30,10 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## Fase 2: Più prospect a parità di costo 🔄
 
-- 🔄 Seconda esecuzione reale per misurare l'effetto delle modifiche a RocketReach e la % di duplicati con l'archivio pieno.
-- ⏳ **Rotazione dei temi.** Oggi i 5 temi sono fissi, e l'AI restituisce sempre gli stessi nomi "ovvi".
+- ✅ Seconda esecuzione reale (3359):
+  - RocketReach ora funziona (15 email da 41 ricerche, nessun errore per limite di frequenza);
+  - i duplicati sono già al 38%.
+- ⏳ **Rotazione dei temi. È la priorità successiva:** alla 2ª esecuzione il 38% dei candidati pagati era già in archivio. Oggi i 5 temi sono fissi, e l'AI restituisce sempre gli stessi nomi "ovvi".
   - Serve una tabella di nicchie paese × settore × città/fonte.
   - A ogni esecuzione si scelgono quelle meno usate.
 - ⏳ **Partire da liste.**
@@ -76,3 +78,4 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 | Data | Esecuzione | Candidati AI | Nuovi | Email da sito | Email RocketReach | Salvati | Scartati | Costo | Note |
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
+| 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
