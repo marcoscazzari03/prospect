@@ -1,0 +1,1266 @@
+{
+  "name": "Singapore A | Legal + Professional Services",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst chiavi = new Set();\nconst nomi = new Set();\n\nfor (const item of $input.all()) {\n  const nome = norm(item.json.Nome);\n  const azienda = normCompany(item.json.Azienda);\n  if (!nome || !azienda) continue;\n  chiavi.add(`${nome}|${azienda}`);\n  nomi.add(nome);\n}\n\nreturn [{\n  json: {\n    paese: 'Singapore',\n    chiavi_esistenti: [...chiavi],\n    nomi_esistenti: [...nomi],\n    totale_esistenti: chiavi.size\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        80
+      ],
+      "id": "58dc2098-0b3d-44ea-9b64-45512d50dc41",
+      "name": "Prepara archivio"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Cerca sul web fino a {{ $json.target_lotto }} prospect commerciali NUOVI per Le Fonti Awards a Singapore.\n\nLOTTO: {{ $json.lotto }}\nFOCUS DEL LOTTO: {{ $json.tema }}\n\nOBIETTIVO\n\nIndividua persone con potere decisionale all'interno di aziende private che operano concretamente a Singapore e che potrebbero essere potenziali prospect commerciali per un evento business/premiazione come Le Fonti Awards.\n\nLa priorità principale è ottenere un numero elevato di prospect REALI e UTILIZZABILI commercialmente.\n\nÈ accettabile privilegiare la quantità rispetto a una verifica approfondita, purché persona, azienda e sito ufficiale siano reali.\n\nNon è necessaria una due diligence investigativa.\n\nREQUISITO OBBLIGATORIO: SITO AZIENDALE\n\nInserisci un candidato SOLO se riesci a identificare il SITO UFFICIALE dell'azienda.\n\nIl sito deve appartenere direttamente all'azienda indicata.\n\nNON utilizzare come sito aziendale:\n\n* LinkedIn;\n* Facebook;\n* Instagram;\n* Crunchbase;\n* directory aziendali;\n* articoli di giornale;\n* profili personali;\n* pagine di eventi;\n* marketplace;\n* siti aggregatori;\n* pagine di terze parti.\n\nSe non riesci a trovare con ragionevole certezza il sito ufficiale dell'azienda, SCARTA il candidato e cercane un altro.\n\nIl campo \"sito\" non deve mai essere null, vuoto o contenere una pagina non ufficiale.\n\nTARGET PERSONA\n\nCerca principalmente:\n\n* Founder;\n* Co-Founder;\n* Owner;\n* CEO;\n* Managing Director;\n* Executive Director;\n* President;\n* Regional Director;\n* General Manager;\n* Partner;\n* Managing Partner;\n* oppure ruoli equivalenti con reale potere decisionale.\n\nPreferisci figure senior che possano decidere direttamente sulla partecipazione dell'azienda a eventi, award, partnership, sponsorship o iniziative di business networking.\n\nTARGET AZIENDA\n\nL'azienda deve:\n\n* essere privata;\n* avere sede, ufficio, team, clienti, mercato o attività sostanziale a Singapore;\n* essere attualmente operativa;\n* avere un sito ufficiale verificabile;\n* avere una presenza web verificabile;\n* avere preferibilmente una struttura aziendale già consolidata.\n\nDai priorità a:\n\n* PMI;\n* aziende mid-market;\n* scale-up;\n* startup mature;\n* boutique firm;\n* società professionali;\n* aziende indipendenti;\n* aziende regionali asiatiche con presenza significativa a Singapore.\n\nSono particolarmente interessanti aziende che mostrano almeno uno di questi segnali:\n\n* crescita o espansione;\n* attività recente sul mercato;\n* nuovi prodotti o servizi;\n* nuovi uffici;\n* nuove partnership;\n* raccolta di investimenti;\n* espansione internazionale;\n* premi o riconoscimenti;\n* leadership riconoscibile;\n* forte specializzazione nel proprio settore;\n* presenza rilevante nel mercato di Singapore o del Sud-Est asiatico.\n\nESCLUSIONI\n\nEvita:\n\n* grandi multinazionali globali molto note;\n* grandi società quotate;\n* enti pubblici;\n* ministeri;\n* università;\n* associazioni;\n* fondazioni;\n* organizzazioni non profit;\n* aziende cessate o inattive;\n* semplici dipendenti senza potere decisionale;\n* persone senza un collegamento verificabile con l'azienda indicata;\n* aziende senza sito ufficiale identificabile.\n\nPreferisci UNA sola persona per azienda.\n\nEvita, quando possibile, persone e aziende estremamente famose o facilmente presenti in qualsiasi lista generica, per aumentare la varietà dei prospect e ridurre i duplicati tra i diversi lotti.\n\nPRESENZA A SINGAPORE\n\nNon è obbligatorio che l'azienda sia stata fondata a Singapore.\n\nÈ valida anche un'azienda straniera o regionale se possiede una presenza commerciale concreta a Singapore, ad esempio:\n\n* sede;\n* headquarters regionale;\n* ufficio;\n* filiale;\n* team locale;\n* attività commerciale significativa.\n\nNon considerare sufficiente una semplice menzione occasionale di Singapore.\n\nMETODO DI RICERCA\n\nUsa realmente la ricerca web.\n\nCerca in modo ampio ed efficiente, privilegiando la quantità.\n\nPuoi utilizzare:\n\n* siti aziendali;\n* pagine About;\n* pagine Leadership / Management / Team;\n* comunicati stampa;\n* articoli di settore;\n* media business di Singapore;\n* directory aziendali;\n* liste di aziende;\n* award list;\n* startup database pubblici;\n* accelerator / incubator portfolio;\n* chamber/business directory;\n* profili professionali pubblicamente indicizzati;\n* interviste;\n* annunci di espansione o partnership.\n\nLe fonti esterne possono essere utilizzate per SCOPRIRE o VERIFICARE il candidato, ma il campo \"sito\" deve contenere esclusivamente il sito ufficiale dell'azienda.\n\nNon effettuare numerose ricerche aggiuntive sullo stesso candidato se hai già trovato:\n\n1. una persona reale;\n2. un ruolo decisionale plausibile;\n3. un'azienda reale;\n4. una presenza concreta a Singapore;\n5. il sito ufficiale dell'azienda;\n6. almeno una fonte web plausibile.\n\nPer ogni candidato è sufficiente almeno UNA fonte web plausibile.\n\nSe possibile, privilegia come fonte:\n\n1. sito ufficiale dell'azienda;\n2. articolo o comunicato relativo alla persona;\n3. directory business affidabile;\n4. altra fonte professionale pubblicamente accessibile.\n\nQUALITÀ MINIMA DEI RISULTATI\n\nPrima di inserire un candidato verifica almeno che:\n\n* la persona esista;\n* l'azienda esista;\n* il ruolo sia plausibile e attuale;\n* l'azienda abbia un collegamento concreto con Singapore;\n* il candidato abbia un ruolo sufficientemente senior;\n* il sito ufficiale dell'azienda sia stato identificato.\n\nNon inventare mai:\n\n* persone;\n* aziende;\n* ruoli;\n* siti;\n* URL.\n\nSe non trovi il sito ufficiale, NON inserire il candidato.\n\nNon cercare email in questa fase.\n\nOUTPUT\n\nRestituisci ESCLUSIVAMENTE JSON valido.\n\nNessun Markdown.\nNessuna spiegazione prima o dopo il JSON.\nNessun testo aggiuntivo.\n\nFormato esatto:\n\n{\n\"candidati\": [\n{\n  \"nome\": \"\",\n  \"nome_proprio\": \"\",\n  \"cognome\": \"\",\n  \"azienda\": \"\",\n  \"ruolo\": \"\",\n  \"settore\": \"\",\n  \"sito\": \"https://...\",\n  \"fonte\": \"https://...\"\n}\n]\n}\n\nREGOLE OUTPUT\n\n* \"nome\": nome e cognome della persona.\n* \"azienda\": nome dell'azienda.\n* \"ruolo\": ruolo attuale della persona.\n* \"settore\": settore principale dell'azienda.\n* \"sito\": URL del sito UFFICIALE dell'azienda. È OBBLIGATORIO.\n* \"fonte\": URL della fonte utilizzata per identificare o verificare il candidato.\n* \"nome\": nome completo della persona, come appare nelle fonti.\n* \"nome_proprio\": nome/given name della persona, senza titoli come Dr., Mr., Prof.\n* \"cognome\": cognome/family name della persona.\n* Per persone con nomi asiatici o composti, identifica nome e cognome in base alle fonti e alla struttura reale del nome. Non limitarti a dividere meccanicamente la prima e l'ultima parola.\n\nNon inserire due persone della stessa azienda nello stesso lotto.\n\nCerca di raggiungere {{ $json.target_lotto }} candidati.\n\nSe un candidato non ha un sito ufficiale identificabile, scartalo e continua la ricerca cercando un altro candidato.\n\nSe trovi meno candidati realmente plausibili con sito ufficiale, restituisci solamente quelli trovati.\n\nNON inventare candidati, siti o URL per raggiungere il numero richiesto.\n",
+        "options": {
+          "systemMessage": "Sei un ricercatore commerciale inserito in un workflow automatico n8n.\n\nDevi trovare molti prospect reali di Singapore usando la ricerca web disponibile.\n\nPriorità:\n\n* persone reali;\n* ruoli decisionali;\n* aziende private;\n* aziende con presenza concreta a Singapore;\n* sito ufficiale aziendale obbligatorio;\n* fonti web plausibili;\n* velocità e volume.\n\nREGOLE IMPORTANTI\n\nOgni prospect DEVE avere un sito ufficiale aziendale valido.\n\nSe non riesci a identificare con ragionevole certezza il sito ufficiale dell'azienda, SCARTA il candidato e cercane un altro.\n\nIl sito deve appartenere direttamente all'azienda.\n\nNon considerare come sito ufficiale:\n\n* LinkedIn;\n* Facebook;\n* Instagram;\n* Crunchbase;\n* directory aziendali;\n* articoli;\n* pagine di eventi;\n* marketplace;\n* siti aggregatori;\n* profili personali;\n* pagine di terze parti.\n\nNon fare due diligence approfondite.\n\nNon cercare email in questa fase.\n\nNon fare ricerche aggiuntive inutili se hai già informazioni sufficienti per identificare:\n\n* persona;\n* azienda;\n* ruolo;\n* presenza a Singapore;\n* sito ufficiale;\n* almeno una fonte plausibile.\n\nNon inventare mai:\n\n* persone;\n* aziende;\n* ruoli;\n* siti;\n* URL.\n\nPrivilegia la quantità, purché i candidati siano reali e abbiano un sito ufficiale identificabile.\n\nRestituisci soltanto il JSON richiesto dal prompt utente."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1072,
+        80
+      ],
+      "id": "478994a9-c6a3-4302-bf12-fb831218dd8f",
+      "name": "Ricerca prospect AI"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-5.6-luna"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "low"
+          }
+        },
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1072,
+        288
+      ],
+      "id": "62a8e116-ad75-452f-89b1-60f27a39c709",
+      "name": "OpenAI + Web Search",
+      "credentials": {
+        "openAiApi": {
+          "id": "ZQVz3FqwCrCMFcB9",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\n\n// --------------------------------------------------\n// PARSE JSON AI\n// --------------------------------------------------\n\nconst parse = (raw) => {\n\n  if (typeof raw !== 'string') {\n    return null;\n  }\n\n  let s = raw\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, '')\n    .replace(/```\\s*$/i, '')\n    .trim();\n\n  const a = s.indexOf('{');\n  const b = s.lastIndexOf('}');\n\n  if (a >= 0 && b > a) {\n    s = s.slice(a, b + 1);\n  }\n\n  try {\n    return JSON.parse(s);\n  } catch {\n    return null;\n  }\n};\n\n\n// --------------------------------------------------\n// ESTRAZIONE DOMINIO\n// --------------------------------------------------\n\nconst getDomain = (sito) => {\n\n  let dominio = String(sito ?? '')\n    .trim()\n    .toLowerCase()\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^www\\./i, '')\n    .split('/')[0]\n    .split('?')[0]\n    .split('#')[0]\n    .trim();\n\n  return dominio;\n};\n\n\n// --------------------------------------------------\n// PULIZIA PARTI DEL NOME\n// --------------------------------------------------\n\nconst cleanNamePart = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .toLowerCase()\n  .replace(/[^a-z0-9]/g, '');\n\n\n// --------------------------------------------------\n// TITOLI DA IGNORARE\n// --------------------------------------------------\n\nconst prefissiDaIgnorare = new Set([\n  'dr',\n  'doctor',\n  'mr',\n  'mrs',\n  'ms',\n  'miss',\n  'prof',\n  'professor',\n  'sir',\n  'madam',\n  'md'\n]);\n\n\n// --------------------------------------------------\n// GENERAZIONE EMAIL PROBABILI\n// --------------------------------------------------\n\nconst generaEmail = (\n  nomeCompleto,\n  dominio\n) => {\n\n  if (\n    !nomeCompleto ||\n    !dominio\n  ) {\n    return [];\n  }\n\n  let parti = String(nomeCompleto)\n    .trim()\n    .split(/\\s+/)\n    .map(cleanNamePart)\n    .filter(Boolean);\n\n\n  // Rimuove eventuali titoli iniziali\n  while (\n    parti.length > 1 &&\n    prefissiDaIgnorare.has(\n      parti[0]\n    )\n  ) {\n    parti.shift();\n  }\n\n\n  if (parti.length === 0) {\n    return [];\n  }\n\n\n  const first =\n    parti[0];\n\n\n  // Caso con un solo nome\n  if (parti.length === 1) {\n\n    return [\n      `${first}@${dominio}`\n    ];\n\n  }\n\n\n  const last =\n    parti[\n      parti.length - 1\n    ];\n\n\n  return [\n\n    `${first}.${last}@${dominio}`,\n\n    `${first}@${dominio}`,\n\n    `${first.charAt(0)}${last}@${dominio}`\n\n  ];\n};\n\n\n// --------------------------------------------------\n// ARCHIVIO PROSPECT GIÀ PRESENTI\n// --------------------------------------------------\n\nconst archivio =\n  $('Prepara archivio')\n    .first()\n    .json;\n\n\nconst visti =\n  new Set(\n    archivio\n      .chiavi_esistenti ||\n    []\n  );\n\n\nconst nomiVisti =\n  new Set(\n    archivio\n      .nomi_esistenti ||\n    []\n  );\n\n\nconst nuovi = [];\n\n\n// --------------------------------------------------\n// ELABORAZIONE RISULTATI AI\n// --------------------------------------------------\n\nfor (\n  const item of $input.all()\n) {\n\n  const dati =\n    parse(\n      item.json.output\n    );\n\n\n  if (\n    !dati ||\n    !Array.isArray(\n      dati.candidati\n    )\n  ) {\n    continue;\n  }\n\n\n  for (\n    const c of dati.candidati\n  ) {\n\n\n    // --------------------------------------------------\n    // NOME COMPLETO\n    // --------------------------------------------------\n\n    const nome =\n      String(\n        c?.nome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // NOME PROPRIO PER MAILUP\n    // --------------------------------------------------\n\n    const nomeMailup =\n      String(\n        c?.nome_proprio ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // COGNOME PER MAILUP\n    // --------------------------------------------------\n\n    const cognomeMailup =\n      String(\n        c?.cognome ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    // --------------------------------------------------\n    // AZIENDA\n    // --------------------------------------------------\n\n    const azienda =\n      String(\n        c?.azienda ?? ''\n      )\n        .trim()\n        .replace(\n          /\\s+/g,\n          ' '\n        );\n\n\n    const nomeN =\n      norm(nome);\n\n    const aziendaN =\n      normCompany(\n        azienda\n      );\n\n\n    if (\n      !nomeN ||\n      !aziendaN\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // CHIAVE DUPLICATO\n    // --------------------------------------------------\n\n    const key =\n      `${nomeN}|${aziendaN}`;\n\n\n    // Nome + azienda già presenti\n    if (\n      visti.has(key)\n    ) {\n      continue;\n    }\n\n\n    // Persona già presente\n    if (\n      nomiVisti.has(\n        nomeN\n      )\n    ) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // FONTE\n    // --------------------------------------------------\n\n    const fonte =\n      typeof c?.fonte ===\n        'string' &&\n      /^https?:\\/\\//i.test(\n        c.fonte.trim()\n      )\n        ? c.fonte.trim()\n        : '';\n\n\n    if (!fonte) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // SITO\n    // --------------------------------------------------\n\n    const sito =\n      c?.sito\n        ? String(\n            c.sito\n          ).trim()\n        : '';\n\n\n    // Scarta prospect senza sito\n    if (!sito) {\n      continue;\n    }\n\n\n    const dominio =\n      getDomain(\n        sito\n      );\n\n\n    // Scarta siti da cui non\n    // ricaviamo un dominio valido\n    if (!dominio) {\n      continue;\n    }\n\n\n    // --------------------------------------------------\n    // EMAIL PROBABILI\n    // --------------------------------------------------\n\n    const emailProbabili =\n      generaEmail(\n        nome,\n        dominio\n      );\n\n\n    // --------------------------------------------------\n    // SEGNA COME VISTO\n    // --------------------------------------------------\n\n    visti.add(\n      key\n    );\n\n    nomiVisti.add(\n      nomeN\n    );\n\n\n    // --------------------------------------------------\n    // OUTPUT\n    // --------------------------------------------------\n\n    nuovi.push({\n\n      json: {\n\n        // Nome completo usato\n        // dal workflow attuale\n        'Nome':\n          nome,\n\n\n        // Campi aggiuntivi\n        // per il foglio Mailup\n        'Nome Mailup':\n          nomeMailup,\n\n        'Cognome Mailup':\n          cognomeMailup,\n\n\n        'Azienda':\n          azienda,\n\n\n        'Ruolo proposto':\n          String(\n            c?.ruolo ?? ''\n          ).trim(),\n\n\n        'Settore':\n          String(\n            c?.settore ?? ''\n          ).trim(),\n\n\n        'Sito':\n          sito,\n\n\n        'Email probabile/i':\n          emailProbabili\n            .join(', '),\n\n\n        'Fonte analizzata':\n          fonte\n\n      }\n\n    });\n\n  }\n\n}\n\n\n// --------------------------------------------------\n// RISULTATO\n// --------------------------------------------------\n\nreturn nuovi;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        80
+      ],
+      "id": "eb1500f0-b29c-4563-a812-ae884251d029",
+      "name": "Deduplica e prepara righe"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const prospect = $('Deduplica e prepara righe').item.json;\n\nlet html = String($json.html ?? '');\n\n// --------------------------------------------------\n// FUNZIONI URL SENZA new URL()\n// --------------------------------------------------\n\nconst cleanHost = (raw) => {\n  let s = String(raw ?? '')\n    .trim()\n    .toLowerCase();\n\n  if (!s) return '';\n\n  s = s\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^\\/\\//, '');\n\n  s = s\n    .split('/')[0]\n    .split('?')[0]\n    .split('#')[0]\n    .replace(/^www\\./, '')\n    .replace(/:\\d+$/, '');\n\n  return s;\n};\n\n\nconst normalizeUrl = (raw) => {\n  let s = String(raw ?? '').trim();\n\n  if (!s) return '';\n\n  s = s\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^\\/\\//, '');\n\n  const parti = s.split('/');\n\n  const host = String(parti.shift() ?? '')\n    .toLowerCase()\n    .replace(/^www\\./, '')\n    .replace(/:\\d+$/, '');\n\n  let path = '/' + parti.join('/');\n\n  path = path\n    .split('?')[0]\n    .split('#')[0]\n    .replace(/\\/+$/, '');\n\n  if (!path) {\n    path = '/';\n  }\n\n  return host + path.toLowerCase();\n};\n\n\nconst decodeCfEmail = (encoded) => {\n  try {\n\n    if (!encoded || encoded.length < 4) {\n      return '';\n    }\n\n    const key =\n      parseInt(encoded.slice(0, 2), 16);\n\n    let email = '';\n\n    for (\n      let i = 2;\n      i < encoded.length;\n      i += 2\n    ) {\n      email += String.fromCharCode(\n        parseInt(\n          encoded.slice(i, i + 2),\n          16\n        ) ^ key\n      );\n    }\n\n    return email;\n\n  } catch {\n    return '';\n  }\n};\n\n\n// --------------------------------------------------\n// DECODIFICA HTML\n// --------------------------------------------------\n\nhtml = html\n  .replace(/&#(\\d+);/g, (_, n) =>\n    String.fromCharCode(Number(n))\n  )\n  .replace(/&#x([0-9a-f]+);/gi, (_, n) =>\n    String.fromCharCode(\n      parseInt(n, 16)\n    )\n  )\n  .replace(/&commat;/gi, '@')\n  .replace(/\\\\u0040/gi, '@')\n  .replace(/\\\\u002e/gi, '.')\n  .replace(/\\\\x40/gi, '@')\n  .replace(/\\\\x2e/gi, '.')\n  .replace(/%40/gi, '@')\n  .replace(/%2e/gi, '.');\n\n\n// --------------------------------------------------\n// ESTRAZIONE EMAIL DALLA HOMEPAGE\n// --------------------------------------------------\n\nconst trovate = [];\n\n\n// Cloudflare\nconst cfRegex =\n  /data-cfemail=[\"']([0-9a-f]+)[\"']/gi;\n\nlet cfMatch;\n\nwhile (\n  (cfMatch = cfRegex.exec(html)) !== null\n) {\n\n  const decoded =\n    decodeCfEmail(cfMatch[1]);\n\n  if (decoded) {\n    trovate.push(decoded);\n  }\n}\n\n\n// mailto:\nconst mailtoRegex =\n  /mailto:([^\"'?#\\s<>]+)/gi;\n\nlet mailMatch;\n\nwhile (\n  (mailMatch = mailtoRegex.exec(html)) !== null\n) {\n\n  let value = mailMatch[1];\n\n  try {\n    value = decodeURIComponent(value);\n  } catch {}\n\n  trovate.push(value);\n}\n\n\n// Email normali\nconst plainEmails =\n  html.match(\n    /[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi\n  ) || [];\n\ntrovate.push(...plainEmails);\n\n\n// --------------------------------------------------\n// NORMALIZZAZIONE EMAIL\n// --------------------------------------------------\n\nconst tutteEmail = [\n  ...new Set(\n    trovate\n      .map(email =>\n        String(email)\n          .toLowerCase()\n          .trim()\n          .replace(\n            /[),.;:'\"]+$/g,\n            ''\n          )\n      )\n      .filter(email =>\n        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$/i\n          .test(email)\n      )\n  )\n];\n\n\n// --------------------------------------------------\n// FILTRO DOMINIO AZIENDALE\n// --------------------------------------------------\n\nconst dominio =\n  cleanHost(prospect.Sito);\n\nconst emailDominio =\n  tutteEmail.filter(email => {\n\n    const dominioEmailRaw =\n      String(\n        email.split('@')[1] ?? ''\n      )\n        .toLowerCase()\n        .trim();\n\n    if (\n      !dominioEmailRaw ||\n      !dominio\n    ) {\n      return false;\n    }\n\n    // Scarta robe tipo nome@www.azienda.com\n    if (\n      dominioEmailRaw.startsWith('www.')\n    ) {\n      return false;\n    }\n\n    const dominioEmail =\n      dominioEmailRaw\n        .replace(/^www\\./, '');\n\n    return (\n      dominioEmail === dominio ||\n      dominioEmail.endsWith(\n        '.' + dominio\n      )\n    );\n  });\n\n\n// --------------------------------------------------\n// EMAIL GENERICHE / PERSONALI\n// --------------------------------------------------\n\nconst aliasGenerici = new Set([\n  'info',\n  'hello',\n  'contact',\n  'contacts',\n  'sales',\n  'office',\n  'admin',\n  'support',\n  'business',\n  'marketing',\n  'event',\n  'events',\n  'partnership',\n  'partnerships',\n  'enquiry',\n  'enquiries',\n  'inquiry',\n  'inquiries',\n  'recruitment',\n  'careers',\n  'career',\n  'hr',\n  'hq',\n  'general',\n  'enquire',\n  'booking',\n  'bookings'\n]);\n\nconst generiche = [];\nconst personali = [];\n\nfor (const email of emailDominio) {\n\n  const local =\n    email.split('@')[0];\n\n  if (aliasGenerici.has(local)) {\n    generiche.push(email);\n  } else {\n    personali.push(email);\n  }\n}\n\n\n// Per il nostro workflow vanno bene anche\n// email generiche aziendali.\n// Preferiamo quindi prima una generica certa,\n// poi eventualmente una personale trovata sul sito.\n\nconst emailPrincipale =\n  generiche[0] ||\n  personali[0] ||\n  '';\n\n\n// --------------------------------------------------\n// INFORMAZIONI SULLA FONTE AI\n// --------------------------------------------------\n\nconst fonte =\n  String(\n    prospect['Fonte analizzata'] ?? ''\n  ).trim();\n\nconst dominioFonte =\n  cleanHost(fonte);\n\nconst stessaAzienda =\n  Boolean(\n    dominio &&\n    dominioFonte &&\n    (\n      dominioFonte === dominio ||\n      dominioFonte.endsWith(\n        '.' + dominio\n      )\n    )\n  );\n\nconst sitoNormalizzato =\n  normalizeUrl(prospect.Sito);\n\nconst fonteNormalizzata =\n  normalizeUrl(fonte);\n\nconst fonteDiversaDaHomepage =\n  Boolean(\n    fonteNormalizzata &&\n    sitoNormalizzato &&\n    fonteNormalizzata !==\n      sitoNormalizzato\n  );\n\n\n// --------------------------------------------------\n// TROVA AUTOMATICAMENTE PAGINA SECONDARIA\n// CONTACT / ABOUT / TEAM / LEADERSHIP\n// --------------------------------------------------\n\nconst sitoRaw =\n  String(prospect.Sito ?? '')\n    .trim();\n\nconst sitoConProtocollo =\n  /^https?:\\/\\//i.test(sitoRaw)\n    ? sitoRaw\n    : 'https://' + sitoRaw;\n\n\n// Ricaviamo:\n// https://azienda.com\nconst originMatch =\n  sitoConProtocollo.match(\n    /^(https?:\\/\\/[^\\/?#]+)/i\n  );\n\nconst origin =\n  originMatch\n    ? originMatch[1]\n    : '';\n\n\n// --------------------------------------------------\n// RENDE UN LINK ASSOLUTO\n// --------------------------------------------------\n\nconst rendiAssoluto = (href) => {\n\n  let link =\n    String(href ?? '')\n      .trim()\n      .replace(/&amp;/gi, '&');\n\n  if (!link) {\n    return '';\n  }\n\n\n  // Link inutili\n  if (\n    link.startsWith('#') ||\n    /^mailto:/i.test(link) ||\n    /^tel:/i.test(link) ||\n    /^javascript:/i.test(link) ||\n    /^data:/i.test(link)\n  ) {\n    return '';\n  }\n\n\n  // URL completo\n  if (/^https?:\\/\\//i.test(link)) {\n    return link;\n  }\n\n\n  // URL //azienda.com/contact\n  if (/^\\/\\//.test(link)) {\n    return 'https:' + link;\n  }\n\n\n  if (!origin) {\n    return '';\n  }\n\n\n  // /contact\n  if (link.startsWith('/')) {\n    return origin + link;\n  }\n\n\n  // ./contact\n  link =\n    link.replace(/^\\.\\//, '');\n\n\n  // contact\n  return origin + '/' + link;\n};\n\n\n// --------------------------------------------------\n// ESTRAE TUTTI I LINK DALLA HOMEPAGE\n// --------------------------------------------------\n\nconst hrefRegex =\n  /href\\s*=\\s*[\"']([^\"']+)[\"']/gi;\n\nconst links = [];\n\nlet hrefMatch;\n\nwhile (\n  (hrefMatch = hrefRegex.exec(html)) !== null\n) {\n\n  const url =\n    rendiAssoluto(\n      hrefMatch[1]\n    );\n\n  if (!url) {\n    continue;\n  }\n\n\n  const host =\n    cleanHost(url);\n\n\n  // Accettiamo esclusivamente link\n  // appartenenti allo stesso dominio.\n  if (\n    !host ||\n    !dominio ||\n    !(\n      host === dominio ||\n      host.endsWith(\n        '.' + dominio\n      )\n    )\n  ) {\n    continue;\n  }\n\n\n  const normalizzato =\n    normalizeUrl(url);\n\n\n  // Non vogliamo ricontrollare\n  // la homepage.\n  if (\n    !normalizzato ||\n    normalizzato ===\n      sitoNormalizzato\n  ) {\n    continue;\n  }\n\n\n  links.push(url);\n}\n\n\n// --------------------------------------------------\n// ASSEGNA PRIORITÀ ALLE PAGINE\n// --------------------------------------------------\n\nconst assegnaPunteggio = (url) => {\n\n  const u =\n    String(url)\n      .toLowerCase()\n      .split('?')[0]\n      .split('#')[0];\n\n\n  // --------------------------------\n  // PRIORITÀ MASSIMA: CONTACT\n  // --------------------------------\n\n  if (\n    /\\/contact(?:\\/|$|-)/i.test(u) ||\n    /contact-us/i.test(u) ||\n    /contactus/i.test(u) ||\n    /get-in-touch/i.test(u) ||\n    /getintouch/i.test(u) ||\n    /reach-us/i.test(u) ||\n    /reachus/i.test(u) ||\n    /\\/enquiry/i.test(u) ||\n    /\\/enquiries/i.test(u) ||\n    /\\/inquiry/i.test(u) ||\n    /\\/inquiries/i.test(u)\n  ) {\n    return 100;\n  }\n\n\n  // --------------------------------\n  // ABOUT\n  // --------------------------------\n\n  if (\n    /\\/about(?:\\/|$|-)/i.test(u) ||\n    /about-us/i.test(u) ||\n    /aboutus/i.test(u) ||\n    /who-we-are/i.test(u)\n  ) {\n    return 70;\n  }\n\n\n  // --------------------------------\n  // TEAM / LEADERSHIP\n  // --------------------------------\n\n  if (\n    /\\/team(?:\\/|$|-)/i.test(u) ||\n    /our-team/i.test(u) ||\n    /\\/leadership(?:\\/|$|-)/i.test(u) ||\n    /our-leadership/i.test(u) ||\n    /\\/management(?:\\/|$|-)/i.test(u) ||\n    /management-team/i.test(u)\n  ) {\n    return 50;\n  }\n\n\n  return 0;\n};\n\n\n// --------------------------------------------------\n// RIMUOVE DUPLICATI\n// --------------------------------------------------\n\nconst linksUnici =\n  [...new Set(links)];\n\n\n// --------------------------------------------------\n// ORDINA LE PAGINE MIGLIORI\n// --------------------------------------------------\n\nconst pagineCandidate =\n  linksUnici\n    .map(url => ({\n      url,\n      score:\n        assegnaPunteggio(url)\n    }))\n    .filter(\n      x => x.score > 0\n    )\n    .sort((a, b) => {\n\n      if (\n        b.score !== a.score\n      ) {\n        return (\n          b.score -\n          a.score\n        );\n      }\n\n\n      // A parità di punteggio\n      // scegliamo l'URL più corto.\n      return (\n        a.url.length -\n        b.url.length\n      );\n    });\n\n\n// Migliore pagina trovata\nconst paginaAutomatica =\n  pagineCandidate.length\n    ? pagineCandidate[0].url\n    : '';\n\n\n// --------------------------------------------------\n// DECIDE QUALE PAGINA SECONDARIA CONTROLLARE\n// --------------------------------------------------\n\nlet paginaDaControllare = '';\n\nlet tipoPaginaSecondaria = '';\n\n\n// Cerchiamo un'altra pagina\n// SOLO se la homepage non ha già\n// fornito un'email valida.\n\nif (!emailPrincipale) {\n\n\n  // --------------------------------\n  // PRIORITÀ 1\n  // CONTACT / ABOUT / TEAM\n  // trovato automaticamente\n  // --------------------------------\n\n  if (paginaAutomatica) {\n\n    paginaDaControllare =\n      paginaAutomatica;\n\n    tipoPaginaSecondaria =\n      'PAGINA TROVATA AUTOMATICAMENTE';\n\n  }\n\n\n  // --------------------------------\n  // PRIORITÀ 2\n  // Vecchia Fonte analizzata\n  // purché appartenga allo stesso sito\n  // --------------------------------\n\n  else if (\n    stessaAzienda &&\n    fonteDiversaDaHomepage\n  ) {\n\n    paginaDaControllare =\n      fonte;\n\n    tipoPaginaSecondaria =\n      'FONTE ANALIZZATA';\n\n  }\n\n}\n\n\n// --------------------------------------------------\n// OUTPUT\n// --------------------------------------------------\n\nreturn {\n  json: {\n\n    ...prospect,\n\n\n    'Email trovata sito':\n      emailPrincipale,\n\n\n    'Email generiche sito':\n      generiche\n        .slice(0, 3)\n        .join(', '),\n\n\n    'Email personali sito':\n      personali\n        .slice(0, 3)\n        .join(', '),\n\n\n    'Email trovate sito':\n      emailDominio\n        .slice(0, 6)\n        .join(', '),\n\n\n    'Fonte email':\n      emailPrincipale\n        ? prospect.Sito\n        : '',\n\n\n    'Stato ricerca email':\n      emailPrincipale\n        ? 'TROVATA HOMEPAGE'\n        : 'NON TROVATA HOMEPAGE',\n\n\n    'Pagina da controllare':\n      paginaDaControllare,\n\n\n    'Tipo pagina secondaria':\n      tipoPaginaSecondaria,\n\n\n    // Campo temporaneo utile\n    // mentre testiamo il workflow\n    'Pagine candidate trovate':\n      pagineCandidate\n        .slice(0, 5)\n        .map(x => x.url)\n        .join(', ')\n\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        80
+      ],
+      "id": "e3d8f3c5-888d-4972-a106-cbed6f455a52",
+      "name": "Estrai email homepage"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "847cbe33-6018-4ac1-b1bf-e6be4eb66163",
+              "leftValue": "={{ $json[\"Pagina da controllare\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2336,
+        80
+      ],
+      "id": "15539764-975b-4f8a-9ac0-337bdeaf15b6",
+      "name": "Ha pagina secondaria?"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const prospect = $('Ha pagina secondaria?').item.json;\n\nlet html = String($json.html ?? '');\n\n// --------------------------------------------------\n// FUNZIONI\n// --------------------------------------------------\n\nconst cleanHost = (raw) => {\n  let s = String(raw ?? '')\n    .trim()\n    .toLowerCase();\n\n  if (!s) return '';\n\n  s = s\n    .replace(/^https?:\\/\\//i, '')\n    .replace(/^\\/\\//, '');\n\n  s = s\n    .split('/')[0]\n    .split('?')[0]\n    .split('#')[0]\n    .replace(/^www\\./, '')\n    .replace(/:\\d+$/, '');\n\n  return s;\n};\n\nconst decodeCfEmail = (encoded) => {\n  try {\n    if (!encoded || encoded.length < 4) {\n      return '';\n    }\n\n    const key = parseInt(encoded.slice(0, 2), 16);\n\n    let email = '';\n\n    for (let i = 2; i < encoded.length; i += 2) {\n      email += String.fromCharCode(\n        parseInt(encoded.slice(i, i + 2), 16) ^ key\n      );\n    }\n\n    return email;\n\n  } catch {\n    return '';\n  }\n};\n\n// --------------------------------------------------\n// DECODIFICA HTML\n// --------------------------------------------------\n\nhtml = html\n  .replace(/&#(\\d+);/g, (_, n) =>\n    String.fromCharCode(Number(n))\n  )\n  .replace(/&#x([0-9a-f]+);/gi, (_, n) =>\n    String.fromCharCode(parseInt(n, 16))\n  )\n  .replace(/&commat;/gi, '@')\n  .replace(/\\\\u0040/gi, '@')\n  .replace(/\\\\u002e/gi, '.')\n  .replace(/\\\\x40/gi, '@')\n  .replace(/\\\\x2e/gi, '.')\n  .replace(/%40/gi, '@')\n  .replace(/%2e/gi, '.');\n\n// --------------------------------------------------\n// ESTRAZIONE EMAIL\n// --------------------------------------------------\n\nconst trovate = [];\n\n// Cloudflare protected emails\nconst cfRegex = /data-cfemail=[\"']([0-9a-f]+)[\"']/gi;\n\nlet cfMatch;\n\nwhile ((cfMatch = cfRegex.exec(html)) !== null) {\n  const decoded = decodeCfEmail(cfMatch[1]);\n\n  if (decoded) {\n    trovate.push(decoded);\n  }\n}\n\n// mailto:\nconst mailtoRegex = /mailto:([^\"'?#\\s<>]+)/gi;\n\nlet mailMatch;\n\nwhile ((mailMatch = mailtoRegex.exec(html)) !== null) {\n  let value = mailMatch[1];\n\n  try {\n    value = decodeURIComponent(value);\n  } catch {}\n\n  trovate.push(value);\n}\n\n// Email normali presenti nell'HTML\nconst plainEmails =\n  html.match(\n    /[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi\n  ) || [];\n\ntrovate.push(...plainEmails);\n\n// --------------------------------------------------\n// PULIZIA EMAIL\n// --------------------------------------------------\n\nconst tutteEmail = [\n  ...new Set(\n    trovate\n      .map(email =>\n        String(email)\n          .toLowerCase()\n          .trim()\n          .replace(/[),.;:'\"]+$/g, '')\n      )\n      .filter(email =>\n        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$/i\n          .test(email)\n      )\n  )\n];\n\n// --------------------------------------------------\n// FILTRO DOMINIO AZIENDALE\n// --------------------------------------------------\n\nconst dominio = cleanHost(prospect.Sito);\n\nconst emailDominio = tutteEmail.filter(email => {\n\n  const dominioEmailRaw =\n    String(\n      email.split('@')[1] ?? ''\n    )\n      .toLowerCase()\n      .trim();\n\n  if (!dominioEmailRaw || !dominio) {\n    return false;\n  }\n\n  // Scarta indirizzi sospetti tipo:\n  // nome@www.azienda.com\n  if (dominioEmailRaw.startsWith('www.')) {\n    return false;\n  }\n\n  const dominioEmail =\n    dominioEmailRaw.replace(/^www\\./, '');\n\n  return (\n    dominioEmail === dominio ||\n    dominioEmail.endsWith('.' + dominio)\n  );\n});\n\n// --------------------------------------------------\n// EMAIL GENERICHE / PERSONALI\n// --------------------------------------------------\n\nconst aliasGenerici = new Set([\n  'info',\n  'hello',\n  'contact',\n  'contacts',\n  'sales',\n  'office',\n  'admin',\n  'support',\n  'business',\n  'marketing',\n  'event',\n  'events',\n  'partnership',\n  'partnerships',\n  'enquiry',\n  'enquiries',\n  'inquiry',\n  'inquiries'\n]);\n\nconst generiche = [];\nconst personali = [];\n\nfor (const email of emailDominio) {\n  const local = email.split('@')[0];\n\n  if (aliasGenerici.has(local)) {\n    generiche.push(email);\n  } else {\n    personali.push(email);\n  }\n}\n\n// Preferiamo prima una mail generica aziendale,\n// poi una personale\nconst emailPrincipale =\n  generiche[0] ||\n  personali[0] ||\n  '';\n\n// --------------------------------------------------\n// OUTPUT\n// --------------------------------------------------\n\nreturn {\n  json: {\n    ...prospect,\n\n    'Email trovata sito':\n      emailPrincipale,\n\n    'Email generiche sito':\n      generiche\n        .slice(0, 3)\n        .join(', '),\n\n    'Email personali sito':\n      personali\n        .slice(0, 3)\n        .join(', '),\n\n    'Email trovate sito':\n      emailDominio\n        .slice(0, 6)\n        .join(', '),\n\n    'Fonte email':\n      emailPrincipale\n        ? prospect['Pagina da controllare']\n        : '',\n\n    'Stato ricerca email':\n      emailPrincipale\n        ? 'TROVATA PAGINA SECONDARIA'\n        : 'NON TROVATA PAGINA SECONDARIA'\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2848,
+        -48
+      ],
+      "id": "7b6f1454-6d95-434b-9401-085f90b04e79",
+      "name": "Estrai email pagina secondaria"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        3088,
+        80
+      ],
+      "id": "0e97a46f-fafe-4512-bb54-1eb46e018bc4",
+      "name": "Riunisci risultati email"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "847cbe33-6018-4ac1-b1bf-e6be4eb66163",
+              "leftValue": "={{ $json[\"Email trovata sito\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3360,
+        80
+      ],
+      "id": "4b2f431c-509b-4ec9-ae5d-dbcd021f804e",
+      "name": "Email certa trovata?"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const prospect = $('Email certa trovata?').item.json;\nconst rr = $json;\n\nconst emails = Array.isArray(rr.emails)\n  ? rr.emails\n  : [];\n\n// Prendiamo SOLO email professionali realmente validate\nconst valideProfessionali = emails.filter(e =>\n  e &&\n  e.email &&\n  e.type === 'professional' &&\n  e.smtp_valid === 'valid'\n);\n\n// Preferiamo quella consigliata da RocketReach\nlet emailRocketReach = '';\n\nif (\n  rr.recommended_professional_email &&\n  valideProfessionali.some(\n    e => e.email === rr.recommended_professional_email\n  )\n) {\n  emailRocketReach =\n    rr.recommended_professional_email;\n} else if (valideProfessionali.length) {\n  emailRocketReach =\n    valideProfessionali[0].email;\n}\n\nreturn {\n  json: {\n    ...prospect,\n\n    'Email RocketReach':\n      emailRocketReach,\n\n    'Email RocketReach tutte':\n      valideProfessionali\n        .map(e => e.email)\n        .join(', '),\n\n    'LinkedIn RocketReach':\n      rr.linkedin_url || '',\n\n    'Stato RocketReach':\n      emailRocketReach\n        ? 'EMAIL VALIDATA'\n        : rr.detail\n          ? 'PERSONA NON TROVATA'\n          : 'NESSUNA EMAIL VALIDA'\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4880,
+        80
+      ],
+      "id": "ad5edaad-72c8-4bae-a2c5-3e075d947576",
+      "name": "Normalizza RocketReach"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "aeb1288f-a66f-4bab-a187-1f9c7f2a0491",
+              "leftValue": "={{ $json[\"Email RocketReach\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        5168,
+        80
+      ],
+      "id": "e7842f9e-07c1-40db-bb9c-e42dcef2126e",
+      "name": "Email RocketReach trovata?"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        5472,
+        -272
+      ],
+      "id": "bc0df73e-d74e-405f-96a8-ddb504bebc88",
+      "name": "Riunisci risultati finali"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const emailSito = String(\n  $json['Email trovata sito'] || ''\n).trim();\n\nconst emailRR = String(\n  $json['Email RocketReach'] || ''\n).trim();\n\nconst emailFinale =\n  emailSito || emailRR || '';\n\nlet tipoEmail = '';\nlet fonteEmail = '';\nlet statoEmail = '';\n\n\n// --------------------------------------------------\n// DETERMINA TIPO / FONTE / STATO EMAIL\n// --------------------------------------------------\n\nif (emailSito) {\n\n  tipoEmail =\n    'SITO UFFICIALE';\n\n  fonteEmail =\n    $json['Fonte email'] ||\n    $json.Sito ||\n    '';\n\n  statoEmail =\n    'EMAIL TROVATA';\n\n}\n\nelse if (emailRR) {\n\n  tipoEmail =\n    'ROCKETREACH VALIDATA';\n\n  fonteEmail =\n    'RocketReach';\n\n  statoEmail =\n    'EMAIL TROVATA';\n\n}\n\nelse {\n\n  tipoEmail =\n    'SOLO EMAIL PROBABILI';\n\n  fonteEmail =\n    '';\n\n  statoEmail =\n    'EMAIL NON TROVATA';\n\n}\n\n\n// --------------------------------------------------\n// OUTPUT FINALE\n// --------------------------------------------------\n\nreturn {\n\n  json: {\n\n    // Nome completo\n    Nome:\n      $json.Nome || '',\n\n\n    // Campi dedicati al foglio Mailup\n    'Nome Mailup':\n      $json['Nome Mailup'] || '',\n\n    'Cognome Mailup':\n      $json['Cognome Mailup'] || '',\n\n\n    Azienda:\n      $json.Azienda || '',\n\n\n    Ruolo:\n      $json['Ruolo proposto'] || '',\n\n\n    Settore:\n      $json.Settore || '',\n\n\n    Sito:\n      $json.Sito || '',\n\n\n    'Email certa':\n      emailFinale,\n\n\n    'Email probabili':\n      $json['Email probabile/i'] || '',\n\n\n    'Tipo email':\n      tipoEmail,\n\n\n    'Fonte email':\n      fonteEmail,\n\n\n    'Stato email':\n      statoEmail,\n\n\n    LinkedIn:\n      $json['LinkedIn RocketReach'] || ''\n\n  }\n\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5824,
+        -256
+      ],
+      "id": "4045a738-b38b-4cf4-b974-a27af1423b13",
+      "name": "Prepara righe finali"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6d550d86-126e-4c9a-bf39-ea5510c37e5e",
+              "leftValue": "={{ !!$json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3968,
+        96
+      ],
+      "id": "4d01e913-b15b-4631-8af9-23f2a4ae5928",
+      "name": "RocketReach ha ID?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4272,
+        80
+      ],
+      "id": "1b77d59f-b614-42a3-a8d3-40046a6a3ec1",
+      "name": "Attendi RocketReach",
+      "webhookId": "2f66c7d0-7d29-4401-b201-68b668c443b1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst output = [];\n\nfor (const item of items) {\n\n  const j = item.json;\n\n  const email = String(\n    j['Email certa'] ?? ''\n  ).trim();\n\n  // Nel foglio Mailup vogliamo solo\n  // prospect che hanno una email certa.\n  if (!email) {\n    continue;\n  }\n\n  const nome = String(\n    j['Nome Mailup'] ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const cognome = String(\n    j['Cognome Mailup'] ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const azienda = String(\n    j.Azienda ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const ruolo = String(\n    j.Ruolo ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  const settore = String(\n    j.Settore ?? ''\n  )\n    .trim()\n    .replace(/\\s+/g, ' ');\n\n  output.push({\n    json: {\n      Nome: nome,\n      Cognome: cognome,\n      Azienda: azienda,\n      Ruolo: ruolo,\n      Settore: settore,\n      Email: email\n    }\n  });\n}\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6160,
+        -144
+      ],
+      "id": "92b259fd-4049-4d17-a633-9c5177ff20da",
+      "name": "Prepara Mailup"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM",
+          "mode": "list",
+          "cachedResultName": "Singapore | Score Articoli a Pagamento",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1241023269,
+          "mode": "list",
+          "cachedResultName": "Prospect AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit#gid=1241023269"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        80
+      ],
+      "id": "c6629769-c7cd-46ef-8289-6a3c867378b5",
+      "name": "Read Prospect",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.rocketreach.co/api/v2/person/lookup",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.Nome }}"
+            },
+            {
+              "name": "current_employer",
+              "value": "={{ $json.Azienda }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json[\"Ruolo proposto\"] }}"
+            },
+            {
+              "name": "return_cached_emails",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 5
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3712,
+        96
+      ],
+      "id": "7234c97e-dec0-4700-bf41-8e2e85410d40",
+      "name": "RocketReach - Lookup persona",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "f7ay2fNfuGE4VrTP",
+          "name": "RocketReach API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json[\"Pagina da controllare\"] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-SG,en;q=0.9"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 10,
+              "batchInterval": 200
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text",
+              "outputPropertyName": "html"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2608,
+        -48
+      ],
+      "id": "2b5fc578-1ae0-45db-9cb2-5acbe398aa77",
+      "name": "HTTP - Pagina secondaria",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ /^https?:\\/\\//i.test($json.Sito) ? $json.Sito : 'https://' + $json.Sito }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-SG,en;q=0.9"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 10,
+              "batchInterval": 200
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text",
+              "outputPropertyName": "html"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1696,
+        80
+      ],
+      "id": "f38e250f-7d22-405f-a2dc-b549fd306065",
+      "name": "HTTP - Homepage",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://api.rocketreach.co/api/v2/person/checkStatus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ids",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        4560,
+        80
+      ],
+      "id": "7c64ecee-d2ef-4cb8-8597-10cbca34db88",
+      "name": "RocketReach - Status check",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "f7ay2fNfuGE4VrTP",
+          "name": "RocketReach API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM",
+          "mode": "list",
+          "cachedResultName": "Singapore | Score Articoli a Pagamento",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1241023269,
+          "mode": "list",
+          "cachedResultName": "Prospect AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit#gid=1241023269"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Azienda",
+              "displayName": "Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Ruolo",
+              "displayName": "Ruolo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Settore",
+              "displayName": "Settore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sito",
+              "displayName": "Sito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email certa",
+              "displayName": "Email certa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email probabili",
+              "displayName": "Email probabili",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo email",
+              "displayName": "Tipo email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fonte email",
+              "displayName": "Fonte email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Stato email",
+              "displayName": "Stato email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "handlingExtraData": "ignoreIt"
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        6160,
+        -352
+      ],
+      "id": "88150b7f-0ab1-475c-a679-cd180e927ec4",
+      "name": "Append - Prospect",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM",
+          "mode": "list",
+          "cachedResultName": "Singapore | Score Articoli a Pagamento",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2115271554,
+          "mode": "list",
+          "cachedResultName": "Mailup",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sNu5GubvUYdc-zXqAryvzt_j6LiWTPTSMCSIkXMMiVM/edit#gid=2115271554"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cognome",
+              "displayName": "Cognome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Azienda",
+              "displayName": "Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ruolo",
+              "displayName": "Ruolo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Settore",
+              "displayName": "Settore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "handlingExtraData": "ignoreIt"
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        6496,
+        -144
+      ],
+      "id": "d9e23aea-4fdc-4783-b082-832993413e43",
+      "name": "Append - Mailup",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZayuDfh1wxejgzop",
+          "name": "Spreadsheet ads.lefonti@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        6784,
+        -256
+      ],
+      "id": "f2b1e0c2-3a17-4fc3-bfaa-b1be434c65c4",
+      "name": "Fine salvataggi"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prospectTotali =\n  $('Prepara righe finali').all().length;\n\nconst mailupTotali =\n  $('Prepara Mailup').all().length;\n\nreturn [\n  {\n    json: {\n      workflowName: $workflow.name,\n      executionId: $execution.id,\n      prospectTotali,\n      mailupTotali\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7088,
+        -256
+      ],
+      "id": "ebf6829a-c6ec-4fd4-9d4e-e1d401332d51",
+      "name": "Prepara notifica successo"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "MdqFiYfDdU1Xo9CO",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/MdqFiYfDdU1Xo9CO",
+          "cachedResultName": "Singapore V3.3 | Success Monitor"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "workflowName": "={{ $json.workflowName }}",
+            "executionId": "={{ $json.executionId }}",
+            "prospectTotali": "={{ $json.prospectTotali }}",
+            "mailupTotali": "={{ $json.mailupTotali }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "executionId",
+              "displayName": "executionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "prospectTotali",
+              "displayName": "prospectTotali",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "mailupTotali",
+              "displayName": "mailupTotali",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        7312,
+        -256
+      ],
+      "id": "1a89353d-f58f-4cb9-a42a-db88cb78d423",
+      "name": "Call Singapore V3.3 | Success Monitor"
+    },
+    {
+      "parameters": {
+        "jsCode": "const temi = [\n  // 1 - LEGAL CORPORATE / M&A\n  'law firms lawyers legal services corporate law commercial law M&A mergers acquisitions private equity venture capital corporate finance lawyers',\n\n  // 2 - LEGAL DISPUTES / ARBITRATION\n  'law firms lawyers dispute resolution litigation arbitration international arbitration commercial disputes mediation',\n\n  // 3 - LEGAL TECH / IP / PRIVACY\n  'law firms lawyers intellectual property technology law fintech law data privacy cybersecurity law regulatory compliance telecommunications law',\n\n  // 4 - LEGAL EMPLOYMENT / TAX / REGULATORY\n  'law firms lawyers employment law labour law tax law regulatory law compliance corporate governance restructuring insolvency',\n\n  // 5 - PROFESSIONAL SERVICES\n  'accounting tax consulting corporate services business advisory HR recruitment professional services'\n];\n\nreturn temi.map((tema, i) => ({\n  json: {\n    paese: $json.paese,\n    lotto: i + 1,\n    tema,\n    target_lotto: 25\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        80
+      ],
+      "id": "1a877688-4ce8-455b-ad0e-23c2cfc61c20",
+      "name": "Genera 5 Lotti"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0,12 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        80
+      ],
+      "id": "07edd4b2-82fc-481d-8a6c-434aa106470e",
+      "name": "Ogni 12 ore | 00:00 - 12:00"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Prepara archivio": {
+      "main": [
+        [
+          {
+            "node": "Genera 5 Lotti",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI + Web Search": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ricerca prospect AI",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ricerca prospect AI": {
+      "main": [
+        [
+          {
+            "node": "Deduplica e prepara righe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplica e prepara righe": {
+      "main": [
+        [
+          {
+            "node": "HTTP - Homepage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estrai email homepage": {
+      "main": [
+        [
+          {
+            "node": "Ha pagina secondaria?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ha pagina secondaria?": {
+      "main": [
+        [
+          {
+            "node": "HTTP - Pagina secondaria",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Riunisci risultati email",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Estrai email pagina secondaria": {
+      "main": [
+        [
+          {
+            "node": "Riunisci risultati email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Riunisci risultati email": {
+      "main": [
+        [
+          {
+            "node": "Email certa trovata?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email certa trovata?": {
+      "main": [
+        [
+          {
+            "node": "Riunisci risultati finali",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RocketReach - Lookup persona",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizza RocketReach": {
+      "main": [
+        [
+          {
+            "node": "Email RocketReach trovata?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email RocketReach trovata?": {
+      "main": [
+        [
+          {
+            "node": "Riunisci risultati finali",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Riunisci risultati finali",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Riunisci risultati finali": {
+      "main": [
+        [
+          {
+            "node": "Prepara righe finali",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara righe finali": {
+      "main": [
+        [
+          {
+            "node": "Append - Prospect",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepara Mailup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RocketReach ha ID?": {
+      "main": [
+        [
+          {
+            "node": "Attendi RocketReach",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Attendi RocketReach": {
+      "main": [
+        [
+          {
+            "node": "RocketReach - Status check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara Mailup": {
+      "main": [
+        [
+          {
+            "node": "Append - Mailup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Prospect": {
+      "main": [
+        [
+          {
+            "node": "Prepara archivio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RocketReach - Lookup persona": {
+      "main": [
+        [
+          {
+            "node": "RocketReach ha ID?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP - Pagina secondaria": {
+      "main": [
+        [
+          {
+            "node": "Estrai email pagina secondaria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP - Homepage": {
+      "main": [
+        [
+          {
+            "node": "Estrai email homepage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RocketReach - Status check": {
+      "main": [
+        [
+          {
+            "node": "Normalizza RocketReach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append - Prospect": {
+      "main": [
+        [
+          {
+            "node": "Fine salvataggi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append - Mailup": {
+      "main": [
+        [
+          {
+            "node": "Fine salvataggi",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fine salvataggi": {
+      "main": [
+        [
+          {
+            "node": "Prepara notifica successo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara notifica successo": {
+      "main": [
+        [
+          {
+            "node": "Call Singapore V3.3 | Success Monitor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Genera 5 Lotti": {
+      "main": [
+        [
+          {
+            "node": "Ricerca prospect AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ogni 12 ore | 00:00 - 12:00": {
+      "main": [
+        [
+          {
+            "node": "Read Prospect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "HRCWCaPy5Bb1kKH0",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "ea290999-b3de-4ea8-bbf2-0f9e09540cb3",
+  "meta": {
+    "instanceId": "780d6d420a22767fb0b6fd4f9bba72f682684051beb394b09bf769eb51440145"
+  },
+  "nodeGroups": [],
+  "id": "urKNFXvyHfLcvKky",
+  "tags": []
+}
