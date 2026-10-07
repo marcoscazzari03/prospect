@@ -16,14 +16,14 @@ La roadmap con lo stato dei lavori e i prossimi passi è in [ROADMAP.md](ROADMAP
 | File | Cosa contiene |
 |---|---|
 | `workflows/singapore-a-legal-professional-services.json` | Export originale di "Singapore A \| Legal + Professional Services" (produzione). Resta come riferimento e non va modificato. |
-| `workflows/prospect-claude-search.json` | "Prospect Claude \| Search": la copia di lavoro su cui facciamo le modifiche. È un'istantanea dell'ultima versione salvata su n8n. |
+| `workflows/prospect-search.json` | "Prospect \| Search": la copia di lavoro su cui facciamo le modifiche. È un'istantanea dell'ultima versione salvata su n8n. |
 
 ## Ambienti
 
 | | Produzione | Test |
 |---|---|---|
-| Workflow n8n | Singapore A / B / C (attivi) | Prospect Claude \| Search (`f03lATvrzkJYAOw6`, disattivato) |
-| Google Sheets | "Singapore \| Score Articoli a Pagamento" | "TEST \| Prospect Claude \| Search" |
+| Workflow n8n | Singapore A / B / C (attivi) | Prospect \| Search (`f03lATvrzkJYAOw6`, disattivato) |
+| Google Sheets | "Singapore \| Score Articoli a Pagamento" | "TEST \| Prospect \| Search" |
 | Monitor | Success / Error Monitor | nessuno |
 
 Il file di test (account `ads.lefonti@gmail.com`) ha quattro schede:
@@ -40,4 +40,4 @@ Nel repository:
 
 ## Come aggiornare l'istantanea
 
-Dopo ogni modifica su n8n, la versione aggiornata del workflow va esportata in `workflows/prospect-claude-search.json` e salvata con un commit. In questo modo GitHub segue n8n.
+Dopo ogni modifica su n8n, la versione aggiornata del workflow va esportata in `workflows/prospect-search.json` e salvata con un commit. In questo modo GitHub segue n8n.

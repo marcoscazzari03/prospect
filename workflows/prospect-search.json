@@ -1,6 +1,6 @@
 {
   "id": "f03lATvrzkJYAOw6",
-  "name": "Prospect Claude | Search",
+  "name": "Prospect | Search",
   "nodes": [
     {
       "id": "203eab28-3f1e-4a4e-afa2-8492e918a254",
@@ -355,7 +355,7 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -575,7 +575,7 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -740,7 +740,7 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -956,7 +956,7 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -1138,7 +1138,7 @@
         },
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -1211,7 +1211,7 @@
         },
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -1399,7 +1399,7 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -1549,7 +1549,7 @@
         },
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"
@@ -1647,7 +1647,7 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "cachedResultName": "TEST | Prospect Claude | Search",
+          "cachedResultName": "TEST | Prospect | Search",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4/edit",
           "mode": "list",
           "value": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4"

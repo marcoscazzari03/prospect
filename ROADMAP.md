@@ -1,4 +1,4 @@
-# Roadmap: Prospect Claude | Search
+# Roadmap: Prospect | Search
 
 Obiettivi: **più prospect al giorno** e **meno costi API**. Nel foglio finiscono solo persone con email.
 Lavoriamo sulla copia di test. In produzione si porta solo ciò che è stato misurato nel Log.
@@ -10,8 +10,8 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 ## Fase 0: Setup ✅
 
 - ✅ Export dell'originale "Singapore A | Legal + Professional Services" salvato su GitHub.
-- ✅ Copia "Prospect Claude | Search" creata su n8n, verificata identica all'originale.
-- ✅ Collegata al file Google Sheets di test "TEST | Prospect Claude | Search".
+- ✅ Copia "Prospect | Search" creata su n8n, verificata identica all'originale.
+- ✅ Collegata al file Google Sheets di test "TEST | Prospect | Search".
 - ✅ Success Monitor ed Error Monitor scollegati dalla copia.
 
 ## Fase 1: Affidabilità e misura ✅
