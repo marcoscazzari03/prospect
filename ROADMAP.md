@@ -74,12 +74,12 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## Fase 5: Costi RocketReach ⏳
 
-- ⏳ **Tetto di ricerche RocketReach per esecuzione (~60).**
-  - "Da riprovare" sono arrivati a 73+ dopo le esecuzioni di prova ravvicinate.
-  - Serve smaltirli senza sforare il limite orario: ripresi + nuovi ≤ tetto.
-  - RocketReach ha anche un **limite orario**: "Lookup hourly rate limit reached" dopo circa 70 ricerche in un'ora.
-  - Una singola esecuzione (~40–50 ricerche) ci sta, ma Singapore A/B/C in parallelo no.
-  - Chi viene respinto finisce comunque in "Da riprovare".
+- ✅ **Tetto di 60 ricerche RocketReach per esecuzione.**
+  - RocketReach ha anche un limite orario (circa 70 ricerche in un'ora).
+  - Precedenza ai "Da riprovare", ripresi fino a 40 per esecuzione per smaltire l'arretrato.
+  - Chi supera il tetto va in "Da riprovare" come "RINVIATO (TETTO)", senza chiamate a RocketReach.
+  - Il Log ha una colonna nuova, "Rinviati tetto RocketReach".
+  - Regola pratica: **non lanciare esecuzioni a meno di un'ora l'una dall'altra.**
 - ⏳ Valutare se il rapporto email trovate / crediti spesi giustifica RocketReach, o se basta il sito (oggi circa il 64% delle email arriva gratis dal sito).
 
 ## Fase 6: Passaggio in produzione ⏳
@@ -98,4 +98,4 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 | 2026-10-07 | 3356 | 125 | 112 (90%) | 72 | 0 / 40 ricerche | 72 | 40 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Prima esecuzione, archivio vuoto. RocketReach respinto per limite di frequenza (25 ricerche + 8 controlli). |
 | 2026-10-07 | 3359 | 126 | 78 (62%) + 20 ripresi | 57 | 15 / 41 ricerche | 72 | 26 | ~0,33 $ (OpenAI, ~0,005 $ per salvato) | Dopo il rallentamento: 0 errori per limite di frequenza; tutti i controlli completati al primo tentativo. **38% di duplicati già alla 2ª esecuzione**: i temi fissi ripetono gli stessi nomi. Durata 8 min 20 s. |
 | 2026-10-07 | 3362 | 126 | **121 (96%)** + 11 ripresi | 84 | 7 / 29 ricerche riuscite (+19 respinte) | **91** | 22 (+19 da riprovare) | ~0,42 $ (~0,0046 $ per salvato) | **Prima esecuzione con rotazione dei temi** (T24 VC/PE, T30 healthtech, T03 IP law, T11 accounting, T18 compliance): duplicati dal 38% al 4%. RocketReach: "Lookup hourly rate limit reached" dopo circa 70 ricerche nell'ultima ora (3 esecuzioni di fila). Durata 10 min. |
-| 2026-10-07 | 3365 | 108 | 105 (97%) + 19 ripresi | 51 | 0 / 73 (**tutte respinte, limite orario**) | 51 | 0 (+73 da riprovare) | da confermare | **Prima esecuzione SG / MY / ID** (T50, T52, M06, M08, I20). Email dal sito: SG 21/39 (54%), MY 20/42 (48%), ID 10/24 (42%). RocketReach fermo per il limite orario: è partita 11 min dopo la 3362. Durata 11 min 30 s. |
+| 2026-10-07 | 3365 | 108 | 105 (97%) + 19 ripresi | 51 | 0 / 73 (**tutte respinte, limite orario**) | 51 | 0 (+73 da riprovare) | ~0,43 $ (~0,0084 $ per salvato, RocketReach fermo) | **Prima esecuzione SG / MY / ID** (T50, T52, M06, M08, I20). Email dal sito: SG 21/39 (54%), MY 20/42 (48%), ID 10/24 (42%). RocketReach fermo per il limite orario: è partita 11 min dopo la 3362. Durata 11 min 30 s. |

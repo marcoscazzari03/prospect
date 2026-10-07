@@ -264,7 +264,7 @@
         -272
       ],
       "parameters": {
-        "numberInputs": 4
+        "numberInputs": 5
       }
     },
     {
@@ -1091,7 +1091,7 @@
               "id": "s9",
               "name": "Motivo scarto",
               "type": "string",
-              "value": "={{ ['RATE LIMIT', 'RICERCA NON COMPLETATA'].includes($json['Stato RocketReach']) ? 'Da riprovare (limite RocketReach)' : 'Nessuna email trovata (sito + RocketReach)' }}"
+              "value": "={{ ['RATE LIMIT', 'RICERCA NON COMPLETATA', 'RINVIATO (TETTO)'].includes($json['Stato RocketReach']) ? 'Da riprovare (limite RocketReach)' : 'Nessuna email trovata (sito + RocketReach)' }}"
             },
             {
               "id": "s10",
@@ -1186,7 +1186,7 @@
         384
       ],
       "parameters": {
-        "jsCode": "// Una riga di statistiche per esecuzione (scheda Log).\n// Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst conta = (nome, ramo, f) => {\n  try {\n    return $(nome).all(ramo ?? 0).filter(f).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst tutti = $('Aggiungi da riprovare').all().map(i => i.json);\nconst lotti = tutti.filter(l => l.stato_lotto !== 'RIPROVA');\nconst riprovati = tutti.reduce((s, l) => s + (l.riprovati || 0), 0);\n\nconst candidatiAI = lotti.reduce((s, l) => s + (l.candidati_lotto || 0), 0);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi prospect.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nconst nuoviAI = Math.max(nuovi - riprovati, 0);\n\nconst stato = (s) => conta('Prepara righe finali', 0, i => i.json['Stato RocketReach'] === s);\nconst daRiprovare = conta('Prepara scartati', 0, i =>\n  String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n);\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': Math.max(candidatiAI - nuoviAI, 0),\n    'Nuovi candidati': nuoviAI,\n    '% nuovi': candidatiAI ? Math.round(nuoviAI / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': stato('PERSONA NON TROVATA'),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1) - daRiprovare,\n    'Righe Mailup': n('Prepara Mailup'),\n    'Riprovati da Scartati': riprovati,\n    'Ricontrolli RocketReach': n('RocketReach - Status check 2'),\n    'RocketReach rate limit': stato('RATE LIMIT'),\n    'Da riprovare': daRiprovare\n  }\n}];"
+        "jsCode": "// Una riga di statistiche per esecuzione (scheda Log).\n// Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst conta = (nome, ramo, f) => {\n  try {\n    return $(nome).all(ramo ?? 0).filter(f).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst tutti = $('Aggiungi da riprovare').all().map(i => i.json);\nconst lotti = tutti.filter(l => l.stato_lotto !== 'RIPROVA');\nconst riprovati = tutti.reduce((s, l) => s + (l.riprovati || 0), 0);\n\nconst candidatiAI = lotti.reduce((s, l) => s + (l.candidati_lotto || 0), 0);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi prospect.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nconst nuoviAI = Math.max(nuovi - riprovati, 0);\n\nconst stato = (s) => conta('Prepara righe finali', 0, i => i.json['Stato RocketReach'] === s);\nconst daRiprovare = conta('Prepara scartati', 0, i =>\n  String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n);\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': Math.max(candidatiAI - nuoviAI, 0),\n    'Nuovi candidati': nuoviAI,\n    '% nuovi': candidatiAI ? Math.round(nuoviAI / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': stato('PERSONA NON TROVATA'),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1) - daRiprovare,\n    'Righe Mailup': n('Prepara Mailup'),\n    'Riprovati da Scartati': riprovati,\n    'Ricontrolli RocketReach': n('RocketReach - Status check 2'),\n    'RocketReach rate limit': stato('RATE LIMIT'),\n    'Da riprovare': daRiprovare,\n    'Rinviati tetto RocketReach': stato('RINVIATO (TETTO)')\n  }\n}];"
       },
       "notes": "Ramo posizionato in basso di proposito: con l'ordine di esecuzione v1 parte solo dopo che il ramo principale (sopra) e terminato.",
       "executeOnce": true
@@ -1384,7 +1384,7 @@
         256
       ],
       "parameters": {
-        "jsCode": "// Reinserisce (max 20) i prospect scartati 'Da riprovare'\n// (rate limit RocketReach): ripassano dalla ricerca email\n// senza pagare una nuova ricerca AI.\nconst items = $input.all();\nconst archivio = $('Prepara archivio').first().json;\nconst bloccati = new Set(archivio.nomi_esistenti || []);\n\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst MAX = 20;\nconst visti = new Set();\nconst candidati = [];\n\nfor (const r of $('Read Scartati').all()) {\n  const j = r.json;\n  if (!String(j['Motivo scarto'] ?? '').startsWith('Da riprovare')) continue;\n\n  const n = norm(j.Nome);\n  const sito = String(j.Sito ?? '').trim();\n  if (!n || !sito || bloccati.has(n) || visti.has(n)) continue;\n\n  visti.add(n);\n  const parti = String(j.Nome).trim().split(/\\s+/);\n\n  candidati.push({\n    nome: j.Nome,\n    nome_proprio: j['Nome Mailup'] || parti[0],\n    cognome: j['Cognome Mailup'] || parti.slice(1).join(' '),\n    azienda: j.Azienda,\n    paese: j.Paese || '',\n    ruolo: j.Ruolo,\n    settore: j.Settore,\n    sito,\n    fonte: /^https?:\\/\\//i.test(sito) ? sito : 'https://' + sito\n  });\n\n  if (candidati.length >= MAX) break;\n}\n\nif (candidati.length) {\n  items.push({\n    json: {\n      output: JSON.stringify({ candidati }),\n      lotto: 'riprova',\n      stato_lotto: 'RIPROVA',\n      candidati_lotto: 0,\n      riprovati: candidati.length\n    }\n  });\n}\n\nreturn items;"
+        "jsCode": "// Reinserisce (max 40) i prospect scartati 'Da riprovare'\n// (limite RocketReach): ripassano dalla ricerca email\n// senza pagare una nuova ricerca AI. Hanno la precedenza\n// nel tetto RocketReach.\nconst items = $input.all();\nconst archivio = $('Prepara archivio').first().json;\nconst bloccati = new Set(archivio.nomi_esistenti || []);\n\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst MAX = 40;\nconst visti = new Set();\nconst candidati = [];\n\nfor (const r of $('Read Scartati').all()) {\n  const j = r.json;\n  if (!String(j['Motivo scarto'] ?? '').startsWith('Da riprovare')) continue;\n\n  const n = norm(j.Nome);\n  const sito = String(j.Sito ?? '').trim();\n  if (!n || !sito || bloccati.has(n) || visti.has(n)) continue;\n\n  visti.add(n);\n  const parti = String(j.Nome).trim().split(/\\s+/);\n\n  candidati.push({\n    nome: j.Nome,\n    nome_proprio: j['Nome Mailup'] || parti[0],\n    cognome: j['Cognome Mailup'] || parti.slice(1).join(' '),\n    azienda: j.Azienda,\n    paese: j.Paese || '',\n    ruolo: j.Ruolo,\n    settore: j.Settore,\n    sito,\n    fonte: /^https?:\\/\\//i.test(sito) ? sito : 'https://' + sito\n  });\n\n  if (candidati.length >= MAX) break;\n}\n\nif (candidati.length) {\n  items.push({\n    json: {\n      output: JSON.stringify({ candidati }),\n      lotto: 'riprova',\n      stato_lotto: 'RIPROVA',\n      candidati_lotto: 0,\n      riprovati: candidati.length\n    }\n  });\n}\n\nreturn items;"
       }
     },
     {
@@ -1573,6 +1573,67 @@
           "name": "Spreadsheet ads.lefonti@gmail.com"
         }
       }
+    },
+    {
+      "id": "97d17869-0a4e-4f5f-aecc-0f1686a21774",
+      "name": "Applica tetto RocketReach",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3488,
+        288
+      ],
+      "parameters": {
+        "jsCode": "// Tetto alle ricerche RocketReach per esecuzione: RocketReach ha un\n// limite orario (~70 ricerche). Precedenza ai prospect ripresi da\n// 'Da riprovare'; chi resta fuori va negli Scartati come 'Da riprovare'.\nconst TETTO = 60;\n\nconst norm = (v) => String(v ?? '').trim().toLowerCase();\n\nconst ripresi = new Set();\ntry {\n  for (const it of $('Aggiungi da riprovare').all()) {\n    if (it.json.stato_lotto !== 'RIPROVA') continue;\n    const candidati = JSON.parse(it.json.output || '{}').candidati || [];\n    for (const c of candidati) ripresi.add(norm(c?.nome));\n  }\n} catch {}\n\nconst ordinati = $input.all()\n  .map((it, i) => ({ it, i, prio: ripresi.has(norm(it.json.Nome)) ? 0 : 1 }))\n  .sort((a, b) => a.prio - b.prio || a.i - b.i);\n\nreturn ordinati.map((x, pos) => ({\n  json: { ...x.it.json, entro_tetto_rr: pos < TETTO },\n  pairedItem: { item: x.i }\n}));"
+      }
+    },
+    {
+      "id": "4d243f6e-f7fd-480a-aa5c-0f23b4922008",
+      "name": "Entro tetto RocketReach?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3600,
+        288
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "f4d0b3e5-8a6c-4e1b-9d94-5a7c1b0f2e43",
+              "leftValue": "={{ $json.entro_tetto_rr === true }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "d2ae5623-cb86-419e-ab4d-7a67d456d0ae",
+      "name": "Rinvia (tetto RocketReach)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3712,
+        480
+      ],
+      "parameters": {
+        "jsCode": "// Oltre il tetto: niente ricerca RocketReach in questa esecuzione.\n// Finisce negli Scartati come 'Da riprovare' e viene ripreso dopo.\nreturn {\n  json: {\n    ...$json,\n    'Email RocketReach': '',\n    'Email RocketReach tutte': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': 'RINVIATO (TETTO)'\n  }\n};",
+        "mode": "runOnceForEachItem"
+      }
     }
   ],
   "connections": {
@@ -1671,7 +1732,7 @@
         ],
         [
           {
-            "node": "RocketReach - Lookup persona",
+            "node": "Applica tetto RocketReach",
             "type": "main",
             "index": 0
           }
@@ -2103,6 +2164,46 @@
             "node": "Update - Temi",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "Applica tetto RocketReach": {
+      "main": [
+        [
+          {
+            "node": "Entro tetto RocketReach?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entro tetto RocketReach?": {
+      "main": [
+        [
+          {
+            "node": "RocketReach - Lookup persona",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rinvia (tetto RocketReach)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rinvia (tetto RocketReach)": {
+      "main": [
+        [
+          {
+            "node": "Riunisci risultati finali",
+            "type": "main",
+            "index": 4
           }
         ]
       ]
