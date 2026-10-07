@@ -32,7 +32,7 @@
         80
       ],
       "parameters": {
-        "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst chiavi = new Set();\nconst nomi = new Set();\n\n// Archivio = prospect salvati + prospect scartati (senza email),\n// cosi non li ricerchiamo e non li ripaghiamo.\nconst righe = [\n  ...$('Read Prospect').all(),\n  ...$('Read Scartati').all()\n];\n\nfor (const item of righe) {\n  const nome = norm(item.json.Nome);\n  const azienda = normCompany(item.json.Azienda);\n  if (!nome || !azienda) continue;\n  chiavi.add(`${nome}|${azienda}`);\n  nomi.add(nome);\n}\n\nreturn [{\n  json: {\n    paese: 'Singapore',\n    chiavi_esistenti: [...chiavi],\n    nomi_esistenti: [...nomi],\n    totale_esistenti: chiavi.size\n  }\n}];"
+        "jsCode": "const norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst normCompany = (v) => norm(v)\n  .replace(/\\b(pte ltd|private limited|pte|ltd|limited|singapore|sg)\\b/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst chiavi = new Set();\nconst nomi = new Set();\n\n// Archivio = prospect salvati + scartati definitivi.\n// Gli scartati 'Da riprovare' NON bloccano: vengono ripresi.\nconst righe = [\n  ...$('Read Prospect').all(),\n  ...$('Read Scartati').all().filter(i =>\n    !String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n  )\n];\n\nfor (const item of righe) {\n  const nome = norm(item.json.Nome);\n  const azienda = normCompany(item.json.Azienda);\n  if (!nome || !azienda) continue;\n  chiavi.add(`${nome}|${azienda}`);\n  nomi.add(nome);\n}\n\nreturn [{\n  json: {\n    paese: 'Singapore',\n    chiavi_esistenti: [...chiavi],\n    nomi_esistenti: [...nomi],\n    totale_esistenti: chiavi.size\n  }\n}];"
       }
     },
     {
@@ -212,12 +212,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4880,
+        5216,
         80
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const prospect = $('Email certa trovata?').item.json;\nconst rr = $json;\n\nconst emails = Array.isArray(rr.emails)\n  ? rr.emails\n  : [];\n\n// Prendiamo SOLO email professionali realmente validate\nconst valideProfessionali = emails.filter(e =>\n  e &&\n  e.email &&\n  e.type === 'professional' &&\n  e.smtp_valid === 'valid'\n);\n\n// Preferiamo quella consigliata da RocketReach\nlet emailRocketReach = '';\n\nif (\n  rr.recommended_professional_email &&\n  valideProfessionali.some(\n    e => e.email === rr.recommended_professional_email\n  )\n) {\n  emailRocketReach =\n    rr.recommended_professional_email;\n} else if (valideProfessionali.length) {\n  emailRocketReach =\n    valideProfessionali[0].email;\n}\n\nreturn {\n  json: {\n    ...prospect,\n\n    'Email RocketReach':\n      emailRocketReach,\n\n    'Email RocketReach tutte':\n      valideProfessionali\n        .map(e => e.email)\n        .join(', '),\n\n    'LinkedIn RocketReach':\n      rr.linkedin_url || '',\n\n    'Stato RocketReach':\n      emailRocketReach\n        ? 'EMAIL VALIDATA'\n        : rr.detail\n          ? 'PERSONA NON TROVATA'\n          : 'NESSUNA EMAIL VALIDA'\n  }\n};"
+        "jsCode": "const prospect = $('Email certa trovata?').item.json;\nconst rr = $json;\n\nconst testoErrore = String(rr.response ?? rr.detail ?? rr.message ?? '');\nconst rateLimit = /rate limit/i.test(testoErrore);\nconst inCorso = ['progress', 'searching', 'waiting', 'queued', 'not queued']\n  .includes(String(rr.status ?? '').toLowerCase());\n\nconst emails = Array.isArray(rr.emails) ? rr.emails : [];\n\n// Prendiamo SOLO email professionali realmente validate\nconst valideProfessionali = emails.filter(e =>\n  e &&\n  e.email &&\n  e.type === 'professional' &&\n  e.smtp_valid === 'valid'\n);\n\n// Preferiamo quella consigliata da RocketReach\nlet emailRocketReach = '';\n\nif (\n  rr.recommended_professional_email &&\n  valideProfessionali.some(e => e.email === rr.recommended_professional_email)\n) {\n  emailRocketReach = rr.recommended_professional_email;\n} else if (valideProfessionali.length) {\n  emailRocketReach = valideProfessionali[0].email;\n}\n\n// RATE LIMIT e RICERCA NON COMPLETATA finiscono negli Scartati\n// come 'Da riprovare' e vengono ripresi all'esecuzione successiva.\nlet stato;\nif (emailRocketReach) stato = 'EMAIL VALIDATA';\nelse if (rateLimit) stato = 'RATE LIMIT';\nelse if (inCorso) stato = 'RICERCA NON COMPLETATA';\nelse if (rr.detail) stato = 'PERSONA NON TROVATA';\nelse stato = 'NESSUNA EMAIL VALIDA';\n\nreturn {\n  json: {\n    ...prospect,\n    'Email RocketReach': emailRocketReach,\n    'Email RocketReach tutte': valideProfessionali.map(e => e.email).join(', '),\n    'LinkedIn RocketReach': rr.linkedin_url || '',\n    'Stato RocketReach': stato\n  }\n};"
       }
     },
     {
@@ -226,7 +226,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        5168,
+        5376,
         80
       ],
       "parameters": {
@@ -278,7 +278,7 @@
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const emailSito = String(\n  $json['Email trovata sito'] || ''\n).trim();\n\nconst emailRR = String(\n  $json['Email RocketReach'] || ''\n).trim();\n\nconst emailFinale =\n  emailSito || emailRR || '';\n\nlet tipoEmail = '';\nlet fonteEmail = '';\nlet statoEmail = '';\n\n\n// --------------------------------------------------\n// DETERMINA TIPO / FONTE / STATO EMAIL\n// --------------------------------------------------\n\nif (emailSito) {\n\n  tipoEmail =\n    'SITO UFFICIALE';\n\n  fonteEmail =\n    $json['Fonte email'] ||\n    $json.Sito ||\n    '';\n\n  statoEmail =\n    'EMAIL TROVATA';\n\n}\n\nelse if (emailRR) {\n\n  tipoEmail =\n    'ROCKETREACH VALIDATA';\n\n  fonteEmail =\n    'RocketReach';\n\n  statoEmail =\n    'EMAIL TROVATA';\n\n}\n\nelse {\n\n  tipoEmail =\n    'SOLO EMAIL PROBABILI';\n\n  fonteEmail =\n    '';\n\n  statoEmail =\n    'EMAIL NON TROVATA';\n\n}\n\n\n// --------------------------------------------------\n// OUTPUT FINALE\n// --------------------------------------------------\n\nreturn {\n\n  json: {\n\n    // Nome completo\n    Nome:\n      $json.Nome || '',\n\n\n    // Campi dedicati al foglio Mailup\n    'Nome Mailup':\n      $json['Nome Mailup'] || '',\n\n    'Cognome Mailup':\n      $json['Cognome Mailup'] || '',\n\n\n    Azienda:\n      $json.Azienda || '',\n\n\n    Ruolo:\n      $json['Ruolo proposto'] || '',\n\n\n    Settore:\n      $json.Settore || '',\n\n\n    Sito:\n      $json.Sito || '',\n\n\n    'Email certa':\n      emailFinale,\n\n\n    'Email probabili':\n      $json['Email probabile/i'] || '',\n\n\n    'Tipo email':\n      tipoEmail,\n\n\n    'Fonte email':\n      fonteEmail,\n\n\n    'Stato email':\n      statoEmail,\n\n\n    LinkedIn:\n      $json['LinkedIn RocketReach'] || ''\n\n  }\n\n};"
+        "jsCode": "const emailSito = String($json['Email trovata sito'] || '').trim();\nconst emailRR = String($json['Email RocketReach'] || '').trim();\nconst emailFinale = emailSito || emailRR || '';\n\nlet tipoEmail = '';\nlet fonteEmail = '';\nlet statoEmail = '';\n\nif (emailSito) {\n  tipoEmail = 'SITO UFFICIALE';\n  fonteEmail = $json['Fonte email'] || $json.Sito || '';\n  statoEmail = 'EMAIL TROVATA';\n} else if (emailRR) {\n  tipoEmail = 'ROCKETREACH VALIDATA';\n  fonteEmail = 'RocketReach';\n  statoEmail = 'EMAIL TROVATA';\n} else {\n  tipoEmail = 'SOLO EMAIL PROBABILI';\n  fonteEmail = '';\n  statoEmail = 'EMAIL NON TROVATA';\n}\n\nreturn {\n  json: {\n    Nome: $json.Nome || '',\n    'Nome Mailup': $json['Nome Mailup'] || '',\n    'Cognome Mailup': $json['Cognome Mailup'] || '',\n    Azienda: $json.Azienda || '',\n    Ruolo: $json['Ruolo proposto'] || '',\n    Settore: $json.Settore || '',\n    Sito: $json.Sito || '',\n    'Email certa': emailFinale,\n    'Email probabili': $json['Email probabile/i'] || '',\n    'Tipo email': tipoEmail,\n    'Fonte email': fonteEmail,\n    'Stato email': statoEmail,\n    LinkedIn: $json['LinkedIn RocketReach'] || '',\n    // Usato solo per decidere il motivo dello scarto\n    'Stato RocketReach': $json['Stato RocketReach'] || ''\n  }\n};"
       }
     },
     {
@@ -324,7 +324,10 @@
         4272,
         80
       ],
-      "parameters": {},
+      "parameters": {
+        "amount": 20,
+        "unit": "seconds"
+      },
       "webhookId": "b9cff1b3-03fc-45e0-929a-c40f806a0b79"
     },
     {
@@ -412,7 +415,8 @@
         "options": {
           "batching": {
             "batch": {
-              "batchSize": 5
+              "batchInterval": 5000,
+              "batchSize": 1
             }
           },
           "response": {
@@ -538,6 +542,12 @@
           ]
         },
         "options": {
+          "batching": {
+            "batch": {
+              "batchInterval": 2000,
+              "batchSize": 1
+            }
+          },
           "response": {
             "response": {
               "neverError": true
@@ -969,7 +979,7 @@
         288
       ],
       "parameters": {
-        "jsCode": "// RocketReach non ha trovato la persona (nessun ID):\n// recuperiamo i dati del prospect e lo mandiamo comunque avanti,\n// cosi finisce negli Scartati invece di andare perso.\nconst prospect = $('Email certa trovata?').item.json;\n\nreturn {\n  json: {\n    ...prospect,\n    'Email RocketReach': '',\n    'Email RocketReach tutte': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': 'PERSONA NON TROVATA'\n  }\n};",
+        "jsCode": "// RocketReach non ha restituito un ID: persona non trovata\n// oppure richiesta respinta per rate limit (da riprovare).\nconst prospect = $('Email certa trovata?').item.json;\nconst testo = String($json.response ?? $json.detail ?? $json.message ?? '');\nconst stato = /rate limit/i.test(testo) ? 'RATE LIMIT' : 'PERSONA NON TROVATA';\n\nreturn {\n  json: {\n    ...prospect,\n    'Email RocketReach': '',\n    'Email RocketReach tutte': '',\n    'LinkedIn RocketReach': '',\n    'Stato RocketReach': stato\n  }\n};",
         "mode": "runOnceForEachItem"
       }
     },
@@ -1071,7 +1081,19 @@
               "id": "s9",
               "name": "Motivo scarto",
               "type": "string",
-              "value": "Nessuna email trovata (sito + RocketReach)"
+              "value": "={{ ['RATE LIMIT', 'RICERCA NON COMPLETATA'].includes($json['Stato RocketReach']) ? 'Da riprovare (limite RocketReach)' : 'Nessuna email trovata (sito + RocketReach)' }}"
+            },
+            {
+              "id": "s10",
+              "name": "Nome Mailup",
+              "type": "string",
+              "value": "={{ $json['Nome Mailup'] }}"
+            },
+            {
+              "id": "s11",
+              "name": "Cognome Mailup",
+              "type": "string",
+              "value": "={{ $json['Cognome Mailup'] }}"
             }
           ]
         },
@@ -1107,7 +1129,7 @@
         },
         "operation": "append",
         "options": {
-          "handlingExtraData": "ignoreIt"
+          "handlingExtraData": "insertInNewColumn"
         },
         "sheetName": {
           "__rl": true,
@@ -1148,7 +1170,7 @@
         384
       ],
       "parameters": {
-        "jsCode": "// Una riga di statistiche per esecuzione, per misurare\n// resa e costi (scheda Log). Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst lotti = $('Normalizza output AI').all().map(i => i.json);\n\nconst candidatiAI = lotti.reduce(\n  (s, l) => s + (l.candidati_lotto || 0),\n  0\n);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi\n// prospect: contiamo solo quelli con un nome.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': candidatiAI - nuovi,\n    'Nuovi candidati': nuovi,\n    '% nuovi': candidatiAI ? Math.round(nuovi / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': n('RocketReach ha ID?', 1),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1),\n    'Righe Mailup': n('Prepara Mailup')\n  }\n}];"
+        "jsCode": "// Una riga di statistiche per esecuzione (scheda Log).\n// Parte dopo tutti i salvataggi.\nconst n = (nome, ramo) => {\n  try {\n    return $(nome).all(ramo ?? 0).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst conta = (nome, ramo, f) => {\n  try {\n    return $(nome).all(ramo ?? 0).filter(f).length;\n  } catch {\n    return 0;\n  }\n};\n\nconst tutti = $('Aggiungi da riprovare').all().map(i => i.json);\nconst lotti = tutti.filter(l => l.stato_lotto !== 'RIPROVA');\nconst riprovati = tutti.reduce((s, l) => s + (l.riprovati || 0), 0);\n\nconst candidatiAI = lotti.reduce((s, l) => s + (l.candidati_lotto || 0), 0);\n\n// La deduplica emette un item vuoto quando non ci sono nuovi prospect.\nlet nuovi = 0;\ntry {\n  nuovi = $('Deduplica e prepara righe').all().filter(i => i.json.Nome).length;\n} catch {}\n\nconst nuoviAI = Math.max(nuovi - riprovati, 0);\n\nconst stato = (s) => conta('Prepara righe finali', 0, i => i.json['Stato RocketReach'] === s);\nconst daRiprovare = conta('Prepara scartati', 0, i =>\n  String(i.json['Motivo scarto'] ?? '').startsWith('Da riprovare')\n);\n\nreturn [{\n  json: {\n    'Data ora': $now.setZone('Asia/Singapore').toFormat('yyyy-MM-dd HH:mm'),\n    'Execution ID': $execution.id,\n    'Lotti': lotti.length,\n    'Lotti falliti': lotti.filter(l =>\n      l.stato_lotto === 'ERRORE' || l.stato_lotto === 'JSON NON VALIDO'\n    ).length,\n    'Lotti recuperati': lotti.filter(l => l.stato_lotto === 'RECUPERATO').length,\n    'Candidati AI': candidatiAI,\n    'Scartati deduplica': Math.max(candidatiAI - nuoviAI, 0),\n    'Nuovi candidati': nuoviAI,\n    '% nuovi': candidatiAI ? Math.round(nuoviAI / candidatiAI * 100) : 0,\n    'Email da sito': n('Email certa trovata?', 0),\n    'Lookup RocketReach': n('RocketReach - Lookup persona'),\n    'RocketReach non trovati': stato('PERSONA NON TROVATA'),\n    'Email da RocketReach': n('Email RocketReach trovata?', 0),\n    'Salvati Prospect AI': n('Ha email?', 0),\n    'Scartati senza email': n('Ha email?', 1) - daRiprovare,\n    'Righe Mailup': n('Prepara Mailup'),\n    'Riprovati da Scartati': riprovati,\n    'Ricontrolli RocketReach': n('RocketReach - Status check 2'),\n    'RocketReach rate limit': stato('RATE LIMIT'),\n    'Da riprovare': daRiprovare\n  }\n}];"
       },
       "notes": "Ramo posizionato in basso di proposito: con l'ordine di esecuzione v1 parte solo dopo che il ramo principale (sopra) e terminato.",
       "executeOnce": true
@@ -1180,7 +1202,7 @@
         },
         "operation": "append",
         "options": {
-          "handlingExtraData": "ignoreIt"
+          "handlingExtraData": "insertInNewColumn"
         },
         "sheetName": {
           "__rl": true,
@@ -1242,6 +1264,111 @@
       ],
       "parameters": {
         "numberInputs": 4
+      }
+    },
+    {
+      "id": "2466b789-a590-48a9-b17c-f18f1728f793",
+      "name": "Ricontrollare RocketReach?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4720,
+        80
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "e3c9a2d4-7f5b-4d0a-9c83-4f6b0a9e1d32",
+              "leftValue": "={{ ['progress','searching','waiting','queued','not queued'].includes(String($json.status ?? '').toLowerCase()) || /rate limit/i.test(String($json.response ?? '')) }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "9e3e4aac-a3be-4f7d-91e4-62d477581cfa",
+      "name": "Attendi RocketReach 2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4880,
+        288
+      ],
+      "parameters": {
+        "amount": 30,
+        "unit": "seconds"
+      },
+      "webhookId": "3979c4be-6336-4e64-9a2b-09a37a748b28"
+    },
+    {
+      "id": "a5d423a0-efec-4650-aa8d-f39e18ba5688",
+      "name": "RocketReach - Status check 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        5040,
+        288
+      ],
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchInterval": 2000,
+              "batchSize": 1
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        },
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ids",
+              "value": "={{ $json.id ?? $('Attendi RocketReach').item.json.id }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://api.rocketreach.co/api/v2/person/checkStatus"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "f7ay2fNfuGE4VrTP",
+          "name": "RocketReach API"
+        }
+      }
+    },
+    {
+      "id": "aecee909-fbab-4476-bccf-0eb29572f67d",
+      "name": "Aggiungi da riprovare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1336,
+        256
+      ],
+      "parameters": {
+        "jsCode": "// Reinserisce (max 20) i prospect scartati 'Da riprovare'\n// (rate limit RocketReach): ripassano dalla ricerca email\n// senza pagare una nuova ricerca AI.\nconst items = $input.all();\nconst archivio = $('Prepara archivio').first().json;\nconst bloccati = new Set(archivio.nomi_esistenti || []);\n\nconst norm = (v) => String(v ?? '')\n  .normalize('NFKD')\n  .replace(/[̀-ͯ]/g, '')\n  .toLowerCase()\n  .replace(/&/g, ' and ')\n  .replace(/[^a-z0-9]+/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst MAX = 20;\nconst visti = new Set();\nconst candidati = [];\n\nfor (const r of $('Read Scartati').all()) {\n  const j = r.json;\n  if (!String(j['Motivo scarto'] ?? '').startsWith('Da riprovare')) continue;\n\n  const n = norm(j.Nome);\n  const sito = String(j.Sito ?? '').trim();\n  if (!n || !sito || bloccati.has(n) || visti.has(n)) continue;\n\n  visti.add(n);\n  const parti = String(j.Nome).trim().split(/\\s+/);\n\n  candidati.push({\n    nome: j.Nome,\n    nome_proprio: j['Nome Mailup'] || parti[0],\n    cognome: j['Cognome Mailup'] || parti.slice(1).join(' '),\n    azienda: j.Azienda,\n    ruolo: j.Ruolo,\n    settore: j.Settore,\n    sito,\n    fonte: /^https?:\\/\\//i.test(sito) ? sito : 'https://' + sito\n  });\n\n  if (candidati.length >= MAX) break;\n}\n\nif (candidati.length) {\n  items.push({\n    json: {\n      output: JSON.stringify({ candidati }),\n      lotto: 'riprova',\n      stato_lotto: 'RIPROVA',\n      candidati_lotto: 0,\n      riprovati: candidati.length\n    }\n  });\n}\n\nreturn items;"
       }
     }
   ],
@@ -1461,17 +1588,6 @@
         ]
       ]
     },
-    "RocketReach - Status check": {
-      "main": [
-        [
-          {
-            "node": "Normalizza RocketReach",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Append - Prospect": {
       "main": [
         [
@@ -1626,17 +1742,6 @@
         ]
       ]
     },
-    "Normalizza output AI": {
-      "main": [
-        [
-          {
-            "node": "Deduplica e prepara righe",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Calcola statistiche": {
       "main": [
         [
@@ -1693,6 +1798,79 @@
         [
           {
             "node": "Calcola statistiche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RocketReach - Status check": {
+      "main": [
+        [
+          {
+            "node": "Ricontrollare RocketReach?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ricontrollare RocketReach?": {
+      "main": [
+        [
+          {
+            "node": "Attendi RocketReach 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalizza RocketReach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attendi RocketReach 2": {
+      "main": [
+        [
+          {
+            "node": "RocketReach - Status check 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RocketReach - Status check 2": {
+      "main": [
+        [
+          {
+            "node": "Normalizza RocketReach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizza output AI": {
+      "main": [
+        [
+          {
+            "node": "Aggiungi da riprovare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggiungi da riprovare": {
+      "main": [
+        [
+          {
+            "node": "Deduplica e prepara righe",
             "type": "main",
             "index": 0
           }
