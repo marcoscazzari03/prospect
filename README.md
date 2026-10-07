@@ -26,13 +26,14 @@ La roadmap con lo stato dei lavori e i prossimi passi è in [ROADMAP.md](ROADMAP
 | Google Sheets | "Singapore \| Score Articoli a Pagamento" | "TEST \| Prospect \| Search" |
 | Monitor | Success / Error Monitor | nessuno |
 
-Il file di test (account `ads.lefonti@gmail.com`) ha quattro schede:
+Il file di test (account `ads.lefonti@gmail.com`) ha sei schede:
 
 - **Prospect AI**: prospect con email;
 - **Mailup**: gli stessi prospect, nel formato per Mailup;
 - **Scartati**: chi non ha email. Se il motivo è "Da riprovare", la persona viene ripresa all'esecuzione successiva;
 - **Log**: una riga di statistiche per ogni esecuzione;
-- **Temi**: le nicchie di ricerca. A ogni esecuzione ne vengono usate 5, a rotazione. Si possono aggiungere righe o spegnerle scrivendo `NO` in "Attivo".
+- **Temi**: le nicchie di ricerca. A ogni esecuzione ne vengono usate 5, a rotazione. Si possono aggiungere righe o spegnerle scrivendo `NO` in "Attivo";
+- **Esclusioni**: i marchi delle grandi aziende da non contattare mai. Si possono aggiungere righe o spegnerle scrivendo `NO` in "Attivo".
 
 Nel repository:
 
