@@ -62,15 +62,20 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 - ⏳ Normalizzazione dei nomi azienda con le forme locali (Sdn Bhd, PT, Tbk), per una deduplica per azienda più precisa. Oggi la deduplica per nome della persona già copre la maggior parte dei casi.
 - ⏳ Un solo workflow per tutti i paesi, al posto delle copie A / B / C (in pratica questo workflow lo è già).
 
-## Fase 4: Qualità PMI ⏳
+## Fase 4: Qualità PMI ✅ (versione prudente)
 
-- ⏳ Filtro "no multinazionali" anche dopo l'AI, non solo nel prompt.
-  - Forma societaria:
-    - **Singapore:** Pte Ltd = privata.
-    - **Malesia:** Sdn Bhd = privata; Bhd da sola = pubblica.
-    - **Indonesia:** Tbk = quotata.
-  - Lista di esclusione per domini e gruppi grandi.
-- ⏳ Controllo prima di RocketReach: niente crediti spesi su aziende che verrebbero scartate comunque.
+Decisione: **escludere solo le grandi aziende palesi.** Niente stime dell'AI su dimensioni o dipendenti, per non perdere PMI valide a causa di un errore di calcolo.
+
+- ✅ **Scheda Esclusioni** nel file di test, modificabile, con circa 80 marchi: Big Four, consulenza globale, grandi studi legali, banche, assicurazioni, big tech, conglomerati.
+  - Un marchio viene riconosciuto **dal dominio del sito** (per esempio deloitte.com, grab.com).
+  - Oppure dal nome, ma solo se il marchio è di 2 o più parole o se il nome coincide esattamente.
+  - Così "Apple Dental Clinic" o "Meta Solutions Sdn Bhd" **non** vengono esclusi.
+  - Per disattivare una riga basta scrivere `NO` in "Attivo".
+- ✅ **Forme societarie da quotata:** Tbk (Indonesia), Berhad/Bhd senza Sdn (Malesia), plc.
+- ✅ Il controllo avviene **prima** della ricerca email e di RocketReach, quindi nessun credito speso sugli esclusi.
+  - Gli esclusi vanno negli Scartati con "Esclusa: grande azienda - …" (definitivo).
+  - Il Log ha una colonna nuova, "Escluse grandi aziende".
+- 💡 In futuro, se servirà: segnalare (senza escludere) i casi dubbi in una colonna "Da verificare".
 
 ## Fase 5: Costi RocketReach ⏳
 
