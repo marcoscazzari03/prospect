@@ -9,6 +9,9 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## 📌 Da ricordare
 
+- ⏳ **Avviso quando l'AI fallisce:** se tutti i lotti falliscono (credito OpenAI esaurito o limite di frequenza), mandare una notifica. Dal 13 al 19 ottobre il workflow ha girato a vuoto per 6 giorni senza che nessuno se ne accorgesse.
+- ⏳ **Nuove nicchie:** tutte le 100 sono state usate e i duplicati stanno risalendo.
+
 - **9 ottobre 2026: decidere la priorità per paese su RocketReach.**
   - Nella verifica 3375 RocketReach non ha trovato 17 persone indonesiane su 24, mentre il tetto di 60 ricerche lascia fuori circa 30 candidati per esecuzione.
   - Dopo 2 giorni di dati (Log + Scartati) valutare:
@@ -16,6 +19,18 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
     - un solo tentativo extra per persona: dopo 2 rinvii, scarto definitivo.
   - Dal 7 ottobre il workflow di test è **attivo** e gira da solo alle **03:00 e 15:00**, sfalsato rispetto a Singapore A/B/C.
   - Guardare: email RocketReach per paese, "Rinviati tetto RocketReach" e "Da riprovare" nel Log, e quanti "Da riprovare" restano in Scartati.
+
+### Resoconto esecuzioni automatiche (8–21 ottobre 2026)
+
+- **Totale nel foglio di test:** 1.243 prospect con email.
+  - Per paese: SG 411, MY 329, ID 262, più 241 dei primi giri solo-SG senza colonna Paese.
+  - Fonte dell'email: 88% dal sito, 12% da RocketReach.
+- **8–12 ottobre (10 esecuzioni automatiche):** in media ~72 salvati per esecuzione, 92–98% di candidati nuovi.
+  - Arretrato "Da riprovare" smaltito entro l'11 ottobre: rinviati dal tetto a 0.
+- **⚠️ 13–19 ottobre: 13 esecuzioni consecutive a vuoto.** Tutti i lotti AI sono falliti con "OpenAI: Rate limit reached", con ogni probabilità credito OpenAI esaurito. Il workflow ha continuato a girare senza avvisare nessuno.
+- **Dal 19 ottobre sera di nuovo operativo:** 46–62 salvati per esecuzione.
+  - Nuovi scesi al 66–79%: tutte le 100 nicchie sono state usate almeno una volta e la rotazione è al secondo giro.
+- **20 ottobre 03:00 (n. 3878):** esecuzione andata in errore, causa da verificare.
 
 ## Fase 0: Setup ✅
 
