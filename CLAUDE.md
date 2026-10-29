@@ -17,6 +17,7 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 - **RocketReach:** un solo account per tutte le campagne, circa 70 ricerche l'ora. Mai due campagne a meno di un'ora di distanza. Gli orari sono in OPERATIVO.md.
 - **Setup foglio:** ogni esecuzione crea un file Google nuovo. Eseguirlo solo per una campagna nuova, una volta.
 - **Su n8n non si cambia niente senza il passaggio esplicito dell'utente** (regola dell'utente, 29 ottobre 2026): niente deploy, creazione o modifica di workflow, tabelle o credenziali, esecuzioni, attivazioni, archiviazioni, nuovi fogli. Prima si prepara tutto nella repo, si spiega cosa cambierà e si aspetta l'ok per quella specifica azione. **Le letture invece si fanno sempre, senza chiedere** (esecuzioni, dati, workflow, tabelle: solo lettura).
+- **Quando l'utente chiede "la checklist"**: rispondere con la checklist completa in corso (da OPERATIVO.md, con lo stato di ogni punto) **più l'elenco di cosa serve dall'utente per procedere**.
 - Dopo ogni lavoro aggiornare OPERATIVO.md (e la ROADMAP della campagna): è la memoria tra una sessione e l'altra.
 
 ## Verifica di una modifica al motore
