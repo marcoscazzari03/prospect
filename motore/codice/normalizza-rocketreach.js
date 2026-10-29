@@ -29,9 +29,10 @@ if (
 }
 
 // L'email RocketReach vale solo se e dell'azienda del prospect: stesso dominio
-// del sito o stesso nome con un'altra estensione (es. foliume.io / foliume.com).
-// Altrimenti puo essere di un'altra persona o di un altro lavoro: resta nel foglio
-// come "da verificare" ma non va in Mailup.
+// del sito, stesso nome con un'altra estensione (es. foliume.io / foliume.com)
+// o dominio che contiene il nome del sito o dell'azienda (es. thelionparcel.com
+// per lionparcel.com). Altrimenti puo essere di un'altra persona o di un altro
+// lavoro: resta nel foglio come "da verificare" ma non va in Mailup.
 const SUFFISSI = /\.(co|com|org|net|gov|ac|edu|ltd|plc|or|go|sch|mil)\.[a-z]{2}$/;
 const host = (v) => String(v ?? '').trim().toLowerCase()
   .replace(/^https?:\/\//, '').replace(/^\/\//, '')
@@ -43,11 +44,21 @@ const nomeDominio = (h) => {
 };
 const dominioSito = host(prospect.Sito);
 const dominioEmail = emailRocketReach.split('@')[1] || '';
-const stessaAzienda = Boolean(dominioSito && dominioEmail) && (
-  dominioEmail === dominioSito ||
-  dominioEmail.endsWith('.' + dominioSito) ||
-  dominioSito.endsWith('.' + dominioEmail) ||
-  (nomeDominio(dominioEmail).length >= 3 && nomeDominio(dominioEmail) === nomeDominio(dominioSito))
+const compatto = (v) => String(v ?? '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/[^a-z0-9]/g, '');
+const contiene = (a, b) => b.length >= 4 && a.includes(b);
+const nomeEmail = compatto(nomeDominio(dominioEmail));
+const nomeSito = compatto(nomeDominio(dominioSito));
+const nomeAzienda = compatto(prospect.Azienda);
+const stessaAzienda = Boolean(dominioEmail) && (
+  (dominioSito && (
+    dominioEmail === dominioSito ||
+    dominioEmail.endsWith('.' + dominioSito) ||
+    dominioSito.endsWith('.' + dominioEmail))) ||
+  (nomeEmail.length >= 3 && nomeEmail === nomeSito) ||
+  contiene(nomeEmail, nomeSito) || contiene(nomeSito, nomeEmail) ||
+  (nomeEmail.length >= 3 && nomeEmail === nomeAzienda) ||
+  contiene(nomeAzienda, nomeEmail) || contiene(nomeEmail, nomeAzienda)
 );
 
 // RATE LIMIT e RICERCA NON COMPLETATA finiscono negli Scartati
