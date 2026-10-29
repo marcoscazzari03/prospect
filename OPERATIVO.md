@@ -58,7 +58,12 @@ Checklist (in ordine):
 
 **A · Preparazione (nessuna modifica a n8n)**
 - [ ] 1. Utente: lista dei settori.
-- [ ] 2. Utente: una o più comunità per lead? un template per comunità? limite caratteri dei campi personalizzati MailUp? (lingua: ✅ inglese)
+- [ ] 2. Utente: risposte.
+  - ✅ Lingua delle email: inglese.
+  - ✅ **Fino a 2 comunità per lead** (comunità principale + eventuale seconda).
+  - ✅ Apertura su misura solo per Startup e Asia PMI.
+  - ⏳ Un template per comunità o uno solo? (risposta in arrivo)
+  - ⏳ Limite di caratteri dei campi personalizzati MailUp (risposta in arrivo).
 - [ ] 3. Claude: analisi dei "Settore AI" nei tre fogli → tabella Settore AI → Settore.
 - [ ] 4. Claude: regole per la Comunità di appartenenza (comunità base per campagna + casi misti CEO / Internazionali / Regionali / Business).
 - [ ] 5. Utente: approva le tabelle.
