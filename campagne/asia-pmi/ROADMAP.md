@@ -7,15 +7,16 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 ## 📌 Da ricordare
 
 - Il workflow **Prospect | Asia PMI | Ricerca** (`f03lATvrzkJYAOw6`) è attivo alle **03:00 e 15:00** (ora italiana).
-- Fino al passaggio al motore comune gira con il codice del 7 ottobre 2026 (export in `motore/modello-n8n.json`).
+- Dal 29 ottobre 2026 è generato dal motore comune. La versione precedente (codice del 7 ottobre) è in `motore/modello-n8n.json`.
 - Singapore A / B / C e i vecchi workflow "Singapore | …" sono spenti: non riaccenderli senza ricontrollare gli orari RocketReach.
 
-## Fase 1: Passaggio al motore comune 🔄
+## Fase 1: Passaggio al motore comune ✅
 
 - ✅ Impostazioni della campagna in `campagna.json` (forme societarie Pte Ltd / Sdn Bhd, esclusione Tbk / Berhad / plc, fuso Asia/Singapore, Accept-Language inglese / malese / indonesiano, email generiche e gratuite locali) e prompt originale in `prompt/`.
 - ✅ Istantanea generata: `dist/asia-pmi.json`. Cosa cambia rispetto a oggi è in OPERATIVO.md, "Riorganizzazione".
-- ⏳ Prova manuale su n8n e confronto col Log delle ultime esecuzioni (email da sito, email nominative, RocketReach).
-- ⏳ Se i numeri sono uguali o migliori: `"deploy": true` in `campagna.json`, rigenerare, deploy.
+- ✅ Prova manuale (esecuzione 4148, 29 ottobre) sulla copia di prova: 74 nuovi, 50 email dal sito (68%, prima 53–65%), 3 nominative, RocketReach 1 email su 23 ricerche (prima 26–42 ricerche), **51 salvati** (prima 48–61).
+- ✅ Passaggio fatto il 29 ottobre: `"deploy": true`, deploy sul workflow attivo, copia di prova archiviata.
+- ⏳ Controllare il Log delle prime 4–6 esecuzioni automatiche.
 
 ## Fase 2: Da valutare dopo il passaggio 💡
 

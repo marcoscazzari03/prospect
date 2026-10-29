@@ -1,9 +1,9 @@
 [
   {
-    "campagna": "asia-pmi (prova)",
-    "workflow": "Prospect | Asia PMI | PROVA motore",
-    "id_n8n": "J3E4SmCKEZTz5JGM",
-    "file": "dist/asia-pmi-prova.json"
+    "campagna": "asia-pmi",
+    "workflow": "Prospect | Asia PMI | Ricerca",
+    "id_n8n": "f03lATvrzkJYAOw6",
+    "file": "dist/asia-pmi.json"
   },
   {
     "campagna": "avvocati",

@@ -6,7 +6,7 @@ Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 
 | Campagna | Workflow n8n | Stato | Orario (Italia) | Foglio Google | RocketReach |
 |---|---|---|---|---|---|
-| `asia-pmi`: Singapore, Malesia, Indonesia | **Prospect \| Asia PMI \| Ricerca** (`f03lATvrzkJYAOw6`) | ✅ attivo, ancora con il **codice vecchio** (non generato dal motore). Copia di prova col motore: **Prospect \| Asia PMI \| PROVA motore** (`J3E4SmCKEZTz5JGM`), mai da attivare | 03:00 · 15:00 | TEST \| Prospect \| Search (`1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4`) | tutti i paesi, max 60 |
+| `asia-pmi`: Singapore, Malesia, Indonesia | **Prospect \| Asia PMI \| Ricerca** (`f03lATvrzkJYAOw6`) | ✅ attivo; **dal 29 ottobre generato dal motore comune** (prova 4148: 51 salvati, 68% email dal sito, 23 ricerche RocketReach). Versione precedente salvata in `motore/modello-n8n.json` | Asia PMI \| PROVA motore** (`J3E4SmCKEZTz5JGM`), mai da attivare | 03:00 · 15:00 | TEST \| Prospect \| Search (`1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4`) | tutti i paesi, max 60 |
 | `avvocati`: penalisti in Europa | **Prospect \| Avvocati \| Ricerca** (`rKUcaJepe2momTLB`) | ✅ attivo dal 9 ottobre | 06:00 · 18:00 | TEST \| Prospect Avvocati \| Search (`1g0XfNM3vj5icNmfeEROydjFKHERVh5jqgRPo_nHO0Bs`) | solo Regno Unito, max 60 |
 | `startup`: startup piccole in Europa | **Prospect \| Startup \| Ricerca** (`iXkSFJOLpJq8gl3D`) | ✅ attivo dal 29 ottobre (prima esecuzione manuale: 62 salvati) | 09:00 · 21:00 | TEST \| Prospect Startup \| Search (`1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M`) | tutti i paesi, max 40 |
 
@@ -51,7 +51,7 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 
 1. ✅ Ramo unito su `main`; workflow di servizio creati; avvocati ripubblicati dal motore (identici, ancora attivi).
 2. ✅ **Startup:** attiva dal 29 ottobre alle 09:00 e 21:00. Dopo 4–6 esecuzioni: misure nella ROADMAP della campagna.
-3. 🔄 **Asia:** prova manuale della copia `Prospect | Asia PMI | PROVA motore`, confronto col Log, poi `"deploy": true` (e togliere `prova`) e deploy; archiviare la copia di prova.
+3. ✅ **Asia:** passata al motore comune il 29 ottobre dopo la prova 4148 (51 salvati, in linea con le esecuzioni precedenti 48–61, con meno ricerche RocketReach). Copia di prova archiviata. Da controllare nel Log le prime esecuzioni automatiche.
 4. ✅ Vecchi workflow avvocati archiviati; nomi uniformati a **Prospect | <campagna o Strumenti> | <funzione>** (29 ottobre).
 5. ✅ **RocketReach: email di un'altra persona o azienda** (29 ottobre). L'email RocketReach vale solo se il dominio è quello del sito, ha lo stesso nome con un'altra estensione, o contiene il nome del sito o dell'azienda. Altrimenti il prospect resta in Prospect AI con tipo email **ROCKETREACH - DA VERIFICARE** e **non va in Mailup** (né nell'export del lunedì). Misura su 88 email RocketReach di 24 esecuzioni: 7 da verificare (8%), quasi tutte davvero di un'altra azienda (es. `@bakernet.com` per uno studio indonesiano, `@edinburgh.gov.uk`). Nessun costo o chiamata API in più.
 6. ⏳ **Avviso se tutti i lotti AI falliscono** (email o Telegram), nel motore: vale per tutte le campagne. Dal 12 al 19 ottobre gli avvocati hanno girato 14 volte a vuoto per un blocco OpenAI e nessuno se n'è accorto.
