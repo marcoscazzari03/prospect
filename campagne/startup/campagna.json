@@ -1,15 +1,15 @@
 {
   "descrizione": "Startup piccole (bootstrapped, pre-seed, seed, piccola Series A) in tutta Europa: fondatore o CEO",
   "nome_workflow": "Prospect Startup | Search",
-  "id_n8n": null,
-  "deploy": false,
+  "id_n8n": "iXkSFJOLpJq8gl3D",
+  "deploy": true,
   "trigger": {
     "nome": "Ogni 12 ore | 09:00 - 21:00",
     "cron": "0 9,21 * * *"
   },
   "fuso_workflow": "Europe/Rome",
   "foglio": {
-    "id": "DA_CREARE",
+    "id": "1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M",
     "nome": "TEST | Prospect Startup | Search",
     "schede": {
       "Prospect AI": 101,

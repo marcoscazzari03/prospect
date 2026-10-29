@@ -271,13 +271,24 @@ if __name__ == '__main__':
     scelte = sys.argv[1:] or campagne()
     os.makedirs(DIST, exist_ok=True)
     for c in scelte:
-        wf = build(carica(c))
+        cfg = carica(c)
+        wf = build(cfg)
         scrivi(f'{c}.json', wf)
         print(f'{c}: {len(wf["nodes"])} nodi -> dist/{c}.json')
+        # Copia di prova: stesso workflow con un altro nome, solo esecuzioni manuali.
+        if cfg.get('prova'):
+            scrivi(f'{c}-prova.json', {**wf, 'name': cfg['prova']['nome']})
+            print(f'{c}: copia di prova -> dist/{c}-prova.json')
 
     # Elenco letto dal workflow "Prospect | Deploy da GitHub": solo le campagne
     # con un workflow su n8n e "deploy": true in campagna.json.
-    elenco = [{'campagna': c, 'workflow': cfg['nome_workflow'], 'id_n8n': cfg['id_n8n'], 'file': f'dist/{c}.json'}
-              for c in campagne() for cfg in [carica(c)] if cfg.get('id_n8n') and cfg.get('deploy')]
+    elenco = []
+    for c in campagne():
+        cfg = carica(c)
+        if cfg.get('id_n8n') and cfg.get('deploy'):
+            elenco.append({'campagna': c, 'workflow': cfg['nome_workflow'], 'id_n8n': cfg['id_n8n'], 'file': f'dist/{c}.json'})
+        if cfg.get('prova'):
+            elenco.append({'campagna': c + ' (prova)', 'workflow': cfg['prova']['nome'], 'id_n8n': cfg['prova']['id_n8n'],
+                           'file': f'dist/{c}-prova.json'})
     scrivi('deploy.json', elenco)
     print('deploy:', ', '.join(x['campagna'] for x in elenco) or 'nessuna campagna')

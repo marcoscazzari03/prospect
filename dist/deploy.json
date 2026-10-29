@@ -1,8 +1,20 @@
 [
   {
+    "campagna": "asia-pmi (prova)",
+    "workflow": "PROVA | Prospect | Search (motore)",
+    "id_n8n": "J3E4SmCKEZTz5JGM",
+    "file": "dist/asia-pmi-prova.json"
+  },
+  {
     "campagna": "avvocati",
     "workflow": "Prospect Avvocati | Search",
     "id_n8n": "rKUcaJepe2momTLB",
     "file": "dist/avvocati.json"
+  },
+  {
+    "campagna": "startup",
+    "workflow": "Prospect Startup | Search",
+    "id_n8n": "iXkSFJOLpJq8gl3D",
+    "file": "dist/startup.json"
   }
 ]
