@@ -6,6 +6,7 @@ import { workflow, node, trigger, sticky, expr, ifElse } from '@n8n/workflow-sdk
 const GOOGLE = { googleSheetsOAuth2Api: { id: 'ZayuDfh1wxejgzop', name: 'Spreadsheet ads.lefonti@gmail.com' } };
 const STATO = { __rl: true, mode: 'id', value: '6uYSjDtswew1752T', cachedResultName: 'prospect_export_stato' };
 const RIGHE = { __rl: true, mode: 'id', value: 'R9wNDMOmHDGj7Hi5', cachedResultName: 'prospect_export_righe' };
+const PARTENZA = { __rl: true, mode: 'id', value: '5PNFQ2Od1xTZlZ4P', cachedResultName: 'prospect_export_partenza' };
 
 const lunedi = trigger({
   type: 'n8n-nodes-base.scheduleTrigger', version: 1.2,
@@ -72,6 +73,18 @@ const leggiEsportate = node({
   output: [{ email: 'nome@azienda.com' }]
 });
 
+const leggiPartenza = node({
+  type: 'n8n-nodes-base.dataTable', version: 1.1,
+  config: {
+    name: 'Leggi email di partenza',
+    position: [990, 200],
+    executeOnce: true,
+    alwaysOutputData: true,
+    parameters: { resource: 'row', operation: 'get', dataTableId: PARTENZA, returnAll: true }
+  },
+  output: [{ campagna: 'startup', email: 'nome@azienda.com', data: '2026-10-29 12:30' }]
+});
+
 const calcola = node({
   type: 'n8n-nodes-base.code', version: 2,
   config: {
@@ -80,6 +93,43 @@ const calcola = node({
     parameters: { jsCode: __CODICE_CALCOLA__ }
   },
   output: [{ tipo: 'riga', settimana: '2026-11-02', campagna: 'startup', email: 'nome@azienda.com' }]
+});
+
+const ePartenza = ifElse({
+  version: 2.2,
+  config: {
+    name: 'È una email di partenza?',
+    position: [1210, 200],
+    parameters: {
+      conditions: {
+        options: { caseSensitive: true, leftValue: '', typeValidation: 'strict', version: 2 },
+        conditions: [{ id: 'p1', leftValue: expr('{{ $json.tipo }}'), rightValue: 'partenza', operator: { type: 'string', operation: 'equals' } }],
+        combinator: 'and'
+      },
+      options: {}
+    }
+  },
+  output: [{ tipo: 'partenza' }]
+});
+
+const salvaPartenza = node({
+  type: 'n8n-nodes-base.dataTable', version: 1.1,
+  config: {
+    name: 'Salva email di partenza',
+    position: [1430, 300],
+    parameters: {
+      resource: 'row',
+      operation: 'insert',
+      dataTableId: PARTENZA,
+      columns: {
+        mappingMode: 'defineBelow',
+        value: { campagna: expr('{{ $json.campagna }}'), email: expr('{{ $json.email }}'), data: expr('{{ $json.data }}') },
+        schema: __SCHEMA_PARTENZA__
+      },
+      options: { optimizeBulk: true }
+    }
+  },
+  output: [{}]
 });
 
 const eRiga = ifElse({
@@ -146,7 +196,7 @@ const salvaStato = node({
   output: [{}]
 });
 
-const nota = sticky('## Export Mailup settimanale\nOgni **lunedì alle 08:00** prende le righe nuove della scheda **Mailup** di ogni campagna (elenco: `dist/campagne.json` della repo **prospect**) e le salva nella tabella `prospect_export_righe`, una "settimana" per esecuzione. Le email già esportate non si ripetono.\n\nGli Excel si scaricano dalla pagina del workflow **Prospect | Strumenti | Download Mailup**.\n\nPrima esecuzione per una campagna: segna solo il punto di partenza (tabella `prospect_export_stato`).', [elenco, calcola], { color: 7 });
+const nota = sticky('## Export Mailup settimanale\nOgni **lunedì alle 08:00** prende le righe nuove della scheda **Mailup** di ogni campagna (elenco: `dist/campagne.json` della repo **prospect**) e le salva nella tabella `prospect_export_righe`, una "settimana" per esecuzione. Le email già esportate non si ripetono.\n\nGli Excel si scaricano dalla pagina del workflow **Prospect | Strumenti | Download Mailup**.\n\nI contatti nuovi si riconoscono dall'**email** (si possono cancellare o riordinare righe della scheda Mailup). Prima esecuzione per una campagna: le email già presenti vanno in `prospect_export_partenza` e non vengono esportate.', [elenco, calcola], { color: 7 });
 
 export default workflow('prospect-export-mailup', 'Prospect | Strumenti | Export Mailup settimanale')
   .add(lunedi)
@@ -154,6 +204,7 @@ export default workflow('prospect-export-mailup', 'Prospect | Strumenti | Export
   .to(scheda)
   .to(leggiStato)
   .to(leggiEsportate)
+  .to(leggiPartenza)
   .to(calcola)
-  .to(eRiga.onTrue(salvaRighe).onFalse(salvaStato))
+  .to(ePartenza.onTrue(salvaPartenza).onFalse(eRiga.onTrue(salvaRighe).onFalse(salvaStato)))
   .add(nota);

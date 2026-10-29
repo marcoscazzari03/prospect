@@ -1,20 +1,22 @@
-// Righe nuove della scheda Mailup di ogni campagna, dall'ultimo export in poi.
-// Prima volta per una campagna: si segna solo il punto di partenza (nessuna riga).
-// Le email gia esportate (anche da un'altra campagna) non vengono ripetute.
+// Contatti nuovi della scheda Mailup di ogni campagna, riconosciuti dall'email
+// (non dalla posizione: si possono cancellare o riordinare righe della scheda).
+// Gia visti = email registrate alla partenza + email gia esportate (anche da
+// un'altra campagna). Prima volta per una campagna: registra come gia viste
+// tutte le email presenti nella scheda, senza esportarle.
 const campagne = $('GitHub - Elenco campagne').all().map(i => i.json);
 const fogli = $('Google - Scheda Mailup').all().map(i => i.json);
-const stato = Object.fromEntries($('Leggi stato').all()
-  .filter(i => i.json.campagna)
-  .map(i => [i.json.campagna, i.json]));
-const esportate = new Set($('Leggi email esportate').all()
-  .map(i => String(i.json.email ?? '').trim().toLowerCase())
-  .filter(Boolean));
+const partenza = $('Leggi email di partenza').all().map(i => i.json).filter(r => r.campagna);
+const gia = new Set([
+  ...partenza.map(r => r.email),
+  ...$('Leggi email esportate').all().map(i => i.json.email)
+].map(e => String(e ?? '').trim().toLowerCase()).filter(Boolean));
+const conPartenza = new Set(partenza.map(r => r.campagna));
 
-const settimana = $now.setZone('Europe/Rome').toFormat('yyyy-MM-dd');
+const oggi = $now.setZone('Europe/Rome');
+const settimana = oggi.toFormat('yyyy-MM-dd');
 const pulito = (v) => String(v ?? '').trim().replace(/\s+/g, ' ');
 
-const righe = [];
-const nuovoStato = [];
+const out = [];
 
 campagne.forEach((c, i) => {
   const [testa = [], ...corpo] = fogli[i]?.values || [];
@@ -24,26 +26,32 @@ campagne.forEach((c, i) => {
     settore: col('settore'), email: col('email'), paese: col('paese')
   };
   const val = (r, campo) => (k[campo] >= 0 ? pulito(r[k[campo]]) : '');
-  const totale = corpo.length;
 
-  const prima = stato[c.campagna];
-  if (!prima) {
-    nuovoStato.push({ campagna: c.campagna, etichetta: c.etichetta, ultima_riga: totale, ultimo_export: `partenza ${settimana}` });
+  if (!conPartenza.has(c.campagna)) {
+    // Segnaposto: la campagna ha la sua partenza anche se la scheda e vuota.
+    out.push({ tipo: 'partenza', campagna: c.campagna, email: '', data: oggi.toFormat('yyyy-MM-dd HH:mm') });
+    for (const r of corpo) {
+      const email = val(r, 'email').toLowerCase();
+      if (!email || gia.has(email)) continue;
+      gia.add(email);
+      out.push({ tipo: 'partenza', campagna: c.campagna, email, data: oggi.toFormat('yyyy-MM-dd HH:mm') });
+    }
+    out.push({ tipo: 'stato', campagna: c.campagna, etichetta: c.etichetta, ultima_riga: corpo.length,
+               ultimo_export: `partenza ${settimana}` });
     return;
   }
 
-  const da = Math.min(Number(prima.ultima_riga) || 0, totale);
-  for (const r of corpo.slice(da)) {
+  for (const r of corpo) {
     const email = val(r, 'email').toLowerCase();
-    if (!email || esportate.has(email)) continue;
-    esportate.add(email);
-    righe.push({
+    if (!email || gia.has(email)) continue;
+    gia.add(email);
+    out.push({
       tipo: 'riga', settimana, campagna: c.campagna, etichetta: c.etichetta,
       nome: val(r, 'nome'), cognome: val(r, 'cognome'), azienda: val(r, 'azienda'), ruolo: val(r, 'ruolo'),
       settore: val(r, 'settore'), email, paese: val(r, 'paese')
     });
   }
-  nuovoStato.push({ campagna: c.campagna, etichetta: c.etichetta, ultima_riga: totale, ultimo_export: settimana });
+  out.push({ tipo: 'stato', campagna: c.campagna, etichetta: c.etichetta, ultima_riga: corpo.length, ultimo_export: settimana });
 });
 
-return [...righe, ...nuovoStato.map(s => ({ tipo: 'stato', ...s }))].map(json => ({ json }));
+return out.map(json => ({ json }));

@@ -24,6 +24,7 @@ def schema(colonne):
 SCHEMI = {
     '__SCHEMA_RIGHE__': schema([(c, 'string') for c in
                                 ['settimana', 'campagna', 'etichetta', 'nome', 'cognome', 'azienda', 'ruolo', 'settore', 'email', 'paese']]),
+    '__SCHEMA_PARTENZA__': schema([('campagna', 'string'), ('email', 'string'), ('data', 'string')]),
     '__SCHEMA_STATO__': schema([('campagna', 'string'), ('etichetta', 'string'), ('ultima_riga', 'number'), ('ultimo_export', 'string')]),
 }
 
