@@ -26,12 +26,13 @@ Scritto nel prompt (`prompt/prompt.txt`), da correggere se serve:
 - ✅ RocketReach in tutti i paesi, **max 40 ricerche** per esecuzione (meno degli altri finché non sappiamo quanto rende), **max 3 tentativi** a persona.
 - ✅ Orario proposto: **09:00 e 21:00** (lontano da 03, 06, 15, 18 delle altre campagne).
 
-## Fase 1: Avvio ⏳
+## Fase 1: Avvio 🔄
 
-- ⏳ Su n8n: **Prospect | Setup foglio** con campagna `startup` → foglio **TEST | Prospect Startup | Search**. Copiare l'ID in `foglio.id`.
-- ⏳ Creare il workflow **Prospect Startup | Search**, ID in `id_n8n`, `"deploy": true`, deploy.
-- ⏳ Prima esecuzione manuale: controllare a mano 20 prospect (davvero startup piccole? fondatore / CEO giusto? email giusta?).
-- ⏳ Attivazione automatica.
+- ✅ Foglio **TEST | Prospect Startup | Search** (`1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M`) creato il 29 ottobre con Setup foglio (esecuzione 4137): 47 temi, 110 esclusioni.
+- ✅ Workflow **Prospect Startup | Search** (`iXkSFJOLpJq8gl3D`) creato e riempito dal deploy (esecuzione 4138).
+- ✅ Prima esecuzione manuale (4139): 62 salvati su 75 nuovi. Controllo: 61 su 62 pre-seed / seed / bootstrapped, fondati quasi tutti 2019–2025, sempre fondatore o CEO.
+- ⏳ Attivazione automatica (09:00 e 21:00): da confermare.
+- ⏳ **Email nominative:** solo 5 su 62 dal sito; 42 generiche, alcune poco utili (support@, sales@, privacy@). Idea: se dal sito arriva solo una generica, provare comunque RocketReach (rende il 38%) per avere l'email del fondatore. Costa più crediti: da decidere dopo qualche esecuzione.
 
 ## Fase 2: Misura ⏳
 
@@ -42,3 +43,4 @@ Scritto nel prompt (`prompt/prompt.txt`), da correggere se serve:
 
 | Data | Esecuzione | Candidati AI | Nuovi | Email da sito (nominative) | Email RocketReach | Salvati | Scartati | Note |
 |---|---|---|---|---|---|---|---|---|
+| 2026-10-29 | 4139 (manuale) | 76 | 75 (99%) | 54 (5 nominative, 42 generiche) | 8 / 21 (38%) | **62** | 13 | Temi ES01, HU01, LV01, SK01, EE01: tutti 100% nuovi. Durata 8,5 min. |

@@ -6,9 +6,9 @@ Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 
 | Campagna | Workflow n8n | Stato | Orario (Italia) | Foglio Google | RocketReach |
 |---|---|---|---|---|---|
-| `asia-pmi`: Singapore, Malesia, Indonesia | **Prospect \| Search** (`f03lATvrzkJYAOw6`) | ✅ attivo, ancora con il **codice vecchio** (non generato dal motore) | 03:00 · 15:00 | TEST \| Prospect \| Search (`1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4`) | tutti i paesi, max 60 |
+| `asia-pmi`: Singapore, Malesia, Indonesia | **Prospect \| Search** (`f03lATvrzkJYAOw6`) | ✅ attivo, ancora con il **codice vecchio** (non generato dal motore). Copia di prova col motore: **PROVA \| Prospect \| Search (motore)** (`J3E4SmCKEZTz5JGM`), mai da attivare | 03:00 · 15:00 | TEST \| Prospect \| Search (`1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4`) | tutti i paesi, max 60 |
 | `avvocati`: penalisti in Europa | **Prospect Avvocati \| Search** (`rKUcaJepe2momTLB`) | ✅ attivo dal 9 ottobre | 06:00 · 18:00 | TEST \| Prospect Avvocati \| Search (`1g0XfNM3vj5icNmfeEROydjFKHERVh5jqgRPo_nHO0Bs`) | solo Regno Unito, max 60 |
-| `startup`: startup piccole in Europa | **Prospect Startup \| Search** (da creare) | ⏳ pronta nella repo, non ancora su n8n | 09:00 · 21:00 (proposta) | da creare con Setup foglio | tutti i paesi, max 40 |
+| `startup`: startup piccole in Europa | **Prospect Startup \| Search** (`iXkSFJOLpJq8gl3D`) | 🔄 creato, prima esecuzione manuale riuscita (62 salvati), **non ancora attivo** | 09:00 · 21:00 (quando attivo) | TEST \| Prospect Startup \| Search (`1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M`) | tutti i paesi, max 40 |
 
 Account usati da tutti i workflow: Google Sheets `Spreadsheet ads.lefonti@gmail.com`, OpenAI `OpenAi account` (modello `gpt-5.6-luna` con web search), RocketReach `RocketReach API`.
 
@@ -18,8 +18,8 @@ Account usati da tutti i workflow: Google Sheets `Spreadsheet ads.lefonti@gmail.
 
 | Workflow | Stato |
 |---|---|
-| **Prospect \| Deploy da GitHub** (`n8n/deploy.sdk.ts`) | ⏳ da creare: aggiorna tutti i workflow in `dist/deploy.json` |
-| **Prospect \| Setup foglio** (`n8n/setup-foglio.sdk.ts`) | ⏳ da creare: crea il foglio di una campagna nuova |
+| **Prospect \| Deploy da GitHub** (`dfcTpLlJ3RyHO8BR`, sorgente `n8n/deploy.sdk.ts`) | ✅ creato il 29 ottobre: aggiorna tutti i workflow in `dist/deploy.json` (primo deploy: esecuzione 4138) |
+| **Prospect \| Setup foglio** (`GPtrh61BOYhfp8Mc`, sorgente `n8n/setup-foglio.sdk.ts`) | ✅ creato il 29 ottobre: già eseguito per `startup` (4137). **Ogni esecuzione crea un file nuovo** |
 | Prospect Avvocati \| Deploy da GitHub (`ukFESbZg52G35hja`) | vecchio, punta alla repo `prospect-avvocati`: da archiviare dopo il primo deploy col nuovo |
 | Prospect Avvocati \| Setup foglio (`wzJfijNP6pvbBDJ3`) | vecchio, già eseguito: non rilanciare |
 | Prospect Avvocati \| Leggi foglio (`UmI6VimWGam2nA8K`) | sola lettura del foglio avvocati, per i resoconti |
@@ -42,10 +42,10 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 
 ## Prossimi passi
 
-1. ⏳ **Unire il ramo `claude/motore-comune` su `main`**: i workflow di servizio leggono da `main`.
-2. ⏳ **Creare su n8n** i workflow di servizio **Prospect | Deploy da GitHub** e **Prospect | Setup foglio**.
-3. ⏳ **Startup:** eseguire Setup foglio (campagna `startup`), copiare l'ID del foglio in `campagne/startup/campagna.json`, creare il workflow, prima esecuzione manuale, misure, attivazione.
-4. ⏳ **Asia:** prova manuale della versione del motore, poi `"deploy": true` e deploy.
+1. ✅ Ramo unito su `main`; workflow di servizio creati; avvocati ripubblicati dal motore (identici, ancora attivi).
+2. 🔄 **Startup:** foglio, workflow e prima esecuzione fatti (vedi `campagne/startup/ROADMAP.md`). Manca l'attivazione.
+3. 🔄 **Asia:** prova manuale della copia `PROVA | Prospect | Search (motore)`, confronto col Log, poi `"deploy": true` (e togliere `prova`) e deploy; archiviare la copia di prova.
+4. ⏳ Archiviare i vecchi **Prospect Avvocati | Deploy da GitHub** e **Setup foglio** (puntano alla repo `prospect-avvocati`).
 5. ⏳ **Avviso se tutti i lotti AI falliscono** (email o Telegram), nel motore: vale per tutte le campagne. Dal 12 al 19 ottobre gli avvocati hanno girato 14 volte a vuoto per un blocco OpenAI e nessuno se n'è accorto.
 6. ⏳ **Non consumare i temi quando il lotto AI va in errore** (motore, tutte le campagne).
 7. ⏳ Capire l'errore dell'esecuzione **4119** di Prospect | Search (28 ottobre, 03:00): le esecuzioni prima e dopo sono andate bene.
