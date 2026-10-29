@@ -1,5 +1,6 @@
 {
   "descrizione": "Avvocati penalisti titolari di studio in Europa (esclusi Francia, Germania e Italia)",
+  "etichetta": "Avvocati",
   "nome_workflow": "Prospect | Avvocati | Ricerca",
   "id_n8n": "rKUcaJepe2momTLB",
   "deploy": true,

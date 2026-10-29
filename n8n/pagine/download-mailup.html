@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Export Mailup</title>
+<style>
+  :root {
+    --sfondo: #f6f7f9; --carta: #ffffff; --testo: #1d2330; --tenue: #667085; --bordo: #e4e7ec;
+    --accento: #2f5bea; --accento-testo: #ffffff; --vuoto: #98a2b3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sfondo: #111418; --carta: #1a1f26; --testo: #e6e8eb; --tenue: #9aa4b2; --bordo: #2a313b;
+      --accento: #6d8cff; --accento-testo: #0d1117; --vuoto: #5b6573;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sfondo); color: var(--testo);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .sotto { color: var(--tenue); margin: 0 0 28px; }
+  .settimana { background: var(--carta); border: 1px solid var(--bordo); border-radius: 12px;
+               padding: 16px 18px; margin-bottom: 14px; }
+  .settimana h2 { font-size: 16px; margin: 0 0 12px; }
+  .settimana h2 small { color: var(--tenue); font-weight: 400; margin-left: 6px; }
+  .riga { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+          padding: 10px 0; border-top: 1px solid var(--bordo); }
+  .riga:first-of-type { border-top: 0; }
+  .campagna { font-weight: 600; }
+  .conta { color: var(--tenue); font-size: 14px; }
+  a.scarica { background: var(--accento); color: var(--accento-testo); text-decoration: none;
+              padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  a.scarica:focus-visible { outline: 3px solid var(--accento); outline-offset: 2px; }
+  .nessuno { color: var(--vuoto); font-size: 14px; }
+  .vuota { background: var(--carta); border: 1px dashed var(--bordo); border-radius: 12px;
+           padding: 24px; color: var(--tenue); text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Export Mailup</h1>
+  <p class="sotto">I prospect nuovi di ogni campagna, una settimana per riga. Nuovo export ogni lunedì alle 08:00.</p>
+  <div id="elenco"></div>
+</main>
+<script id="dati" type="application/json">__DATI__</script>
+<script>
+  const dati = JSON.parse(document.getElementById('dati').textContent);
+  const elenco = document.getElementById('elenco');
+  const testo = (tag, cls, t) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = t; return e; };
+  const data = (s) => new Date(s + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  if (!dati.settimane.length) {
+    elenco.appendChild(testo('div', 'vuota', 'Ancora nessun export: il primo arriva lunedì alle 08:00.'));
+  }
+  for (const s of dati.settimane) {
+    const box = testo('section', 'settimana', '');
+    const h = testo('h2', '', 'Lunedì ' + data(s.settimana));
+    h.appendChild(testo('small', '', s.totale + ' contatti'));
+    box.appendChild(h);
+    for (const c of dati.campagne) {
+      const n = s.conteggi[c.campagna] || 0;
+      const riga = testo('div', 'riga', '');
+      const info = document.createElement('div');
+      info.appendChild(testo('div', 'campagna', c.etichetta));
+      info.appendChild(testo('div', 'conta', n === 1 ? '1 contatto' : n + ' contatti'));
+      riga.appendChild(info);
+      if (n) {
+        const a = testo('a', 'scarica', 'Scarica Excel');
+        a.href = '?campagna=' + encodeURIComponent(c.campagna) + '&settimana=' + encodeURIComponent(s.settimana);
+        riga.appendChild(a);
+      } else {
+        riga.appendChild(testo('span', 'nessuno', 'nessun contatto nuovo'));
+      }
+      box.appendChild(riga);
+    }
+    elenco.appendChild(box);
+  }
+</script>
+</body>
+</html>

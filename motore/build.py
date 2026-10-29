@@ -292,3 +292,17 @@ if __name__ == '__main__':
                            'file': f'dist/{c}-prova.json'})
     scrivi('deploy.json', elenco)
     print('deploy:', ', '.join(x['campagna'] for x in elenco) or 'nessuna campagna')
+
+    # Elenco letto dal workflow "Prospect | Strumenti | Export Mailup settimanale":
+    # foglio Google di ogni campagna con un workflow su n8n (scheda "Mailup").
+    modello = json.loads(leggi(MOTORE, 'modello-n8n.json'))
+    mailup_modello = next(n for n in modello['nodes'] if n['name'] == 'Append - Mailup')['parameters']['documentId']['value']
+    export = []
+    for c in campagne():
+        cfg = carica(c)
+        if not cfg.get('id_n8n'):
+            continue
+        export.append({'campagna': c, 'etichetta': cfg['etichetta'], 'scheda': 'Mailup',
+                       'foglio_id': cfg['foglio']['id'] if cfg.get('foglio') else mailup_modello})
+    scrivi('campagne.json', export)
+    print('export Mailup:', ', '.join(x['campagna'] for x in export))
