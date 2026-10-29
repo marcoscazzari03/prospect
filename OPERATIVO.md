@@ -10,6 +10,8 @@ Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 | `avvocati`: penalisti in Europa | **Prospect Avvocati \| Search** (`rKUcaJepe2momTLB`) | ✅ attivo dal 9 ottobre | 06:00 · 18:00 | TEST \| Prospect Avvocati \| Search (`1g0XfNM3vj5icNmfeEROydjFKHERVh5jqgRPo_nHO0Bs`) | solo Regno Unito, max 60 |
 | `startup`: startup piccole in Europa | **Prospect Startup \| Search** (`iXkSFJOLpJq8gl3D`) | ✅ attivo dal 29 ottobre (prima esecuzione manuale: 62 salvati) | 09:00 · 21:00 | TEST \| Prospect Startup \| Search (`1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M`) | tutti i paesi, max 40 |
 
+Su n8n i tre workflow delle campagne sono nel progetto **Leads Workflows** (`n8nd82fLpdlt3Dl6`), con le credenziali condivise (dal 29 ottobre). I workflow di servizio sono ancora nel progetto personale.
+
 Account usati da tutti i workflow: Google Sheets `Spreadsheet ads.lefonti@gmail.com`, OpenAI `OpenAi account` (modello `gpt-5.6-luna` con web search), RocketReach `RocketReach API`.
 
 **Orari RocketReach** (un solo account, circa 70 ricerche l'ora): 03, 06, 09, 15, 18, 21. Singapore A / B / C (00:00 e 12:00) sono **spenti** dal 7 ottobre: se si riaccendono, ricontrollare gli orari.
