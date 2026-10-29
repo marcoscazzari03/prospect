@@ -9,7 +9,8 @@ const pagina = trigger({
   config: {
     name: 'Pagina Mailup',
     position: [0, 0],
-    parameters: { httpMethod: 'GET', path: 'prospect-mailup-__CHIAVE__', responseMode: 'responseNode', options: { ignoreBots: true } }
+    parameters: { httpMethod: 'GET', path: 'prospect-mailup-__CHIAVE__', authentication: 'basicAuth', responseMode: 'responseNode', options: { ignoreBots: true } },
+    credentials: { httpBasicAuth: { id: 'oyD57JlzRLFdKCdg', name: 'Download Mailup' } }
   },
   output: [{ query: {} }]
 });
@@ -129,7 +130,7 @@ const inviaPagina = node({
   output: [{}]
 });
 
-const nota = sticky('## Download Mailup\nPagina web con gli export settimanali per Mailup (uno per campagna, creati da **Prospect | Strumenti | Export Mailup settimanale**). Il pulsante «Scarica Excel» scarica il file della settimana.\n\nIl link contiene una chiave segreta: **non condividerlo** fuori dal team. Sorgente: `n8n/download-mailup.template.ts` della repo **prospect** (la chiave vera è solo qui su n8n).', [pagina, prepara], { color: 7 });
+const nota = sticky('## Download Mailup\nPagina web con gli export settimanali per Mailup (uno per campagna, creati da **Prospect | Strumenti | Export Mailup settimanale**). Il pulsante «Scarica Excel» scarica il file della settimana.\n\nAccesso con utente e password (credenziale **Download Mailup**) e link con una chiave segreta: **non condividerlo** fuori dal team. Sorgente: `n8n/download-mailup.template.ts` della repo **prospect** (la chiave vera è solo qui su n8n).', [pagina, prepara], { color: 7 });
 
 export default workflow('prospect-download-mailup', 'Prospect | Strumenti | Download Mailup')
   .add(pagina)

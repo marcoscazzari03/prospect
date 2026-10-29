@@ -1,7 +1,7 @@
 import { workflow, node, trigger, sticky, expr, ifElse } from '@n8n/workflow-sdk';
 
 // Pagina web per scaricare gli Excel settimanali per Mailup (tabella prospect_export_righe).
-// Il percorso contiene una chiave segreta, che non e nella repo (pubblica): qui c'e un segnaposto.
+// Il percorso contiene una chiave segreta, che non sta nella repo (pubblica): qui solo un segnaposto.
 const RIGHE = { __rl: true, mode: 'id', value: 'R9wNDMOmHDGj7Hi5', cachedResultName: 'prospect_export_righe' };
 
 const pagina = trigger({
@@ -9,7 +9,8 @@ const pagina = trigger({
   config: {
     name: 'Pagina Mailup',
     position: [0, 0],
-    parameters: { httpMethod: 'GET', path: 'prospect-mailup-__CHIAVE__', responseMode: 'responseNode', options: { ignoreBots: true } }
+    parameters: { httpMethod: 'GET', path: 'prospect-mailup-__CHIAVE__', authentication: 'basicAuth', responseMode: 'responseNode', options: { ignoreBots: true } },
+    credentials: { httpBasicAuth: { id: 'oyD57JlzRLFdKCdg', name: 'Download Mailup' } }
   },
   output: [{ query: {} }]
 });
@@ -75,7 +76,7 @@ const excel = node({
       operation: 'xlsx',
       binaryPropertyName: 'data',
       options: {
-        fileName: expr("Mailup_{{ $('Pagina Mailup').first().json.query.campagna }}_{{ $('Pagina Mailup').first().json.query.settimana }}.xlsx"),
+        fileName: expr('Mailup_{{ $("Pagina Mailup").first().json.query.campagna }}_{{ $("Pagina Mailup").first().json.query.settimana }}.xlsx'),
         sheetName: 'Mailup',
         headerRow: true
       }
@@ -97,7 +98,7 @@ const inviaFile = node({
         responseHeaders: {
           entries: [
             { name: 'Content-Type', value: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-            { name: 'Content-Disposition', value: expr("attachment; filename=\"Mailup_{{ $('Pagina Mailup').first().json.query.campagna }}_{{ $('Pagina Mailup').first().json.query.settimana }}.xlsx\"") },
+            { name: 'Content-Disposition', value: expr('attachment; filename="Mailup_{{ $("Pagina Mailup").first().json.query.campagna }}_{{ $("Pagina Mailup").first().json.query.settimana }}.xlsx"') },
             { name: 'Cache-Control', value: 'no-store' }
           ]
         }
@@ -129,7 +130,7 @@ const inviaPagina = node({
   output: [{}]
 });
 
-const nota = sticky('## Download Mailup\nPagina web con gli export settimanali per Mailup (uno per campagna, creati da **Prospect | Strumenti | Export Mailup settimanale**). Il pulsante "Scarica Excel" scarica il file della settimana.\n\nIl link contiene una chiave segreta: **non condividerlo** fuori dal team. Sorgente: `n8n/download-mailup.template.ts` della repo **prospect** (la chiave vera è solo qui su n8n).', [pagina, prepara], { color: 7 });
+const nota = sticky('## Download Mailup\nPagina web con gli export settimanali per Mailup (uno per campagna, creati da **Prospect | Strumenti | Export Mailup settimanale**). Il pulsante «Scarica Excel» scarica il file della settimana.\n\nAccesso con utente e password (credenziale **Download Mailup**) e link con una chiave segreta: **non condividerlo** fuori dal team. Sorgente: `n8n/download-mailup.template.ts` della repo **prospect** (la chiave vera è solo qui su n8n).', [pagina, prepara], { color: 7 });
 
 export default workflow('prospect-download-mailup', 'Prospect | Strumenti | Download Mailup')
   .add(pagina)
