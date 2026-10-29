@@ -13,7 +13,7 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 - Si scrive in italiano, in modo semplice (l'utente non è uno sviluppatore).
 - Nel foglio finiscono **solo persone con email**.
 - Obiettivi: **più prospect al giorno** e **meno costi API** (OpenAI, RocketReach). Ogni proposta va misurata nel Log prima di diventare stabile.
-- **Il codice si modifica nella repo, non su n8n.** Poi `python3 motore/build.py`, commit, push su `main`, deploy con **Prospect | Deploy da GitHub**. Una modifica fatta solo su n8n viene cancellata dal deploy successivo.
+- **Il codice si modifica nella repo, non su n8n.** Poi `python3 motore/build.py`, commit, push su `main`, deploy con **Prospect | Strumenti | Deploy da GitHub**. Una modifica fatta solo su n8n viene cancellata dal deploy successivo.
 - **RocketReach:** un solo account per tutte le campagne, circa 70 ricerche l'ora. Mai due campagne a meno di un'ora di distanza. Gli orari sono in OPERATIVO.md.
 - **Setup foglio:** ogni esecuzione crea un file Google nuovo. Eseguirlo solo per una campagna nuova, una volta.
 - Prima di azioni su n8n che cambiano qualcosa (deploy, attivazione, esecuzioni che spendono crediti, nuovi fogli) chiedere conferma all'utente, salvo che l'abbia già chiesto esplicitamente.

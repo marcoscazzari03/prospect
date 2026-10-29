@@ -1,4 +1,4 @@
-# Roadmap: Prospect Startup | Search
+# Roadmap: Prospect | Startup | Ricerca
 
 Startup **piccole** in **tutta Europa**: per ogni startup un solo contatto, il **fondatore o CEO**. Per i Le Fonti Awards.
 
@@ -29,7 +29,7 @@ Scritto nel prompt (`prompt/prompt.txt`), da correggere se serve:
 ## Fase 1: Avvio ✅
 
 - ✅ Foglio **TEST | Prospect Startup | Search** (`1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M`) creato il 29 ottobre con Setup foglio (esecuzione 4137): 47 temi, 110 esclusioni.
-- ✅ Workflow **Prospect Startup | Search** (`iXkSFJOLpJq8gl3D`) creato e riempito dal deploy (esecuzione 4138).
+- ✅ Workflow **Prospect | Startup | Ricerca** (`iXkSFJOLpJq8gl3D`) creato e riempito dal deploy (esecuzione 4138).
 - ✅ Prima esecuzione manuale (4139): 62 salvati su 75 nuovi. Controllo: 61 su 62 pre-seed / seed / bootstrapped, fondati quasi tutti 2019–2025, sempre fondatore o CEO.
 - ✅ **Attiva dal 29 ottobre 2026** alle 09:00 e 21:00 (prima esecuzione automatica: 29 ottobre, 21:00).
 - ⏳ **Email nominative:** solo 5 su 62 dal sito; 42 generiche, alcune poco utili (support@, sales@, privacy@). Idea: se dal sito arriva solo una generica, provare comunque RocketReach (rende il 38%) per avere l'email del fondatore. Costa più crediti: da decidere dopo qualche esecuzione.

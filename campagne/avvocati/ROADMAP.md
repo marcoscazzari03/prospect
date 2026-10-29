@@ -1,4 +1,4 @@
-# Roadmap: Prospect Avvocati | Search
+# Roadmap: Prospect | Avvocati | Ricerca
 
 Obiettivi: **più prospect al giorno** e **meno costi API**. Nel foglio finiscono solo persone con email, una per studio: il titolare.
 Lavoriamo sulla copia di test. Ciò che funziona si misura nel Log prima di renderlo stabile.
@@ -10,16 +10,16 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 ## 📌 Da ricordare
 
 - Dal 9 ottobre 2026 il workflow è **attivo** e gira da solo alle **06:00 e 18:00**.
-- **Regola pratica RocketReach:** non lanciare esecuzioni a meno di un'ora da Singapore A/B/C (00:00, 12:00) e da Prospect | Search (03:00, 15:00): stesso account, circa 70 ricerche l'ora.
+- **Regola pratica RocketReach:** non lanciare esecuzioni a meno di un'ora da Singapore A/B/C (00:00, 12:00) e da Prospect | Asia PMI | Ricerca (03:00, 15:00): stesso account, circa 70 ricerche l'ora.
 - Il workflow "Setup foglio" è già stato eseguito: **non rilanciarlo** (creerebbe un secondo file).
 
 - Dal 29 ottobre 2026 la campagna vive nella repo **prospect** (`campagne/avvocati`), generata dal motore comune. La repo `prospect-avvocati` è archiviata. Il workflow generato è identico a quello attivo (verificato sui dati dell'esecuzione 4133).
 
 ## Fase 0: Setup ✅
 
-- ✅ Copia del workflow base "Prospect | Search" (`f03lATvrzkJYAOw6`) salvata (oggi in `motore/modello-n8n.json` della repo prospect).
+- ✅ Copia del workflow base "Prospect | Asia PMI | Ricerca" (`f03lATvrzkJYAOw6`) salvata (oggi in `motore/modello-n8n.json` della repo prospect).
 - ✅ Foglio Google separato **TEST | Prospect Avvocati | Search** creato dal workflow "Setup foglio", con le sei schede (Prospect AI, Mailup, Scartati, Log, Temi, Esclusioni).
-- ✅ Workflow **Prospect Avvocati | Search** creato su n8n e collegato al nuovo foglio.
+- ✅ Workflow **Prospect | Avvocati | Ricerca** creato su n8n e collegato al nuovo foglio.
 - ✅ Success Monitor rimosso (nella copia base era già scollegato).
 - ✅ Sorgenti in repo (oggi `motore/codice`, `campagne/avvocati/prompt`, `motore/build.py` della repo prospect) e workflow **Deploy da GitHub** per portare su n8n le modifiche senza copiarle a mano.
 

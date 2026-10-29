@@ -3,7 +3,7 @@
 Uso:  python3 motore/build.py            (tutte le campagne)
       python3 motore/build.py avvocati   (una sola campagna)
 
-Legge  motore/modello-n8n.json            (struttura dei nodi: export di "Prospect | Search")
+Legge  motore/modello-n8n.json            (struttura dei nodi: export di "Prospect | Asia PMI | Ricerca")
        motore/codice/*.js                 (codice comune dei nodi Code)
        campagne/<id>/campagna.json        (impostazioni della campagna)
        campagne/<id>/prompt/*.txt         (prompt della ricerca AI)
@@ -280,7 +280,7 @@ if __name__ == '__main__':
             scrivi(f'{c}-prova.json', {**wf, 'name': cfg['prova']['nome']})
             print(f'{c}: copia di prova -> dist/{c}-prova.json')
 
-    # Elenco letto dal workflow "Prospect | Deploy da GitHub": solo le campagne
+    # Elenco letto dal workflow "Prospect | Strumenti | Deploy da GitHub": solo le campagne
     # con un workflow su n8n e "deploy": true in campagna.json.
     elenco = []
     for c in campagne():

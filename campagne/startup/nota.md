@@ -1,4 +1,4 @@
-## Prospect Startup | Search
+## Prospect | Startup | Ricerca
 Cerca **startup piccole** in tutta Europa (bootstrapped, pre-seed, seed, al massimo una piccola Series A: niente scale-up né unicorni) e salva **solo chi ha un'email**. Per ogni startup un solo contatto: il **fondatore o CEO**. Gira alle **09:00 e 21:00**.
 
 **Flusso:** archivio e temi → 5 ricerche AI (temi a rotazione, 5 paesi diversi) → deduplica per persona e per startup (dominio) + esclusione scale-up e grandi aziende → email gratis dal sito (homepage, contatti, impressum / privacy; preferita l'email col nome del fondatore) → RocketReach (max 40 ricerche, max 3 tentativi a persona) → salvataggio + Log.

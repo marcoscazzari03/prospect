@@ -119,7 +119,7 @@ const scriviValori = node({
 
 const nota = sticky('## Setup foglio (una tantum per campagna)\nCrea il file Google della campagna scelta nel nodo **Campagna** (nome, schede e colonne da `campagne/<campagna>/campagna.json` della repo **prospect**; temi ed esclusioni da `data/`).\n\n**Ogni esecuzione crea un file nuovo**: eseguirlo una sola volta per campagna, poi copiare l\'ID del file in `foglio.id` di campagna.json.', [campagna, scriviValori], { color: 7 });
 
-export default workflow('prospect-setup-foglio', 'Prospect | Setup foglio')
+export default workflow('prospect-setup-foglio', 'Prospect | Strumenti | Setup foglio')
   .add(avvio)
   .to(campagna)
   .to(leggiCfg)

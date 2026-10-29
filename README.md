@@ -17,9 +17,9 @@ Lo stato operativo (campagne attive, ID, orari, decisioni, prossimi passi) è in
 
 | Campagna | Cartella | Target | Workflow n8n | Orario |
 |---|---|---|---|---|
-| Singapore, Malesia, Indonesia | [`campagne/asia-pmi`](campagne/asia-pmi) | PMI e aziende private: founder, CEO, manager con potere decisionale | **Prospect \| Search** (`f03lATvrzkJYAOw6`) | 03:00 · 15:00 |
-| Avvocati penalisti | [`campagne/avvocati`](campagne/avvocati) | Titolari di studio penale, 34 paesi europei (esclusi FR, DE, IT) | **Prospect Avvocati \| Search** (`rKUcaJepe2momTLB`) | 06:00 · 18:00 |
-| Startup | [`campagne/startup`](campagne/startup) | Startup piccole in tutta Europa: fondatore o CEO | **Prospect Startup \| Search** (da creare) | 09:00 · 21:00 |
+| Singapore, Malesia, Indonesia | [`campagne/asia-pmi`](campagne/asia-pmi) | PMI e aziende private: founder, CEO, manager con potere decisionale | **Prospect \| Asia PMI \| Ricerca** (`f03lATvrzkJYAOw6`) | 03:00 · 15:00 |
+| Avvocati penalisti | [`campagne/avvocati`](campagne/avvocati) | Titolari di studio penale, 34 paesi europei (esclusi FR, DE, IT) | **Prospect \| Avvocati \| Ricerca** (`rKUcaJepe2momTLB`) | 06:00 · 18:00 |
+| Startup | [`campagne/startup`](campagne/startup) | Startup piccole in tutta Europa: fondatore o CEO | **Prospect \| Startup \| Ricerca** (da creare) | 09:00 · 21:00 |
 
 Gli orari sono sfalsati perché tutte le campagne usano lo stesso account RocketReach (circa 70 ricerche l'ora).
 
@@ -44,7 +44,7 @@ Ogni foglio Google ha sei schede: **Prospect AI**, **Mailup**, **Scartati**, **L
 | Percorso | Cosa contiene |
 |---|---|
 | `motore/codice/*.js` | Codice comune dei nodi Code. `estrai-email.template.js` genera i nodi "Estrai email…"; `pagine-homepage.snippet.js` sceglie le pagine da controllare. |
-| `motore/modello-n8n.json` | Struttura dei nodi (export di "Prospect \| Search" del 7 ottobre 2026). Non va modificato a mano. |
+| `motore/modello-n8n.json` | Struttura dei nodi (export di "Prospect \| Asia PMI \| Ricerca" del 7 ottobre 2026). Non va modificato a mano. |
 | `motore/build.py` | Genera un workflow per campagna: modello + codice + impostazioni + prompt. |
 | `motore/test/replay.js` | Riesegue il codice di due versioni sugli stessi dati di un'esecuzione reale e confronta i risultati. |
 | `campagne/<id>/campagna.json` | Impostazioni della campagna (vedi sotto). |
@@ -54,7 +54,7 @@ Ogni foglio Google ha sei schede: **Prospect AI**, **Mailup**, **Scartati**, **L
 | `campagne/<id>/ROADMAP.md` | Stato dei lavori, misure e prossimi passi della campagna. |
 | `dist/<id>.json` | Istantanea generata del workflow: è quella che va su n8n. |
 | `dist/deploy.json` | Campagne che il deploy porta su n8n. |
-| `n8n/*.sdk.ts` | Sorgenti dei workflow di servizio: **Prospect \| Deploy da GitHub**, **Prospect \| Setup foglio**. |
+| `n8n/*.sdk.ts` | Sorgenti dei workflow di servizio: **Prospect \| Strumenti \| Deploy da GitHub**, **Prospect \| Strumenti \| Setup foglio**. |
 
 ## Impostazioni di una campagna (`campagna.json`)
 
@@ -85,7 +85,7 @@ Parte `motore` (finisce nel codice dei nodi come blocco `CFG`):
 2. `python3 motore/build.py` per rigenerare `dist/`.
 3. Se è cambiato il codice del motore, controllare che le campagne attive non cambino comportamento senza volerlo (vedi [CLAUDE.md](CLAUDE.md), "Verifica").
 4. Commit e push su `main`.
-5. Su n8n eseguire **Prospect \| Deploy da GitHub**: aggiorna i workflow delle campagne in `dist/deploy.json`.
+5. Su n8n eseguire **Prospect \| Strumenti \| Deploy da GitHub**: aggiorna i workflow delle campagne in `dist/deploy.json`.
 
 Se si modifica un workflow direttamente su n8n, riportare la modifica nei sorgenti, altrimenti il deploy successivo la cancella.
 
@@ -93,6 +93,6 @@ Se si modifica un workflow direttamente su n8n, riportare la modifica nei sorgen
 
 1. Copiare una cartella di `campagne/` e adattare `campagna.json`, prompt, temi, esclusioni e nota.
 2. `python3 motore/build.py`.
-3. Su n8n: eseguire **Prospect \| Setup foglio** con la nuova campagna nel nodo "Campagna" (una sola volta: crea un file nuovo), poi copiare l'ID del foglio in `foglio.id`.
+3. Su n8n: eseguire **Prospect \| Strumenti \| Setup foglio** con la nuova campagna nel nodo "Campagna" (una sola volta: crea un file nuovo), poi copiare l'ID del foglio in `foglio.id`.
 4. Creare il workflow su n8n, metterne l'ID in `id_n8n`, `"deploy": true`, rigenerare, push, deploy.
 5. Scegliere un orario lontano almeno un'ora da quelli delle altre campagne (RocketReach).

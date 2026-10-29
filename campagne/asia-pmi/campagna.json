@@ -1,11 +1,11 @@
 {
   "descrizione": "PMI e aziende private di Singapore, Malesia e Indonesia: founder, CEO e manager con potere decisionale",
-  "nome_workflow": "Prospect | Search",
+  "nome_workflow": "Prospect | Asia PMI | Ricerca",
   "id_n8n": "f03lATvrzkJYAOw6",
   "deploy": false,
   "prova": {
     "id_n8n": "J3E4SmCKEZTz5JGM",
-    "nome": "PROVA | Prospect | Search (motore)"
+    "nome": "Prospect | Asia PMI | PROVA motore"
   },
   "trigger": {
     "nome": "Ogni 12 ore | 03:00 - 15:00",

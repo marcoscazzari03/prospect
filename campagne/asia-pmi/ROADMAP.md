@@ -1,4 +1,4 @@
-# Roadmap: Prospect | Search (Singapore, Malesia, Indonesia)
+# Roadmap: Prospect | Asia PMI | Ricerca (Singapore, Malesia, Indonesia)
 
 Obiettivi: **più prospect al giorno** e **meno costi API**. Nel foglio finiscono solo persone con email.
 
@@ -6,7 +6,7 @@ Legenda: ✅ fatto · 🔄 in corso · ⏳ da fare · 💡 idea da valutare
 
 ## 📌 Da ricordare
 
-- Il workflow **Prospect | Search** (`f03lATvrzkJYAOw6`) è attivo alle **03:00 e 15:00** (ora italiana).
+- Il workflow **Prospect | Asia PMI | Ricerca** (`f03lATvrzkJYAOw6`) è attivo alle **03:00 e 15:00** (ora italiana).
 - Fino al passaggio al motore comune gira con il codice del 7 ottobre 2026 (export in `motore/modello-n8n.json`).
 - Singapore A / B / C e i vecchi workflow "Singapore | …" sono spenti: non riaccenderli senza ricontrollare gli orari RocketReach.
 

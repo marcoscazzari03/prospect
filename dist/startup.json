@@ -1,5 +1,5 @@
 {
-  "name": "Prospect Startup | Search",
+  "name": "Prospect | Startup | Ricerca",
   "nodes": [
     {
       "parameters": {
@@ -1686,7 +1686,7 @@
       ],
       "parameters": {
         "color": 7,
-        "content": "## Prospect Startup | Search\nCerca **startup piccole** in tutta Europa (bootstrapped, pre-seed, seed, al massimo una piccola Series A: niente scale-up né unicorni) e salva **solo chi ha un'email**. Per ogni startup un solo contatto: il **fondatore o CEO**. Gira alle **09:00 e 21:00**.\n\n**Flusso:** archivio e temi → 5 ricerche AI (temi a rotazione, 5 paesi diversi) → deduplica per persona e per startup (dominio) + esclusione scale-up e grandi aziende → email gratis dal sito (homepage, contatti, impressum / privacy; preferita l'email col nome del fondatore) → RocketReach (max 40 ricerche, max 3 tentativi a persona) → salvataggio + Log.\n\n**Si configura dal foglio Google *TEST | Prospect Startup | Search*:**\n- **Temi**: nicchie per paese e città (scrivi `NO` in *Attivo* per spegnerne una)\n- **Esclusioni**: scale-up, unicorni e grandi aziende da non contattare mai\n- **Log**: una riga di statistiche per ogni esecuzione\n\nGenerato dal motore comune: GitHub `marcoscazzari03/prospect`, campagna `startup`. Non modificare qui: modificare la repo e rifare il deploy.",
+        "content": "## Prospect | Startup | Ricerca\nCerca **startup piccole** in tutta Europa (bootstrapped, pre-seed, seed, al massimo una piccola Series A: niente scale-up né unicorni) e salva **solo chi ha un'email**. Per ogni startup un solo contatto: il **fondatore o CEO**. Gira alle **09:00 e 21:00**.\n\n**Flusso:** archivio e temi → 5 ricerche AI (temi a rotazione, 5 paesi diversi) → deduplica per persona e per startup (dominio) + esclusione scale-up e grandi aziende → email gratis dal sito (homepage, contatti, impressum / privacy; preferita l'email col nome del fondatore) → RocketReach (max 40 ricerche, max 3 tentativi a persona) → salvataggio + Log.\n\n**Si configura dal foglio Google *TEST | Prospect Startup | Search*:**\n- **Temi**: nicchie per paese e città (scrivi `NO` in *Attivo* per spegnerne una)\n- **Esclusioni**: scale-up, unicorni e grandi aziende da non contattare mai\n- **Log**: una riga di statistiche per ogni esecuzione\n\nGenerato dal motore comune: GitHub `marcoscazzari03/prospect`, campagna `startup`. Non modificare qui: modificare la repo e rifare il deploy.",
         "height": 420,
         "width": 1240
       }

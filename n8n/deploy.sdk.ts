@@ -24,7 +24,7 @@ const leggiElenco = node({
       options: { response: { response: { responseFormat: 'json' } } }
     }
   },
-  output: [{ campagna: 'avvocati', workflow: 'Prospect Avvocati | Search', id_n8n: 'rKUcaJepe2momTLB', file: 'dist/avvocati.json' }]
+  output: [{ campagna: 'avvocati', workflow: 'Prospect | Avvocati | Ricerca', id_n8n: 'rKUcaJepe2momTLB', file: 'dist/avvocati.json' }]
 });
 
 const leggiIstantanea = node({
@@ -39,7 +39,7 @@ const leggiIstantanea = node({
       options: { response: { response: { responseFormat: 'json' } } }
     }
   },
-  output: [{ name: 'Prospect Avvocati | Search', nodes: [], connections: {}, settings: {} }]
+  output: [{ name: 'Prospect | Avvocati | Ricerca', nodes: [], connections: {}, settings: {} }]
 });
 
 const aggiorna = node({
@@ -55,12 +55,12 @@ const aggiorna = node({
     },
     credentials: { n8nApi: { id: 'ZF0e7oXtMU8MHCse', name: 'n8n account' } }
   },
-  output: [{ id: 'rKUcaJepe2momTLB', name: 'Prospect Avvocati | Search' }]
+  output: [{ id: 'rKUcaJepe2momTLB', name: 'Prospect | Avvocati | Ricerca' }]
 });
 
 const nota = sticky('## Deploy da GitHub (tutte le campagne)\nCopia su n8n le istantanee `dist/<campagna>.json` della repo **prospect** (generate da `motore/build.py`) nei workflow elencati in `dist/deploy.json`.\n\nUna campagna entra nell\'elenco con `"deploy": true` nel suo `campagna.json`.\n\nI gruppi di nodi non passano dall\'API: vanno reimpostati a parte.', [leggiElenco, aggiorna], { color: 7 });
 
-export default workflow('prospect-deploy', 'Prospect | Deploy da GitHub')
+export default workflow('prospect-deploy', 'Prospect | Strumenti | Deploy da GitHub')
   .add(avvio)
   .to(leggiElenco)
   .to(leggiIstantanea)
