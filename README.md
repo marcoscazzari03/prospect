@@ -37,6 +37,8 @@ Uguale per tutte le campagne (cambiano solo le impostazioni):
 8. **RocketReach**: ricerca della persona e controllo dell'esito; solo email professionali validate.
 9. **Salvataggio**: Prospect AI, Mailup, Scartati, e una riga di statistiche nel Log.
 
+Ogni lunedì alle 08:00 i prospect nuovi della scheda Mailup di ogni campagna finiscono in un Excel scaricabile dalla pagina **Prospect | Strumenti | Download Mailup** (link su n8n, non nella repo).
+
 Ogni foglio Google ha sei schede: **Prospect AI**, **Mailup**, **Scartati**, **Log**, **Temi**, **Esclusioni**. Temi ed Esclusioni si modificano direttamente dal foglio (`NO` in "Attivo" per spegnere una riga).
 
 ## Contenuto della repo
@@ -54,7 +56,7 @@ Ogni foglio Google ha sei schede: **Prospect AI**, **Mailup**, **Scartati**, **L
 | `campagne/<id>/ROADMAP.md` | Stato dei lavori, misure e prossimi passi della campagna. |
 | `dist/<id>.json` | Istantanea generata del workflow: è quella che va su n8n. |
 | `dist/deploy.json` | Campagne che il deploy porta su n8n. |
-| `n8n/*.sdk.ts` | Sorgenti dei workflow di servizio: **Prospect \| Strumenti \| Deploy da GitHub**, **Prospect \| Strumenti \| Setup foglio**. |
+| `n8n/` | Sorgenti dei workflow Strumenti: export Mailup settimanale e pagina di download (`build-strumenti.py` genera gli `.sdk.ts`), oltre a **Prospect \| Strumenti \| Deploy da GitHub**, **Prospect \| Strumenti \| Setup foglio**. |
 
 ## Impostazioni di una campagna (`campagna.json`)
 

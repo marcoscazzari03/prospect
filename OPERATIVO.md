@@ -24,6 +24,13 @@ Account usati da tutti i workflow: Google Sheets `Spreadsheet ads.lefonti@gmail.
 | **Prospect \| Strumenti \| Setup foglio** (`GPtrh61BOYhfp8Mc`, sorgente `n8n/setup-foglio.sdk.ts`) | ✅ creato il 29 ottobre: già eseguito per `startup` (4137). **Ogni esecuzione crea un file nuovo** |
 | Prospect Avvocati \| Deploy da GitHub, Setup foglio, Leggi foglio | 🗄️ archiviati il 29 ottobre (puntavano alla vecchia repo `prospect-avvocati`) |
 
+## Export Mailup settimanale
+
+- **Prospect | Strumenti | Export Mailup settimanale** (`8BUuXswSFV3JHWs7`): ✅ attivo, ogni **lunedì alle 08:00**. Legge la scheda **Mailup** dei fogli delle campagne in `dist/campagne.json` (generato da `motore/build.py`: entra ogni campagna con `id_n8n`), prende le righe nuove dall'ultimo export, toglie le email già esportate (anche tra campagne diverse) e le salva nella tabella n8n `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`). Fin dove è arrivato per ogni foglio: tabella `prospect_export_stato` (`6uYSjDtswew1752T`).
+- **Punto di partenza: 29 ottobre 2026, 11:29** (esecuzione 4141): Asia 2.036 righe, Avvocati 1.278, Startup 62. Il primo export (lunedì 2 novembre) contiene solo le righe arrivate dopo.
+- **Prospect | Strumenti | Download Mailup** (`n6dqEqH9MuWpslT3`): ✅ attivo. Pagina web con una riga per settimana e un pulsante «Scarica Excel» per campagna (colonne Nome, Cognome, Azienda, Ruolo, Settore, Email, Paese). **Il link contiene una chiave segreta e NON è nella repo** (pubblica): si trova nel nodo "Pagina Mailup" del workflow (Production URL). Blocca i programmi automatici (risponde 403 a curl senza user-agent da browser).
+- Sorgenti: `n8n/export-mailup.*`, `n8n/download-mailup.*`, `n8n/pagine/download-mailup.html`; `python3 n8n/build-strumenti.py` rigenera gli `.sdk.ts`. Nota: il validatore n8n non accetta apostrofi nei commenti `//` del codice SDK né funzioni freccia fuori dai jsCode.
+
 ## Riorganizzazione (29 ottobre 2026)
 
 Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo per `campagne/<id>/`.
@@ -46,7 +53,8 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 2. ✅ **Startup:** attiva dal 29 ottobre alle 09:00 e 21:00. Dopo 4–6 esecuzioni: misure nella ROADMAP della campagna.
 3. 🔄 **Asia:** prova manuale della copia `Prospect | Asia PMI | PROVA motore`, confronto col Log, poi `"deploy": true` (e togliere `prova`) e deploy; archiviare la copia di prova.
 4. ✅ Vecchi workflow avvocati archiviati; nomi uniformati a **Prospect | <campagna o Strumenti> | <funzione>** (29 ottobre).
-5. ⏳ **Avviso se tutti i lotti AI falliscono** (email o Telegram), nel motore: vale per tutte le campagne. Dal 12 al 19 ottobre gli avvocati hanno girato 14 volte a vuoto per un blocco OpenAI e nessuno se n'è accorto.
-6. ⏳ **Non consumare i temi quando il lotto AI va in errore** (motore, tutte le campagne).
-7. ⏳ Capire l'errore dell'esecuzione **4119** di Prospect | Asia PMI | Ricerca (28 ottobre, 03:00): le esecuzioni prima e dopo sono andate bene.
-8. 💡 Rendere private le repo `prospect` e `prospect-avvocati`: contengono ID di fogli e workflow (nessuna password). Se `prospect` diventa privata, il deploy da GitHub ha bisogno di un token.
+5. ⏳ **RocketReach: email di un'altra persona o azienda.** Nella prima esecuzione startup 2 email RocketReach su 8 erano sbagliate (dominio di un'altra azienda o di un ente pubblico, es. `@edinburgh.gov.uk`). Proposta: accettare l'email RocketReach solo se il dominio è quello del sito dell'azienda (o una casella gratuita), altrimenti "da verificare". Vale per tutte le campagne (motore).
+6. ⏳ **Avviso se tutti i lotti AI falliscono** (email o Telegram), nel motore: vale per tutte le campagne. Dal 12 al 19 ottobre gli avvocati hanno girato 14 volte a vuoto per un blocco OpenAI e nessuno se n'è accorto.
+7. ⏳ **Non consumare i temi quando il lotto AI va in errore** (motore, tutte le campagne).
+8. ⏳ Capire l'errore dell'esecuzione **4119** di Prospect | Asia PMI | Ricerca (28 ottobre, 03:00): le esecuzioni prima e dopo sono andate bene.
+9. 💡 Rendere private le repo `prospect` e `prospect-avvocati`: contengono ID di fogli e workflow (nessuna password). Se `prospect` diventa privata, il deploy da GitHub ha bisogno di un token.
