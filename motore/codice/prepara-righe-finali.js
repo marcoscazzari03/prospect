@@ -10,6 +10,11 @@ if (emailSito) {
   tipoEmail = $json['Tipo email sito'] || 'SITO UFFICIALE';
   fonteEmail = $json['Fonte email'] || $json.Sito || '';
   statoEmail = 'EMAIL TROVATA';
+} else if (emailRR && $json['Stato RocketReach'] === 'EMAIL DA VERIFICARE') {
+  // Email RocketReach di un altro dominio: resta nel foglio, non va in Mailup.
+  tipoEmail = 'ROCKETREACH - DA VERIFICARE';
+  fonteEmail = 'RocketReach';
+  statoEmail = 'EMAIL DA VERIFICARE';
 } else if (emailRR) {
   tipoEmail = 'ROCKETREACH VALIDATA';
   fonteEmail = 'RocketReach';
