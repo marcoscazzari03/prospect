@@ -16,7 +16,7 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 - **Il codice si modifica nella repo, non su n8n.** Poi `python3 motore/build.py`, commit, push su `main`, deploy con **Prospect | Strumenti | Deploy da GitHub**. Una modifica fatta solo su n8n viene cancellata dal deploy successivo.
 - **RocketReach:** un solo account per tutte le campagne, circa 70 ricerche l'ora. Mai due campagne a meno di un'ora di distanza. Gli orari sono in OPERATIVO.md.
 - **Setup foglio:** ogni esecuzione crea un file Google nuovo. Eseguirlo solo per una campagna nuova, una volta.
-- Prima di azioni su n8n che cambiano qualcosa (deploy, attivazione, esecuzioni che spendono crediti, nuovi fogli) chiedere conferma all'utente, salvo che l'abbia già chiesto esplicitamente.
+- **Su n8n non si cambia niente senza il passaggio esplicito dell'utente** (regola dell'utente, 29 ottobre 2026): niente deploy, creazione o modifica di workflow, tabelle o credenziali, esecuzioni, attivazioni, archiviazioni, nuovi fogli. Prima si prepara tutto nella repo, si spiega cosa cambierà e si aspetta l'ok per quella specifica azione.
 - Dopo ogni lavoro aggiornare OPERATIVO.md (e la ROADMAP della campagna): è la memoria tra una sessione e l'altra.
 
 ## Verifica di una modifica al motore

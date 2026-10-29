@@ -48,6 +48,39 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
   **Da fare prima di attivarla:** una prova manuale e il confronto col Log.
 - **Startup:** campagna nuova, vedi `campagne/startup/ROADMAP.md`.
 
+## Progetto Comunità, Settore e Apertura (approvato il 29 ottobre 2026)
+
+Tre colonne nuove per ogni lead: **Comunità di appartenenza** (una delle 15 comunità Le Fonti), **Settore** (lista dell'utente, in arrivo), **Apertura** (due righe su misura in **inglese**, solo da fatti presenti sul sito ufficiale). Il settore scritto oggi dall'AI resta in Prospect AI come **Settore AI**. Email ai lead: **in inglese**.
+
+Comunità di appartenenza: 01 Comunità Business · 02 Comunità di CEO · 03 Comunità di CEO Internazionali · 04 Comunità di CEO Regionali · 05 Comunità Pharma · 06 Comunità Sostenibilità · 07 Comunità di Innovazione e Tecnologia · 08 Comunità di Avvocati · 09 Comunità di Avvocati Penalisti · 10 Comunità di Diritto del Lavoro · 11 Comunità Risorse Umane · 12 Comunità Operazioni Straordinarie · 13 Comunità di Fiscalisti · 14 Comunità del Marketing · 15 Comunità dell'Asset Management.
+
+Checklist (in ordine):
+
+**A · Preparazione (nessuna modifica a n8n)**
+- [ ] 1. Utente: lista dei settori.
+- [ ] 2. Utente: una o più comunità per lead? un template per comunità? limite caratteri dei campi personalizzati MailUp? (lingua: ✅ inglese)
+- [ ] 3. Claude: analisi dei "Settore AI" nei tre fogli → tabella Settore AI → Settore.
+- [ ] 4. Claude: regole per la Comunità di appartenenza (comunità base per campagna + casi misti CEO / Internazionali / Regionali / Business).
+- [ ] 5. Utente: approva le tabelle.
+
+**B · Comunità e Settore sui lead nuovi**
+- [ ] 6. Claude: prompt con le due liste (solo valori in lista) + controllo automatico (fuori lista → tabella o "Da classificare").
+- [ ] 7. Claude: colonne nei fogli (Prospect AI e Mailup) + verifica su dati reali.
+- [ ] 8. Claude: prova manuale su una campagna; utente controlla 30 righe.
+- [ ] 9. Claude: deploy sulle tre campagne (solo con ok).
+
+**C · Apertura (due righe su misura)**
+- [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead.
+- [ ] 11. Claude: prova su 50 lead in un file a parte; utente controlla.
+- [ ] 12. Claude: attivazione nel motore (solo con ok) + misura costi e tempi.
+
+**D · Export e MailUp**
+- [ ] 13. Claude: Excel del lunedì con Comunità, Settore, Apertura (eventuale file per comunità).
+- [ ] 14. Utente con guida: campi personalizzati e template MailUp con [apertura]; invio di prova.
+- [ ] 15. Insieme: primo invio vero e confronto con l'invio classico.
+
+**Dopo:** 16. Avviso automatico se un workflow fallisce.
+
 ## Prossimi passi
 
 1. ✅ Ramo unito su `main`; workflow di servizio creati; avvocati ripubblicati dal motore (identici, ancora attivi).
