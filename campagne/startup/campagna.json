@@ -1,0 +1,184 @@
+{
+  "descrizione": "Startup piccole (bootstrapped, pre-seed, seed, piccola Series A) in tutta Europa: fondatore o CEO",
+  "nome_workflow": "Prospect Startup | Search",
+  "id_n8n": null,
+  "deploy": false,
+  "trigger": {
+    "nome": "Ogni 12 ore | 09:00 - 21:00",
+    "cron": "0 9,21 * * *"
+  },
+  "fuso_workflow": "Europe/Rome",
+  "foglio": {
+    "id": "DA_CREARE",
+    "nome": "TEST | Prospect Startup | Search",
+    "schede": {
+      "Prospect AI": 101,
+      "Mailup": 102,
+      "Scartati": 103,
+      "Log": 104,
+      "Temi": 105,
+      "Esclusioni": 106
+    }
+  },
+  "colonne_prospect": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Città",
+    "Paese",
+    "Settore",
+    "Anno fondazione",
+    "Fase",
+    "Sito",
+    "Email certa",
+    "Tipo email",
+    "Fonte email",
+    "Stato email",
+    "Email probabili",
+    "LinkedIn"
+  ],
+  "colonne_mailup": [
+    "Nome",
+    "Cognome",
+    "Azienda",
+    "Ruolo",
+    "Settore",
+    "Email",
+    "Paese"
+  ],
+  "colonne_scartati": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Città",
+    "Paese",
+    "Settore",
+    "Anno fondazione",
+    "Fase",
+    "Sito",
+    "Email probabili",
+    "LinkedIn",
+    "Motivo scarto",
+    "Nome Mailup",
+    "Cognome Mailup"
+  ],
+  "accept_language": "en,de;q=0.9,fr;q=0.9,it;q=0.8,es;q=0.8,nl;q=0.7,pt;q=0.7,pl;q=0.7,sv;q=0.6,*;q=0.5",
+  "terza_pagina": true,
+  "descrizioni_gruppi": {
+    "4": "Riprende i \"Da riprovare\" (max 3 tentativi) e scarta persone e startup (dominio) già in archivio.",
+    "5": "Esclude scale-up, unicorni, Big Four e grandi aziende della scheda Esclusioni, prima di spendere crediti.",
+    "6": "Homepage, pagina contatti e impressum / privacy: email gratis dal sito, preferita quella col nome del fondatore."
+  },
+  "motore": {
+    "fuso_orario": "Europe/Rome",
+    "lotti": 5,
+    "target_lotto": 25,
+    "settore_default": "Startup",
+    "temi_riserva": [
+      [
+        "Germania",
+        "junge Startups in Berlin (Pre-Seed, Seed, bootstrapped)"
+      ],
+      [
+        "Francia",
+        "jeunes startups à Paris (pre-seed, seed)"
+      ],
+      [
+        "Italia",
+        "startup innovative early-stage a Milano"
+      ],
+      [
+        "Spagna",
+        "startups early-stage en Madrid y Barcelona"
+      ],
+      [
+        "Paesi Bassi",
+        "early-stage startups in Amsterdam"
+      ]
+    ],
+    "un_contatto_per_azienda": true,
+    "campi_extra": [
+      [
+        "Città",
+        "citta"
+      ],
+      [
+        "Anno fondazione",
+        "anno_fondazione"
+      ],
+      [
+        "Fase",
+        "fase"
+      ]
+    ],
+    "colonna_data": true,
+    "mailup_paese": true,
+    "forme_societarie": "ltd|limited|plc|llp|inc|llc|gmbh|ug|ag|sas|sasu|sarl|sa|srl|srls|spa|bv|nv|ab|as|aps|oy|ou|sl|slu|lda|sp z o o|s r o|kft|d o o|doo|startup|technologies",
+    "forme_quotate": [
+      {
+        "se": "\\bplc\\b",
+        "motivo": "societa quotata (plc)"
+      }
+    ],
+    "siti_non_ufficiali": [
+      "crunchbase",
+      "dealroom",
+      "f6s",
+      "wellfound",
+      "producthunt",
+      "tracxn",
+      "pitchbook",
+      "cbinsights",
+      "eu-startups",
+      "sifted",
+      "startupblink",
+      "seedtable",
+      "techcrunch",
+      "startupitalia",
+      "medium",
+      "substack",
+      "github",
+      "notion",
+      "welcometothejungle",
+      "glassdoor",
+      "indeed",
+      "zoominfo",
+      "apollo",
+      "rocketreach",
+      "angellist",
+      "kickstarter",
+      "indiegogo",
+      "crowdcube",
+      "seedrs",
+      "mamacrowd",
+      "apps\\.apple",
+      "play\\.google"
+    ],
+    "email_generiche": [
+      "team",
+      "hi",
+      "hey",
+      "founders",
+      "founder",
+      "sales",
+      "support",
+      "business",
+      "partnerships",
+      "partners",
+      "press",
+      "ciao",
+      "bonjour",
+      "hallo",
+      "hola",
+      "hej",
+      "start"
+    ],
+    "email_gratuite": [],
+    "paesi_rocketreach": null,
+    "tetto_rocketreach": 40,
+    "max_tentativi": 3,
+    "max_riprova": 40
+  }
+}

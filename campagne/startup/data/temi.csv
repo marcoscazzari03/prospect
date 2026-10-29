@@ -1,0 +1,48 @@
+ID,Paese,Settore,Tema,Attivo
+IT01,Italia,Startup,"startup innovative early-stage a Milano (pre-seed, seed): fintech, SaaS B2B, e-commerce, foodtech",SI
+IT02,Italia,Startup,"startup innovative a Roma, Napoli e nel Sud Italia (incubatori universitari, programmi di accelerazione, pitch competition)",SI
+IT03,Italia,Startup,"startup innovative a Torino, Bologna, Padova e nel Nord-Est (deeptech, manifattura 4.0, cleantech, healthtech)",SI
+IT04,Italia,Startup,"startup innovative in Toscana, Marche, Puglia e Sicilia: agritech, turismo, design, software",SI
+FR01,Francia,Startup,"jeunes startups à Paris (pre-seed, seed, bootstrapped): SaaS, fintech, IA, e-commerce",SI
+FR02,Francia,Startup,"startups early-stage à Lyon, Grenoble et Marseille (incubateurs, French Tech, deeptech, greentech)",SI
+FR03,Francia,Startup,"startups early-stage à Bordeaux, Toulouse, Nantes, Lille et Rennes",SI
+DE01,Germania,Startup,"junge Startups in Berlin (Pre-Seed, Seed, bootstrapped): SaaS, Fintech, Climate Tech, KI",SI
+DE02,Germania,Startup,"Startups in München und Bayern (Uni-Ausgründungen, Inkubatoren, Deeptech, Mobility)",SI
+DE03,Germania,Startup,"Startups in Hamburg, Köln, Düsseldorf und im Ruhrgebiet (E-Commerce, Logistik, Medien, B2B Software)",SI
+DE04,Germania,Startup,"Startups in Frankfurt, Stuttgart, Karlsruhe und Leipzig (Fintech, Industrie 4.0, Healthtech)",SI
+UK01,Regno Unito,Startup,"early-stage startups in London (pre-seed, seed, bootstrapped): SaaS, fintech, AI, consumer",SI
+UK02,Regno Unito,Startup,"early-stage startups in Manchester, Leeds, Birmingham and the North of England",SI
+UK03,Regno Unito,Startup,"early-stage startups in Edinburgh, Glasgow, Bristol, Cambridge and Oxford (university spin-outs, deeptech, healthtech)",SI
+ES01,Spagna,Startup,"startups early-stage en Madrid (pre-seed, seed): SaaS, fintech, proptech, e-commerce",SI
+ES02,Spagna,Startup,"startups early-stage en Barcelona y Valencia (aceleradoras, incubadoras, tech, salud, movilidad)",SI
+ES03,Spagna,Startup,"startups en Málaga, Sevilla, Bilbao y Zaragoza",SI
+PT01,Portogallo,Startup,"startups em fase inicial em Lisboa e no Porto (pre-seed, seed, incubadoras)",SI
+NL01,Paesi Bassi,Startup,"early-stage startups in Amsterdam, Rotterdam and Utrecht (pre-seed, seed, bootstrapped)",SI
+NL02,Paesi Bassi,Startup,"startups in Eindhoven, Delft, Groningen and Leiden (university spin-offs, hardware, healthtech)",SI
+BE01,Belgio,Startup,"early-stage startups in Brussels, Antwerp, Ghent and Leuven",SI
+LU01,Lussemburgo,Startup,"early-stage startups in Luxembourg (fintech, space, regtech, incubators)",SI
+IE01,Irlanda,Startup,"early-stage startups in Dublin, Cork and Galway (Enterprise Ireland supported, seed stage)",SI
+CH01,Svizzera,Startup,"junge Startups in Zürich, Basel und Zug / jeunes startups à Genève et Lausanne (EPFL, ETH spin-offs)",SI
+AT01,Austria,Startup,"junge Startups in Wien, Graz und Linz (Pre-Seed, Seed)",SI
+SE01,Svezia,Startup,"early-stage startups i Stockholm, Göteborg och Malmö (pre-seed, seed)",SI
+DK01,Danimarca,Startup,"early-stage startups i København og Aarhus",SI
+NO01,Norvegia,Startup,"early-stage startups i Oslo, Bergen og Trondheim",SI
+FI01,Finlandia,Startup,"early-stage startups in Helsinki, Espoo, Tampere and Oulu",SI
+IS01,Islanda,Startup,"early-stage startups in Reykjavik",SI
+EE01,Estonia,Startup,"early-stage startups in Tallinn and Tartu (pre-seed, seed)",SI
+LV01,Lettonia,Startup,"early-stage startups in Riga",SI
+LT01,Lituania,Startup,"early-stage startups in Vilnius and Kaunas",SI
+PL01,Polonia,Startup,"młode startupy w Warszawie (pre-seed, seed): SaaS, fintech, e-commerce",SI
+PL02,Polonia,Startup,"startupy w Krakowie, Wrocławiu, Poznaniu, Gdańsku i Łodzi",SI
+CZ01,Repubblica Ceca,Startup,"začínající startupy v Praze a Brně",SI
+SK01,Slovacchia,Startup,"začínajúce startupy v Bratislave a Košiciach",SI
+HU01,Ungheria,Startup,"early-stage startups in Budapest",SI
+RO01,Romania,Startup,"startup-uri early-stage în București, Cluj-Napoca și Iași",SI
+BG01,Bulgaria,Startup,"early-stage startups in Sofia and Plovdiv",SI
+GR01,Grecia,Startup,"early-stage startups in Athens and Thessaloniki",SI
+HR01,Croazia,Startup,"early-stage startups in Zagreb, Split and Rijeka",SI
+SI01,Slovenia,Startup,"early-stage startups in Ljubljana and Maribor",SI
+RS01,Serbia,Startup,"early-stage startups in Belgrade and Novi Sad",SI
+CY01,Cipro,Startup,"early-stage startups in Nicosia and Limassol",SI
+MT01,Malta,Startup,"early-stage startups in Malta",SI
+UA01,Ucraina,Startup,"early-stage startups in Kyiv, Lviv and Kharkiv (product startups, still small)",SI

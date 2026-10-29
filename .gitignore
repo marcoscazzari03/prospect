@@ -1,0 +1,4 @@
+# Dati delle esecuzioni n8n usati per i test: contengono nomi ed email reali.
+fixture*.json
+*.fixture.json
+__pycache__/

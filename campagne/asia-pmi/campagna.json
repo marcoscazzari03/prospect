@@ -1,0 +1,100 @@
+{
+  "descrizione": "PMI e aziende private di Singapore, Malesia e Indonesia: founder, CEO e manager con potere decisionale",
+  "nome_workflow": "Prospect | Search",
+  "id_n8n": "f03lATvrzkJYAOw6",
+  "deploy": false,
+  "trigger": {
+    "nome": "Ogni 12 ore | 03:00 - 15:00",
+    "cron": "0 3,15 * * *"
+  },
+  "fuso_workflow": null,
+  "foglio": null,
+  "colonne_prospect": null,
+  "colonne_mailup": null,
+  "accept_language": "en,ms;q=0.8,id;q=0.7",
+  "terza_pagina": true,
+  "descrizioni_gruppi": {
+    "6": "Homepage, pagina contatti e privacy / note legali: email gratis dal sito, preferita quella col nome della persona."
+  },
+  "motore": {
+    "fuso_orario": "Asia/Singapore",
+    "lotti": 5,
+    "target_lotto": 25,
+    "settore_default": "",
+    "temi_riserva": [
+      [
+        "Singapore",
+        "law firms lawyers corporate law M&A private equity venture capital"
+      ],
+      [
+        "Singapore",
+        "law firms lawyers dispute resolution litigation arbitration"
+      ],
+      [
+        "Singapore",
+        "law firms lawyers intellectual property technology law data privacy"
+      ],
+      [
+        "Singapore",
+        "law firms lawyers employment law tax law regulatory restructuring"
+      ],
+      [
+        "Singapore",
+        "accounting tax consulting corporate services business advisory HR"
+      ]
+    ],
+    "un_contatto_per_azienda": false,
+    "campi_extra": [],
+    "colonna_data": false,
+    "mailup_paese": false,
+    "forme_societarie": "pte ltd|private limited|pte|ltd|limited|singapore|sg",
+    "forme_quotate": [
+      {
+        "se": "\\btbk\\b",
+        "motivo": "quotata in Indonesia (Tbk)"
+      },
+      {
+        "se": "\\b(berhad|bhd)\\b",
+        "tranne": "\\bsdn\\b",
+        "motivo": "societa pubblica in Malesia (Berhad)"
+      },
+      {
+        "se": "\\bplc\\b",
+        "motivo": "societa quotata (plc)"
+      }
+    ],
+    "siti_non_ufficiali": [
+      "crunchbase"
+    ],
+    "email_generiche": [
+      "sales",
+      "support",
+      "business",
+      "marketing",
+      "event",
+      "events",
+      "partnership",
+      "partnerships",
+      "hq",
+      "enquire",
+      "booking",
+      "bookings",
+      "pertanyaan",
+      "informasi",
+      "kontak",
+      "hubungi",
+      "cs"
+    ],
+    "email_gratuite": [
+      "singnet\\.com\\.sg",
+      "pacific\\.net\\.sg",
+      "starhub\\.net\\.sg",
+      "streamyx\\.com",
+      "ymail\\.com"
+    ],
+    "paesi_rocketreach": null,
+    "tetto_rocketreach": 60,
+    "max_tentativi": null,
+    "max_riprova": 40
+  }
+}

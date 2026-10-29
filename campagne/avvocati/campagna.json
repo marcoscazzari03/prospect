@@ -1,0 +1,129 @@
+{
+  "descrizione": "Avvocati penalisti titolari di studio in Europa (esclusi Francia, Germania e Italia)",
+  "nome_workflow": "Prospect Avvocati | Search",
+  "id_n8n": "rKUcaJepe2momTLB",
+  "deploy": true,
+  "trigger": {
+    "nome": "Ogni 12 ore | 06:00 - 18:00",
+    "cron": "0 6,18 * * *"
+  },
+  "fuso_workflow": "Europe/Rome",
+  "foglio": {
+    "id": "1g0XfNM3vj5icNmfeEROydjFKHERVh5jqgRPo_nHO0Bs",
+    "nome": "TEST | Prospect Avvocati | Search",
+    "schede": {
+      "Prospect AI": 101,
+      "Mailup": 102,
+      "Scartati": 103,
+      "Log": 104,
+      "Temi": 105,
+      "Esclusioni": 106
+    }
+  },
+  "colonne_prospect": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Tipo studio",
+    "Città",
+    "Paese",
+    "Settore",
+    "Sito",
+    "Email certa",
+    "Tipo email",
+    "Fonte email",
+    "Stato email",
+    "Email probabili",
+    "LinkedIn"
+  ],
+  "colonne_mailup": [
+    "Nome",
+    "Cognome",
+    "Azienda",
+    "Ruolo",
+    "Settore",
+    "Email",
+    "Paese"
+  ],
+  "colonne_scartati": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Tipo studio",
+    "Città",
+    "Paese",
+    "Settore",
+    "Sito",
+    "Email probabili",
+    "LinkedIn",
+    "Motivo scarto",
+    "Nome Mailup",
+    "Cognome Mailup"
+  ],
+  "accept_language": "en,es;q=0.9,pt;q=0.8,nl;q=0.8,pl;q=0.7,de;q=0.7,fr;q=0.6,*;q=0.5",
+  "terza_pagina": true,
+  "descrizioni_gruppi": {
+    "4": "Riprende i \"Da riprovare\" (max 3 tentativi) e scarta persone e studi (dominio) già in archivio.",
+    "5": "Esclude i grandi studi e le Big Four della scheda Esclusioni, prima di spendere crediti.",
+    "6": "Homepage, pagina contatti e note legali / Impressum: email gratis dal sito, preferita quella col nome del titolare."
+  },
+  "motore": {
+    "fuso_orario": "Europe/Rome",
+    "lotti": 5,
+    "target_lotto": 25,
+    "settore_default": "Diritto penale",
+    "temi_riserva": [
+      [
+        "Spagna",
+        "abogados penalistas y despachos de derecho penal en Madrid"
+      ],
+      [
+        "Regno Unito",
+        "criminal defence solicitors in London (independent firms)"
+      ],
+      [
+        "Polonia",
+        "adwokat karnista i kancelarie prawa karnego w Warszawie"
+      ],
+      [
+        "Paesi Bassi",
+        "strafrechtadvocaten in Amsterdam"
+      ],
+      [
+        "Portogallo",
+        "advogados de direito penal em Lisboa"
+      ]
+    ],
+    "un_contatto_per_azienda": true,
+    "campi_extra": [
+      [
+        "Tipo studio",
+        "tipo_studio"
+      ],
+      [
+        "Città",
+        "citta"
+      ]
+    ],
+    "colonna_data": true,
+    "mailup_paese": true,
+    "forme_societarie": "llp|ltd|limited|plc|solicitors?|law firm|law offices?|legal|abogados?|advogados?|advocaten|advocatenkantoor|avocats?|rechtsanwalte|rechtsanwaltskanzlei|kanzlei|kancelaria|adwokacka|adwokat|advokat(ni|ska)?|sl|slp|lda|bv|sprl|srl|gmbh|kg|og|ab|as|oy|sp k|sp j|s r o|and partners|and co|partners",
+    "forme_quotate": [
+      {
+        "se": "\\bplc\\b",
+        "motivo": "societa quotata (plc)"
+      }
+    ],
+    "siti_non_ufficiali": [],
+    "email_generiche": [],
+    "email_gratuite": [],
+    "paesi_rocketreach": [
+      "Regno Unito"
+    ],
+    "tetto_rocketreach": 60,
+    "max_tentativi": 3,
+    "max_riprova": 40
+  }
+}

@@ -1,0 +1,251 @@
+=Cerca sul web fino a {{ $json.target_lotto }} prospect commerciali NUOVI per Le Fonti Awards a {{ $json.paese }}.
+
+LOTTO: {{ $json.lotto }}
+FOCUS DEL LOTTO: {{ $json.tema }}
+
+OBIETTIVO
+
+Individua persone con potere decisionale all'interno di aziende private che operano concretamente a {{ $json.paese }} e che potrebbero essere potenziali prospect commerciali per un evento business/premiazione come Le Fonti Awards.
+
+La priorità principale è ottenere un numero elevato di prospect REALI e UTILIZZABILI commercialmente.
+
+È accettabile privilegiare la quantità rispetto a una verifica approfondita, purché persona, azienda e sito ufficiale siano reali.
+
+Non è necessaria una due diligence investigativa.
+
+REQUISITO OBBLIGATORIO: SITO AZIENDALE
+
+Inserisci un candidato SOLO se riesci a identificare il SITO UFFICIALE dell'azienda.
+
+Il sito deve appartenere direttamente all'azienda indicata.
+
+NON utilizzare come sito aziendale:
+
+* LinkedIn;
+* Facebook;
+* Instagram;
+* Crunchbase;
+* directory aziendali;
+* articoli di giornale;
+* profili personali;
+* pagine di eventi;
+* marketplace;
+* siti aggregatori;
+* pagine di terze parti.
+
+Se non riesci a trovare con ragionevole certezza il sito ufficiale dell'azienda, SCARTA il candidato e cercane un altro.
+
+Il campo "sito" non deve mai essere null, vuoto o contenere una pagina non ufficiale.
+
+TARGET PERSONA
+
+Cerca principalmente:
+
+* Founder;
+* Co-Founder;
+* Owner;
+* CEO;
+* Managing Director;
+* Executive Director;
+* President;
+* Regional Director;
+* General Manager;
+* Partner;
+* Managing Partner;
+* oppure ruoli equivalenti con reale potere decisionale.
+
+Preferisci figure senior che possano decidere direttamente sulla partecipazione dell'azienda a eventi, award, partnership, sponsorship o iniziative di business networking.
+
+TARGET AZIENDA
+
+L'azienda deve:
+
+* essere privata;
+* avere sede, ufficio, team, clienti, mercato o attività sostanziale a {{ $json.paese }};
+* essere attualmente operativa;
+* avere un sito ufficiale verificabile;
+* avere una presenza web verificabile;
+* avere preferibilmente una struttura aziendale già consolidata.
+
+Dai priorità a:
+
+* PMI;
+* aziende mid-market;
+* scale-up;
+* startup mature;
+* boutique firm;
+* società professionali;
+* aziende indipendenti;
+* aziende regionali asiatiche con presenza significativa a {{ $json.paese }}.
+
+Sono particolarmente interessanti aziende che mostrano almeno uno di questi segnali:
+
+* crescita o espansione;
+* attività recente sul mercato;
+* nuovi prodotti o servizi;
+* nuovi uffici;
+* nuove partnership;
+* raccolta di investimenti;
+* espansione internazionale;
+* premi o riconoscimenti;
+* leadership riconoscibile;
+* forte specializzazione nel proprio settore;
+* presenza rilevante nel mercato di {{ $json.paese }} o del Sud-Est asiatico.
+
+ESCLUSIONI
+
+Evita:
+
+* grandi multinazionali globali molto note;
+* grandi società quotate;
+* enti pubblici;
+* ministeri;
+* università;
+* associazioni;
+* fondazioni;
+* organizzazioni non profit;
+* aziende cessate o inattive;
+* semplici dipendenti senza potere decisionale;
+* persone senza un collegamento verificabile con l'azienda indicata;
+* aziende senza sito ufficiale identificabile.
+
+Preferisci UNA sola persona per azienda.
+
+Evita, quando possibile, persone e aziende estremamente famose o facilmente presenti in qualsiasi lista generica, per aumentare la varietà dei prospect e ridurre i duplicati tra i diversi lotti.
+
+FORME SOCIETARIE E SEGNALI PMI
+
+* Singapore: preferisci aziende "Pte Ltd" (private). Evita le società quotate su SGX.
+* Malesia: preferisci aziende "Sdn Bhd" (private). Evita le "Berhad" / "Bhd" senza "Sdn" (società pubbliche, spesso quotate su Bursa Malaysia) e le GLC (aziende a controllo statale).
+* Indonesia: preferisci aziende "PT" non quotate. Evita le "PT ... Tbk" (quotate sulla borsa IDX) e le BUMN (aziende statali).
+* I siti ufficiali di aziende malesi e indonesiane possono essere in malese o indonesiano: vanno bene.
+
+PRESENZA NEL PAESE
+
+Non è obbligatorio che l'azienda sia stata fondata a {{ $json.paese }}.
+
+È valida anche un'azienda straniera o regionale se possiede una presenza commerciale concreta a {{ $json.paese }}, ad esempio:
+
+* sede;
+* headquarters regionale;
+* ufficio;
+* filiale;
+* team locale;
+* attività commerciale significativa.
+
+Non considerare sufficiente una semplice menzione occasionale di {{ $json.paese }}.
+
+METODO DI RICERCA
+
+Usa realmente la ricerca web.
+
+Cerca in modo ampio ed efficiente, privilegiando la quantità.
+
+Puoi utilizzare:
+
+* siti aziendali;
+* pagine About;
+* pagine Leadership / Management / Team;
+* comunicati stampa;
+* articoli di settore;
+* media business locali;
+* directory aziendali;
+* liste di aziende;
+* award list;
+* startup database pubblici;
+* accelerator / incubator portfolio;
+* chamber/business directory;
+* profili professionali pubblicamente indicizzati;
+* interviste;
+* annunci di espansione o partnership.
+
+Le fonti esterne possono essere utilizzate per SCOPRIRE o VERIFICARE il candidato, ma il campo "sito" deve contenere esclusivamente il sito ufficiale dell'azienda.
+
+Non effettuare numerose ricerche aggiuntive sullo stesso candidato se hai già trovato:
+
+1. una persona reale;
+2. un ruolo decisionale plausibile;
+3. un'azienda reale;
+4. una presenza concreta a {{ $json.paese }};
+5. il sito ufficiale dell'azienda;
+6. almeno una fonte web plausibile.
+
+Per ogni candidato è sufficiente almeno UNA fonte web plausibile.
+
+Se possibile, privilegia come fonte:
+
+1. sito ufficiale dell'azienda;
+2. articolo o comunicato relativo alla persona;
+3. directory business affidabile;
+4. altra fonte professionale pubblicamente accessibile.
+
+QUALITÀ MINIMA DEI RISULTATI
+
+Prima di inserire un candidato verifica almeno che:
+
+* la persona esista;
+* l'azienda esista;
+* il ruolo sia plausibile e attuale;
+* l'azienda abbia un collegamento concreto con {{ $json.paese }};
+* il candidato abbia un ruolo sufficientemente senior;
+* il sito ufficiale dell'azienda sia stato identificato.
+
+Non inventare mai:
+
+* persone;
+* aziende;
+* ruoli;
+* siti;
+* URL.
+
+Se non trovi il sito ufficiale, NON inserire il candidato.
+
+Non cercare email in questa fase.
+
+OUTPUT
+
+Restituisci ESCLUSIVAMENTE JSON valido.
+
+Nessun Markdown.
+Nessuna spiegazione prima o dopo il JSON.
+Nessun testo aggiuntivo.
+
+Formato esatto:
+
+{
+"candidati": [
+{
+  "nome": "",
+  "nome_proprio": "",
+  "cognome": "",
+  "azienda": "",
+  "ruolo": "",
+  "settore": "",
+  "sito": "https://...",
+  "fonte": "https://..."
+}
+]
+}
+
+REGOLE OUTPUT
+
+* "nome": nome e cognome della persona.
+* "azienda": nome dell'azienda.
+* "ruolo": ruolo attuale della persona.
+* "settore": settore principale dell'azienda.
+* "sito": URL del sito UFFICIALE dell'azienda. È OBBLIGATORIO.
+* "fonte": URL della fonte utilizzata per identificare o verificare il candidato.
+* "nome": nome completo della persona, come appare nelle fonti.
+* "nome_proprio": nome/given name della persona, senza titoli come Dr., Mr., Prof.
+* "cognome": cognome/family name della persona.
+* Per persone con nomi asiatici o composti, identifica nome e cognome in base alle fonti e alla struttura reale del nome. Non limitarti a dividere meccanicamente la prima e l'ultima parola.
+
+Non inserire due persone della stessa azienda nello stesso lotto.
+
+Cerca di raggiungere {{ $json.target_lotto }} candidati.
+
+Se un candidato non ha un sito ufficiale identificabile, scartalo e continua la ricerca cercando un altro candidato.
+
+Se trovi meno candidati realmente plausibili con sito ufficiale, restituisci solamente quelli trovati.
+
+NON inventare candidati, siti o URL per raggiungere il numero richiesto.

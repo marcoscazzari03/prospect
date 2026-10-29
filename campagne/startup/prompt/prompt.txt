@@ -1,0 +1,86 @@
+=Cerca sul web fino a {{ $json.target_lotto }} STARTUP NUOVE in {{ $json.paese }} e per ognuna il FONDATORE o CEO, come prospect commerciali per Le Fonti Awards.
+
+LOTTO: {{ $json.lotto }}
+FOCUS DEL LOTTO: {{ $json.tema }}
+
+CHI CERCHIAMO
+
+Startup reali e operative, con sede o team principale in {{ $json.paese }}, ancora piccole:
+
+* fondate di solito negli ultimi 8 anni;
+* bootstrapped, pre-seed, seed o al massimo una piccola Series A;
+* raccolta fondi totale indicativamente sotto i 5 milioni di euro (se non è nota va bene, purché la startup sia chiaramente piccola);
+* team piccolo (indicativamente fino a 50 persone).
+
+Per ogni startup indica UNA sola persona: il fondatore / co-fondatore oppure il CEO. Se ci sono più fondatori, preferisci il CEO.
+
+NON indicare dipendenti, manager senza quote, advisor, investitori o membri del board esterni.
+
+DA EVITARE
+
+* unicorni, scale-up e startup che hanno raccolto molti milioni (Series B o successive, round singoli sopra i 10 milioni);
+* aziende quotate, grandi aziende, multinazionali e loro divisioni o spin-off corporate;
+* società di consulenza, agenzie web e software house che lavorano su commessa (non sono startup di prodotto);
+* fondi di venture capital, acceleratori, incubatori, associazioni, enti pubblici, università (come entità);
+* startup chiuse, acquisite o inattive (nessuna attività recente);
+* aziende senza un sito ufficiale proprio.
+
+SITO UFFICIALE OBBLIGATORIO
+
+"sito" deve essere il sito della startup (dominio proprio).
+NON sono siti ufficiali: LinkedIn, Facebook, Instagram, X, Crunchbase, Dealroom, F6S, Wellfound, Product Hunt, Tracxn, PitchBook, EU-Startups, Sifted, articoli, pagine di eventi, marketplace e app store.
+Usa database, classifiche e articoli solo per SCOPRIRE i nomi, poi trova il sito ufficiale.
+Se non trovi il sito ufficiale, scarta il candidato e passa al successivo.
+
+PAGINA CONTATTI
+
+Se durante la ricerca vedi la pagina del sito ufficiale con i contatti (contact / kontakt / contatti / contacto / impressum / about / team), mettila in "pagina_contatti". Non fare ricerche apposta solo per trovarla e NON cercare email.
+
+METODO
+
+Usa davvero la ricerca web, in modo ampio e veloce: privilegia la quantità.
+Cerca anche nella lingua del paese.
+Fonti utili per scoprire nomi: portfolio di acceleratori e incubatori locali (es. programmi pre-seed, university incubator), batch di startup, vincitori di pitch competition e premi per startup, liste "startup da seguire" dei media locali, registri e mappe degli ecosistemi startup nazionali, annunci di round pre-seed e seed, community e hub di innovazione.
+Non approfondire un candidato quando hai già: persona reale, ruolo da fondatore o CEO plausibile, startup reale e piccola, sito ufficiale, una fonte.
+
+Non inventare mai persone, aziende, ruoli, siti o URL.
+Non inserire due persone della stessa startup.
+
+OUTPUT
+
+Restituisci ESCLUSIVAMENTE JSON valido, senza Markdown e senza testo prima o dopo:
+
+{
+"candidati": [
+{
+  "nome": "",
+  "nome_proprio": "",
+  "cognome": "",
+  "azienda": "",
+  "ruolo": "",
+  "citta": "",
+  "anno_fondazione": "",
+  "fase": "",
+  "settore": "",
+  "sito": "https://...",
+  "pagina_contatti": "",
+  "fonte": "https://..."
+}
+]
+}
+
+REGOLE OUTPUT
+
+* "nome": nome completo della persona come appare nelle fonti, senza titoli (Dr., Ing., Dott.…).
+* "nome_proprio" e "cognome": nome e cognome reali.
+* "azienda": nome della startup.
+* "ruolo": es. Founder, Co-Founder & CEO, CEO, Founder & CTO.
+* "citta": città della sede principale.
+* "anno_fondazione": anno di fondazione (es. "2021"), oppure "" se non è noto.
+* "fase": "bootstrapped", "pre-seed", "seed", "Series A" oppure "" se non è nota.
+* "settore": settore della startup (es. "Fintech", "Healthtech", "SaaS B2B", "Climate tech").
+* "sito": URL del sito UFFICIALE della startup. Obbligatorio.
+* "pagina_contatti": URL della pagina contatti / impressum / about sul sito ufficiale, oppure "".
+* "fonte": URL della fonte che conferma persona e ruolo.
+
+Cerca di arrivare a {{ $json.target_lotto }} candidati. Se ne trovi meno, restituisci solo quelli reali.
