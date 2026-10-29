@@ -50,7 +50,7 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 
 ## Progetto Comunità, Settore e Apertura (approvato il 29 ottobre 2026)
 
-Tre colonne nuove per ogni lead: **Comunità di appartenenza** (una delle 15 comunità Le Fonti), **Settore** (lista dell'utente, in arrivo), **Apertura** (due righe su misura in **inglese**, solo da fatti presenti sul sito ufficiale). Il settore scritto oggi dall'AI resta in Prospect AI come **Settore AI**. Email ai lead: **in inglese**.
+Tre colonne nuove per ogni lead: **Comunità di appartenenza** (una delle 15 comunità Le Fonti), **Settore** (lista dell'utente, in arrivo), **Apertura** (due righe su misura in **inglese**, solo da fatti presenti sul sito ufficiale; **solo per Startup e Asia PMI**, non per Avvocati: impostazione per campagna). Il settore scritto oggi dall'AI resta in Prospect AI come **Settore AI**. Email ai lead: **in inglese**.
 
 Comunità di appartenenza: 01 Comunità Business · 02 Comunità di CEO · 03 Comunità di CEO Internazionali · 04 Comunità di CEO Regionali · 05 Comunità Pharma · 06 Comunità Sostenibilità · 07 Comunità di Innovazione e Tecnologia · 08 Comunità di Avvocati · 09 Comunità di Avvocati Penalisti · 10 Comunità di Diritto del Lavoro · 11 Comunità Risorse Umane · 12 Comunità Operazioni Straordinarie · 13 Comunità di Fiscalisti · 14 Comunità del Marketing · 15 Comunità dell'Asset Management.
 
@@ -70,7 +70,7 @@ Checklist (in ordine):
 - [ ] 9. Claude: deploy sulle tre campagne (solo con ok).
 
 **C · Apertura (due righe su misura)**
-- [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead.
+- [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead. Attivo solo per `startup` e `asia-pmi` (impostazione in `campagna.json`).
 - [ ] 11. Claude: prova su 50 lead in un file a parte; utente controlla.
 - [ ] 12. Claude: attivazione nel motore (solo con ok) + misura costi e tempi.
 
