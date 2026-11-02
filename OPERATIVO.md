@@ -48,6 +48,13 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
   **Da fare prima di attivarla:** una prova manuale e il confronto col Log.
 - **Startup:** campagna nuova, vedi `campagne/startup/ROADMAP.md`.
 
+## Avvisi Telegram (dal 2 novembre 2026)
+
+- **Prospect | Strumenti | Avvisi Telegram** (`cOTn9YehQThgLc3y`): manda un messaggio dal bot **n8n Workflow Monitor** (`@n8n_singapore_monitor_bot`, credenziale **Telegram**, condivisa con il progetto) nella chat di Marco (l'ID della chat è solo su n8n).
+- Quando: 🔴 tutte le ricerche AI fallite · 🟠 3 o più su 5 fallite · nessun candidato (`motore/avvisi.json`, chiamato dalle campagne dopo "Calcola statistiche") · ❌ workflow bloccato da un errore (impostazione **Error workflow** delle tre campagne). Il messaggio dice errore, consiglio (es. credito OpenAI) e link all'esecuzione.
+- **Messaggio di prova**: esecuzione manuale del workflow (prova 4212 del 2 novembre: arrivato).
+- Motivo: dal 30 ottobre ~12:00 al 2 novembre le tre campagne non hanno trovato nessuno per **credito OpenAI esaurito** ("OpenAI: Rate limit reached"); nessuno se n'era accorto. Il 2 novembre ricaricati **20 $** su OpenAI: da misurare quanto durano.
+
 ## Progetto Comunità, Settore e Apertura (approvato il 29 ottobre 2026)
 
 Tre colonne nuove per ogni lead: **Comunità di appartenenza** (una delle 15 comunità Le Fonti), **Settore** (lista dell'utente, in arrivo), **Apertura** (due righe su misura in **inglese**, solo da fatti presenti sul sito ufficiale; **solo per Startup e Asia PMI**, non per Avvocati: impostazione per campagna). Il settore scritto oggi dall'AI resta in Prospect AI come **Settore AI**. Email ai lead: **in inglese**.
@@ -84,7 +91,7 @@ Checklist (in ordine):
 - [ ] 14. Utente con guida: campi personalizzati e template MailUp con [apertura]; invio di prova.
 - [ ] 15. Insieme: primo invio vero e confronto con l'invio classico.
 
-**Dopo:** 16. Avviso automatico se un workflow fallisce.
+**Dopo:** 16. ✅ Avviso automatico se un workflow fallisce (fatto il 2 novembre, vedi "Avvisi Telegram").
 
 ## Prossimi passi
 
