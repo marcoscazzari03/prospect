@@ -118,7 +118,7 @@ Checklist (in ordine):
 **B · Comunità e Settore sui lead nuovi**
 - [x] 6. Claude (2 novembre, nella repo): prompt Startup e Asia con il campo `settore_lefonti` (lista dei 52); Avvocati con settore fisso Legal Services. Nel motore (deduplica) il calcolo di **Settore Le Fonti** (lista → parole chiave → "Other") e **Comunità 1 / Comunità 2** dalle regole in `campagna.json` (`comunita`). Liste in `motore/liste/`.
 - [x] 7. Claude: verifica sui dati reali (avvocati 4133: unica differenza le 3 colonne nuove). Colonne aggiunte ai fogli il 2 novembre con **Prospect | Strumenti | Aggiungi colonne** (`AtE5Ney79dkoEQEq`, esecuzione 4215): Settore Le Fonti, Comunità 1, Comunità 2 in Prospect AI e Mailup dei tre fogli. Deploy delle tre campagne il 2 novembre (4216).
-- [ ] 8. Claude: controllo delle prime esecuzioni automatiche (Avvocati 18:00, Startup 21:00, Asia 03:00 del 2–3 novembre); utente controlla 30 righe.
+- [ ] 8. **DOMANI 3 novembre** — Claude: controllo dei risultati delle prime esecuzioni automatiche (Avvocati 18:00, Startup 21:00, Asia 03:00 del 2–3 novembre): Settore Le Fonti e Comunità; per gli avvocati anche **Specializzazione** scelta dall'AI e **Città in inglese**; per le startup Città in inglese. Utente controlla 30 righe e prova "Scarica nuovi" nell'app. Se tutto va bene: nuovo punto di ripristino.
 - [x] 9. Claude: deploy sulle tre campagne (2 novembre, con ok). Da fare: nuovo punto di ripristino quando l'utente conferma che funziona.
 
 **C · Apertura (due righe su misura)**
