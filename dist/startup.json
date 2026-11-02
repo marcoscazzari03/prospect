@@ -2684,22 +2684,16 @@
       "description": "Senza email o esclusi: scheda Scartati (i 'Da riprovare' vengono ripresi al giro dopo)."
     },
     {
-      "name": "13 · Log esecuzione",
+      "name": "13 · Log e avviso",
       "nodeNames": [
         "Fine esecuzione",
         "Calcola statistiche",
-        "Append - Log"
-      ],
-      "description": "A fine esecuzione scrive una riga di statistiche nella scheda Log."
-    },
-    {
-      "name": "14 · Avviso",
-      "nodeNames": [
+        "Append - Log",
         "Serve un avviso?",
         "Prepara avviso",
         "Avviso Telegram"
       ],
-      "description": "Se 3 o più ricerche AI falliscono o non arriva nessun candidato: messaggio Telegram."
+      "description": "A fine esecuzione scrive una riga di statistiche nella scheda Log e, se 3 o più ricerche AI falliscono o non arriva nessun candidato, manda un avviso Telegram."
     }
   ],
   "settings": {

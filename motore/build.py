@@ -277,8 +277,13 @@ def build(cfg):
         link('Calcola statistiche', 'Serve un avviso?')
         link('Serve un avviso?', 'Prepara avviso')
         link('Prepara avviso', 'Avviso Telegram')
-        gruppi.append({'name': '14 · Avviso', 'nodeNames': ['Serve un avviso?', 'Prepara avviso', 'Avviso Telegram'],
-                       'description': 'Se 3 o più ricerche AI falliscono o non arriva nessun candidato: messaggio Telegram.'})
+        # n8n vuole riquadri con una sola uscita: l'avviso sta nello stesso riquadro del Log.
+        for g in gruppi:
+            if g['name'].startswith('13 '):
+                g['name'] = '13 · Log e avviso'
+                g['nodeNames'] += ['Serve un avviso?', 'Prepara avviso', 'Avviso Telegram']
+                g['description'] = ('A fine esecuzione scrive una riga di statistiche nella scheda Log e, se 3 o più '
+                                    'ricerche AI falliscono o non arriva nessun candidato, manda un avviso Telegram.')
 
     nota = nodi['Nota: come funziona']
     nota['parameters'].update(content=leggi(CAMPAGNE, cfg['id'], 'nota.md').rstrip(), height=420, width=1240)
