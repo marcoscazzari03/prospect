@@ -52,6 +52,7 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 
 - **Prospect | Strumenti | Avvisi Telegram** (`cOTn9YehQThgLc3y`): manda un messaggio dal bot **n8n Workflow Monitor** (`@n8n_singapore_monitor_bot`, credenziale **Telegram**, condivisa con il progetto) nella chat di Marco (l'ID della chat è solo su n8n).
 - Quando: 🔴 tutte le ricerche AI fallite · 🟠 3 o più su 5 fallite · nessun candidato (`motore/avvisi.json`, chiamato dalle campagne dopo "Calcola statistiche") · ❌ workflow bloccato da un errore (impostazione **Error workflow** delle tre campagne). Il messaggio dice errore, consiglio (es. credito OpenAI) e link all'esecuzione.
+- Vecchio **Singapore V1.3.2 | Error Monitor** archiviato il 2 novembre (sostituito da Avvisi Telegram). **Singapore V3.3 | Success Monitor** da archiviare: non accessibile da MCP.
 - **Messaggio di prova**: esecuzione manuale del workflow (prova 4212 del 2 novembre: arrivato).
 - Collegati alle tre campagne il 2 novembre (deploy 4214): 56 nodi ciascuna, riquadro **13 · Log e avviso**, Error workflow impostato. Nota per i deploy: n8n vuole riquadri con **una sola uscita** e descrizioni di **max 145 caratteri**; se il deploy è rifiutato per un riquadro, toglierlo su n8n, rifare il deploy e rimetterlo.
 - Motivo: dal 30 ottobre ~12:00 al 2 novembre le tre campagne non hanno trovato nessuno per **credito OpenAI esaurito** ("OpenAI: Rate limit reached"); nessuno se n'era accorto. Il 2 novembre ricaricati **20 $** su OpenAI: da misurare quanto durano.
