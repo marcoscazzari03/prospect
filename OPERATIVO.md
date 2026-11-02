@@ -86,10 +86,10 @@ Checklist:
 - [x] 2. Utente: accesso **solo per Marco** → login con **password personale** (salvata solo nelle variabili segrete di Vercel), sessione ricordata 30 giorni, blocco dopo troppi tentativi, pagina non indicizzata.
 - [x] 3. Utente: l'**export del lunedì si spegne** quando l'app funziona (anche la pagina Download Mailup).
 - [x] 4. Utente: DNS di stagira.it su **Keliweb**.
-- [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
+- [x] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
 - [x] 6. Claude: workflow **Prospect | Strumenti | API App** (`B5pNQHB32c8PiTyw`) creato e pubblicato il 2 novembre (sorgente `n8n/api-app.*`: azioni panoramica, scarica, storico, download; chiave segreta nell'intestazione `x-chiave-app`). Aggiunte le colonne settore_lefonti, comunita1, comunita2 alla tabella `prospect_export_righe`. Provato sull'indirizzo vero: chiave sbagliata → 401; panoramica e storico corretti (l'export di stamattina risulta come primo download: Asia 110, Avvocati 45, Startup 97; nuovi 0); riscarica avvocati → 45 righe. "Scarica" non provato apposta (segnerebbe i contatti come scaricati). I download dell'app usano la stessa tabella dell'export del lunedì: nessun contatto già esportato viene riproposto.
 - [x] 7. Claude: app in `app/` (Next.js 15: login con password, panoramica, scarica nuovi / tutti, storico con riscarica), provata in locale con un finto n8n e un browser automatico, poi con l'API vera (2 novembre). Istruzioni in `app/README.md`.
-- [ ] 8. Utente con guida: collegamento a Vercel, variabili segrete, dominio leads.stagira.it.
+- [x] 8. Utente (2 novembre): app pubblicata su Vercel con le variabili segrete. **Dominio: `prospect-gilt.vercel.app`** (deciso di tenere quello di Vercel; leads.stagira.it e DNS Keliweb non servono).
 - [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
 - [ ] 10. ⏸️ **Rinviata** (2 novembre) — repo prospect **privata**. Prima serve un **token GitHub di sola lettura** (fine-grained, solo repo prospect, Contents: Read-only) salvato su n8n come credenziale Header Auth **GitHub prospect (lettura)** (`Authorization: Bearer …`) e collegato ai workflow che leggono da GitHub: Export Mailup settimanale, Deploy da GitHub, Aggiungi colonne, Setup foglio (quest'ultimo legge da raw.githubusercontent: passare all'API). Le campagne di ricerca non leggono da GitHub.
 
