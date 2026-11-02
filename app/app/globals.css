@@ -1,0 +1,34 @@
+:root {
+  --sfondo: #f6f7f9; --carta: #ffffff; --testo: #1d2330; --tenue: #667085; --bordo: #e4e7ec;
+  --accento: #2f5bea; --accento-testo: #ffffff; --rosso: #b42318; --verde: #067647;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sfondo: #111418; --carta: #1a1f26; --testo: #e6e8eb; --tenue: #9aa4b2; --bordo: #2a313b;
+    --accento: #6d8cff; --accento-testo: #0d1117; --rosso: #f97066; --verde: #47cd89;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--sfondo); color: var(--testo); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 860px; margin: 0 auto; padding: 28px 16px 56px; }
+header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 24px; }
+h1 { font-size: 22px; margin: 0; }
+h2 { font-size: 17px; margin: 32px 0 12px; }
+.tenue { color: var(--tenue); font-size: 14px; }
+.griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.scheda { background: var(--carta); border: 1px solid var(--bordo); border-radius: 12px; padding: 16px 18px; }
+.numero { font-size: 32px; font-weight: 700; line-height: 1.1; margin: 6px 0 2px; }
+button, .pulsante { font: inherit; font-weight: 600; font-size: 14px; border-radius: 8px; padding: 9px 14px; cursor: pointer; border: 1px solid var(--accento); background: var(--accento); color: var(--accento-testo); text-decoration: none; display: inline-block; }
+button.secondario, .pulsante.secondario { background: transparent; color: var(--accento); }
+button:disabled { opacity: .55; cursor: default; }
+button:focus-visible, .pulsante:focus-visible, input:focus-visible { outline: 3px solid var(--accento); outline-offset: 2px; }
+.azioni { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.messaggio { font-size: 14px; margin-top: 8px; }
+.errore { color: var(--rosso); }
+.ok { color: var(--verde); }
+table { width: 100%; border-collapse: collapse; background: var(--carta); border: 1px solid var(--bordo); border-radius: 12px; overflow: hidden; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-top: 1px solid var(--bordo); }
+th { border-top: 0; color: var(--tenue); font-weight: 600; }
+.tabella { overflow-x: auto; }
+.accesso { max-width: 360px; margin: 12vh auto 0; }
+input { font: inherit; width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bordo); background: var(--carta); color: var(--testo); margin: 8px 0 12px; }

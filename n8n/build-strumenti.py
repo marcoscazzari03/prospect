@@ -25,10 +25,13 @@ SCHEMI = {
     '__SCHEMA_RIGHE__': schema([(c, 'string') for c in
                                 ['settimana', 'campagna', 'etichetta', 'nome', 'cognome', 'azienda', 'ruolo', 'settore', 'email', 'paese']]),
     '__SCHEMA_PARTENZA__': schema([('campagna', 'string'), ('email', 'string'), ('data', 'string')]),
+    '__SCHEMA_DOWNLOAD__': schema([(c, 'string') for c in
+                                   ['settimana', 'campagna', 'etichetta', 'nome', 'cognome', 'azienda', 'ruolo', 'settore', 'email', 'paese',
+                                    'settore_lefonti', 'comunita1', 'comunita2']]),
     '__SCHEMA_STATO__': schema([('campagna', 'string'), ('etichetta', 'string'), ('ultima_riga', 'number'), ('ultimo_export', 'string')]),
 }
 
-for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne']:
+for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne', 'api-app']:
     ts = leggi(f'{nome}.template.ts')
     pagina = leggi('download-mailup.pagina.js').replace(
         '__HTML_PAGINA__', json.dumps(leggi('pagine', 'download-mailup.html'), ensure_ascii=False))

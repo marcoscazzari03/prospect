@@ -85,8 +85,8 @@ Checklist:
 - [x] 3. Utente: l'**export del lunedì si spegne** quando l'app funziona (anche la pagina Download Mailup).
 - [x] 4. Utente: DNS di stagira.it su **Keliweb**.
 - [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
-- [ ] 6. Claude: webhook n8n per l'app (panoramica, scarica nuovi, storico) — con ok prima di creare su n8n.
-- [ ] 7. Claude: app in `app/` (login, panoramica, scarica, storico) + prova.
+- [~] 6. Claude: workflow **Prospect | Strumenti | API App** pronto nella repo (`n8n/api-app.*`: azioni panoramica, scarica, storico, download; chiave segreta nell'intestazione `x-chiave-app`), provato in locale. Da creare su n8n **con ok**, insieme a 3 colonne nuove nella tabella `prospect_export_righe` (settore_lefonti, comunita1, comunita2). I download dell'app usano la stessa tabella dell'export del lunedì: nessun contatto già esportato viene riproposto.
+- [x] 7. Claude: app in `app/` (Next.js 15: login con password, panoramica, scarica nuovi / tutti, storico con riscarica), provata in locale con un finto n8n e un browser automatico (2 novembre). Istruzioni in `app/README.md`.
 - [ ] 8. Utente con guida: collegamento a Vercel, variabili segrete, dominio leads.stagira.it.
 - [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
 - [ ] 10. ⏸️ **Rinviata** (2 novembre) — repo prospect **privata**. Prima serve un **token GitHub di sola lettura** (fine-grained, solo repo prospect, Contents: Read-only) salvato su n8n come credenziale Header Auth **GitHub prospect (lettura)** (`Authorization: Bearer …`) e collegato ai workflow che leggono da GitHub: Export Mailup settimanale, Deploy da GitHub, Aggiungi colonne, Setup foglio (quest'ultimo legge da raw.githubusercontent: passare all'API). Le campagne di ricerca non leggono da GitHub.
