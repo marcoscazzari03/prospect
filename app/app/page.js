@@ -1,5 +1,6 @@
 import Scarica from './componenti/Scarica';
 import { chiediAN8n } from '../lib/n8n';
+import orari from '../lib/orari.json';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,6 +14,15 @@ const data = (d) => {
     timeZone: 'UTC', day: 'numeric', month: 'short', year: 'numeric',
     ...(conOra ? { hour: '2-digit', minute: '2-digit' } : {})
   });
+};
+
+// Prossimo giro della campagna, in ora italiana (orari generati da motore/build.py).
+const prossimoGiro = (campagna) => {
+  const ore = orari[campagna];
+  if (!ore?.length) return '';
+  const adesso = new Intl.DateTimeFormat('it-IT', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
+  const oggi = ore.find(o => o > adesso);
+  return oggi ? `oggi alle ${oggi}` : `domani alle ${ore[0]}`;
 };
 
 export default async function Panoramica() {
@@ -45,6 +55,7 @@ export default async function Panoramica() {
             <div className="numero">{c.nuovi}</div>
             <div className="tenue">contatti nuovi da scaricare</div>
             <div className="tenue">Già scaricati: {c.scaricati} · ultimo download: {data(c.ultimo_download)}</div>
+            {prossimoGiro(c.campagna) && <div className="tenue">Prossimo giro: {prossimoGiro(c.campagna)}</div>}
             <div className="azioni">
               <Scarica campagna={c.campagna} testo="Scarica nuovi" disattivo={!c.nuovi} />
             </div>

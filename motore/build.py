@@ -365,6 +365,18 @@ if __name__ == '__main__':
         export.append({'campagna': c, 'etichetta': cfg['etichetta'], 'scheda': 'Mailup',
                        'foglio_id': cfg['foglio']['id'] if cfg.get('foglio') else mailup_modello})
     scrivi('campagne.json', export)
+
+    # Orari dei giri (ora italiana) per la app web: "prossimo giro" sulle schede delle campagne.
+    orari = {}
+    for c in campagne():
+        cfg = carica(c)
+        cron = (cfg.get('trigger') or {}).get('cron', '').split()
+        if cfg.get('id_n8n') and len(cron) == 5 and cron[0].isdigit():
+            orari[c] = sorted(f'{int(h):02d}:{int(cron[0]):02d}' for h in cron[1].split(','))
+    with open(os.path.join(RADICE, 'app', 'lib', 'orari.json'), 'w', encoding='utf-8') as f:
+        json.dump(orari, f, ensure_ascii=False, indent=2)
+        f.write('\n')
+    print('orari app:', orari)
     print('export Mailup:', ', '.join(x['campagna'] for x in export))
 
     # Elenco letto dal workflow "Prospect | Strumenti | Aggiungi colonne": colonne che devono
