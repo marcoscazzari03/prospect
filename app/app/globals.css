@@ -32,3 +32,15 @@ th { border-top: 0; color: var(--tenue); font-weight: 600; }
 .tabella { overflow-x: auto; }
 .accesso { max-width: 360px; margin: 12vh auto 0; }
 input { font: inherit; width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bordo); background: var(--carta); color: var(--testo); margin: 8px 0 12px; }
+.modello { margin-top: 16px; }
+.riga-titolo { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.interruttori { display: flex; gap: 10px; flex-wrap: wrap; }
+.interruttori [role=group] { display: flex; }
+.interruttori button { padding: 6px 10px; font-size: 13px; border-radius: 0; }
+.interruttori button:first-child { border-radius: 8px 0 0 8px; }
+.interruttori button:last-child { border-radius: 0 8px 8px 0; }
+.email { border: 1px solid var(--bordo); border-radius: 10px; padding: 14px 16px; margin: 10px 0; font-size: 15px; background: var(--sfondo); }
+.email p { margin: 0 0 12px; }
+.oggetto { font-weight: 600; padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--bordo); }
+mark.campo { background: color-mix(in srgb, var(--accento) 18%, transparent); color: inherit; border-radius: 4px; padding: 0 3px; }
+.navigazione { display: flex; gap: 8px; align-items: center; }

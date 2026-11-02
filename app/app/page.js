@@ -43,7 +43,10 @@ export default async function Panoramica() {
           <h1>Leads</h1>
           <span className="tenue">Contatti nuovi delle campagne prospect, pronti per Mailup.</span>
         </div>
-        <form action="/api/logout" method="post"><button className="secondario">Esci</button></form>
+        <div className="navigazione">
+          <a className="pulsante secondario" href="/modelli">Modelli email</a>
+          <form action="/api/logout" method="post"><button className="secondario">Esci</button></form>
+        </div>
       </header>
 
       {errore && <p className="scheda errore">Non riesco a leggere i dati da n8n: {errore}</p>}

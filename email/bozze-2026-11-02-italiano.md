@@ -1,7 +1,7 @@
 # Bozze email Le Fonti Awards® — traduzione italiana (2 novembre 2026)
 
 Traduzione per la lettura interna: **le email verranno inviate in inglese** (versione originale in `bozze-2026-11-02.md`).
-Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[specializzazione]` (solo Avvocati), `[apertura1]`, `[apertura2]` (Asia PMI e Startup).
+Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[specializzazione]`, `[citta]` (solo Avvocati), `[apertura1]`, `[apertura2]` (Asia PMI e Startup).
 `[apertura1] [apertura2]` = due frasi su misura per ogni contatto (max 100 caratteri l'una), scritte dall'AI **solo con fatti presi dal sito ufficiale** dell'azienda. Se il sito non dà abbastanza informazioni, l'AI mette una frase standard di riserva: il testo resta sempre corretto. Solo per Asia PMI e Startup.
 
 **Da confermare (⚠️):** link del modulo di candidatura (nell'email attuale manca); esistenza di una categoria dedicata ai penalisti e di una per le aziende emergenti / startup.
@@ -15,7 +15,7 @@ Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[specializzazione]` (
 
 Gentile [nome],
 
-le candidature ai Le Fonti Awards®, prestigioso premio internazionale che celebra l'eccellenza nel mondo delle imprese e della professione legale, sono ufficialmente aperte. La contattiamo per il lavoro di [azienda] in [specializzazione].
+le candidature ai Le Fonti Awards®, prestigioso premio internazionale che celebra l'eccellenza nel mondo delle imprese e della professione legale, sono ufficialmente aperte. La contattiamo per il lavoro di [azienda] in [specializzazione] a [citta].
 
 Da oltre 15 anni i Le Fonti Awards® premiano studi legali e professionisti di eccellenza insieme ad aziende e professionisti di primo piano, con eventi nei principali centri d'affari del mondo, tra cui Milano, New York, Londra, Dubai, Singapore e Hong Kong. ⚠️ L'edizione di quest'anno dà spazio anche all'eccellenza nel diritto penale, in ambiti come [specializzazione].
 
