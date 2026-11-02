@@ -88,8 +88,8 @@ Checklist (in ordine):
   - ✅ Lingua delle email: inglese.
   - ✅ **Fino a 2 comunità per lead** (comunità principale + eventuale seconda).
   - ✅ Apertura su misura solo per Startup e Asia PMI.
-  - ⏳ Un template per comunità o uno solo? (risposta in arrivo)
-  - ⏳ Limite di caratteri dei campi personalizzati MailUp (risposta in arrivo).
+  - ✅ Template: **uno per campagna** (3: Asia PMI e Startup con le due frasi su misura, Avvocati classico); template per comunità solo dove i numeri lo giustificano, dopo 3–4 settimane di dati.
+  - ✅ Limite MailUp: **200 byte per campo ≈ 100 caratteri** (39 campi personalizzabili; fonte: help MailUp "Limite caratteri per i campi anagrafici" e PDF dettaglio servizi). Quindi: **apertura1** e **apertura2**, due frasi in inglese di **max 100 caratteri** ciascuna (senza accenti, virgolette curve o trattini lunghi); **Comunità 1**, **Comunità 2**, **Settore** come campi separati. Nel template: `[apertura1] [apertura2]`.
 - [x] 3. Claude: analisi dei "Settore AI" (2 novembre). L'AI scrive settori liberi: Asia 1.946 diciture diverse su 2.207 lead, Startup 157 su 163, Avvocati quasi tutto "Diritto penale". Tabella fissa impraticabile → **regole a parole chiave** (`motore/liste/parole-chiave-settori.json`) come rete di sicurezza: riconducono ai 52 settori il 94% (Asia) e il 99% (Avvocati, Startup). Per i lead nuovi l'AI sceglierà direttamente dalla lista.
 - [x] 4. Claude: proposta di regole per la Comunità di appartenenza in `motore/liste/regole-comunita.md` (2 novembre), con la distribuzione stimata.
 - [x] 5. Utente: regole approvate il 2 novembre (startup italiane → 02 CEO; banche/finanza/assicurazioni → 15; 04 e 12 non usate).
