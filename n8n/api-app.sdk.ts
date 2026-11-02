@@ -1,6 +1,6 @@
 import { workflow, node, trigger, sticky, expr, ifElse } from '@n8n/workflow-sdk';
 
-// API per l'app web leads.stagira.it: panoramica, scarica nuovi, storico, download passati.
+// API per la app web leads.stagira.it: panoramica, scarica nuovi, storico, download passati.
 // Protetta da una chiave segreta (intestazione x-chiave-app) che non sta nella repo.
 const GOOGLE = { googleSheetsOAuth2Api: { id: 'ZayuDfh1wxejgzop', name: 'Spreadsheet ads.lefonti@gmail.com' } };
 const PARTENZA = { __rl: true, mode: 'id', value: '5PNFQ2Od1xTZlZ4P', cachedResultName: 'prospect_export_partenza' };

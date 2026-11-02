@@ -3,9 +3,17 @@ import { chiediAN8n } from '../lib/n8n';
 
 export const dynamic = 'force-dynamic';
 
-const data = (d) => (d ? new Date(String(d).replace(' ', 'T')).toLocaleString('it-IT', {
-  day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-}) : 'mai');
+// Le date arrivano già in ora italiana ("2026-11-09 08:15:00", oppure solo "2026-11-02"
+// per l'export del lunedì): si mostrano così come sono, senza conversioni di fuso.
+const data = (d) => {
+  if (!d) return 'mai';
+  const s = String(d);
+  const conOra = s.length > 10;
+  return new Date(`${s.slice(0, 10)}T${conOra ? s.slice(11, 19) : '00:00:00'}Z`).toLocaleString('it-IT', {
+    timeZone: 'UTC', day: 'numeric', month: 'short', year: 'numeric',
+    ...(conOra ? { hour: '2-digit', minute: '2-digit' } : {})
+  });
+};
 
 export default async function Panoramica() {
   let campagne = [];

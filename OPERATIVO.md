@@ -16,6 +16,7 @@ Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva 
 | Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | attivo (password) |
 | Prospect \| Strumenti \| Deploy da GitHub | `dfcTpLlJ3RyHO8BR` | `5eba5e13-51ff-4566-9d65-0dc50d063587` | manuale |
 | Prospect \| Strumenti \| Aggiungi colonne | `AtE5Ney79dkoEQEq` | (creato dopo il punto di ripristino) | manuale |
+| Prospect \| Strumenti \| API App | `B5pNQHB32c8PiTyw` | `4a925795-71a6-4f01-b4af-99f19016b59d` (creato dopo il punto di ripristino) | attivo (webhook con chiave) |
 | Prospect \| Strumenti \| Setup foglio | `GPtrh61BOYhfp8Mc` | `a47c4571-dbf0-4308-948a-49df1d5802fa` | manuale |
 
 Tabelle n8n in uso: `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`), `prospect_export_stato` (`6uYSjDtswew1752T`), `prospect_export_partenza` (`5PNFQ2Od1xTZlZ4P`).
@@ -40,6 +41,7 @@ Account usati da tutti i workflow: Google Sheets `Spreadsheet ads.lefonti@gmail.
 |---|---|
 | **Prospect \| Strumenti \| Deploy da GitHub** (`dfcTpLlJ3RyHO8BR`, sorgente `n8n/deploy.sdk.ts`) | ✅ creato il 29 ottobre: aggiorna tutti i workflow in `dist/deploy.json` (primo deploy: esecuzione 4138) |
 | **Prospect \| Strumenti \| Setup foglio** (`GPtrh61BOYhfp8Mc`, sorgente `n8n/setup-foglio.sdk.ts`) | ✅ creato il 29 ottobre: già eseguito per `startup` (4137). **Ogni esecuzione crea un file nuovo** |
+| **Prospect \| Strumenti \| API App** (`B5pNQHB32c8PiTyw`, sorgente `n8n/api-app.*`) | ✅ creato e pubblicato il 2 novembre: dati per l'app leads.stagira.it. Indirizzo `https://lefonti.app.n8n.cloud/webhook/prospect-app-api`; la chiave (`x-chiave-app`) è solo nel nodo "Controlla chiave" e su Vercel |
 | Prospect Avvocati \| Deploy da GitHub, Setup foglio, Leggi foglio | 🗄️ archiviati il 29 ottobre (puntavano alla vecchia repo `prospect-avvocati`) |
 
 ## Export Mailup settimanale
@@ -85,8 +87,8 @@ Checklist:
 - [x] 3. Utente: l'**export del lunedì si spegne** quando l'app funziona (anche la pagina Download Mailup).
 - [x] 4. Utente: DNS di stagira.it su **Keliweb**.
 - [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
-- [~] 6. Claude: workflow **Prospect | Strumenti | API App** pronto nella repo (`n8n/api-app.*`: azioni panoramica, scarica, storico, download; chiave segreta nell'intestazione `x-chiave-app`), provato in locale. Da creare su n8n **con ok**, insieme a 3 colonne nuove nella tabella `prospect_export_righe` (settore_lefonti, comunita1, comunita2). I download dell'app usano la stessa tabella dell'export del lunedì: nessun contatto già esportato viene riproposto.
-- [x] 7. Claude: app in `app/` (Next.js 15: login con password, panoramica, scarica nuovi / tutti, storico con riscarica), provata in locale con un finto n8n e un browser automatico (2 novembre). Istruzioni in `app/README.md`.
+- [x] 6. Claude: workflow **Prospect | Strumenti | API App** (`B5pNQHB32c8PiTyw`) creato e pubblicato il 2 novembre (sorgente `n8n/api-app.*`: azioni panoramica, scarica, storico, download; chiave segreta nell'intestazione `x-chiave-app`). Aggiunte le colonne settore_lefonti, comunita1, comunita2 alla tabella `prospect_export_righe`. Provato sull'indirizzo vero: chiave sbagliata → 401; panoramica e storico corretti (l'export di stamattina risulta come primo download: Asia 110, Avvocati 45, Startup 97; nuovi 0); riscarica avvocati → 45 righe. "Scarica" non provato apposta (segnerebbe i contatti come scaricati). I download dell'app usano la stessa tabella dell'export del lunedì: nessun contatto già esportato viene riproposto.
+- [x] 7. Claude: app in `app/` (Next.js 15: login con password, panoramica, scarica nuovi / tutti, storico con riscarica), provata in locale con un finto n8n e un browser automatico, poi con l'API vera (2 novembre). Istruzioni in `app/README.md`.
 - [ ] 8. Utente con guida: collegamento a Vercel, variabili segrete, dominio leads.stagira.it.
 - [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
 - [ ] 10. ⏸️ **Rinviata** (2 novembre) — repo prospect **privata**. Prima serve un **token GitHub di sola lettura** (fine-grained, solo repo prospect, Contents: Read-only) salvato su n8n come credenziale Header Auth **GitHub prospect (lettura)** (`Authorization: Bearer …`) e collegato ai workflow che leggono da GitHub: Export Mailup settimanale, Deploy da GitHub, Aggiungi colonne, Setup foglio (quest'ultimo legge da raw.githubusercontent: passare all'API). Le campagne di ricerca non leggono da GitHub.
