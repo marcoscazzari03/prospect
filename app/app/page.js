@@ -54,7 +54,8 @@ export default async function Panoramica() {
             <strong>{c.etichetta}</strong>
             <div className="numero">{c.nuovi}</div>
             <div className="tenue">contatti nuovi da scaricare</div>
-            <div className="tenue">Già scaricati: {c.scaricati} · ultimo download: {data(c.ultimo_download)}</div>
+            <div className="tenue">Già scaricati: {c.scaricati}</div>
+            <div className="tenue">Ultimo download: {data(c.ultimo_download)}</div>
             {prossimoGiro(c.campagna) && <div className="tenue">Prossimo giro: {prossimoGiro(c.campagna)}</div>}
             <div className="azioni">
               <Scarica campagna={c.campagna} testo="Scarica nuovi" disattivo={!c.nuovi} />
