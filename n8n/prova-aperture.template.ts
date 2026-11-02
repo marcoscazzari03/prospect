@@ -56,6 +56,7 @@ const homepage = node({
   config: {
     name: 'HTTP - Homepage',
     position: [880, 0],
+    onError: 'continueRegularOutput',
     parameters: {
       url: expr('{{ $json.sito }}'),
       sendHeaders: true,
@@ -84,6 +85,7 @@ const openai = node({
   config: {
     name: 'OpenAI - Frasi su misura',
     position: [1320, 0],
+    onError: 'continueRegularOutput',
     parameters: {
       method: 'POST',
       url: 'https://api.openai.com/v1/responses',
