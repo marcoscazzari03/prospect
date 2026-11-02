@@ -121,6 +121,7 @@ Checklist (in ordine):
 - [x] 9. Claude: deploy sulle tre campagne (2 novembre, con ok). Da fare: nuovo punto di ripristino quando l'utente conferma che funziona.
 
 **C · Apertura (due righe su misura)**
+- Deciso il 2 novembre: la fase C parte **dopo** il controllo delle prime righe della fase B (punto 8, 3 novembre).
 - [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead. Attivo solo per `startup` e `asia-pmi` (impostazione in `campagna.json`).
 - [ ] 11. Claude: prova su 50 lead in un file a parte; utente controlla.
 - [ ] 12. Claude: attivazione nel motore (solo con ok) + misura costi e tempi.
