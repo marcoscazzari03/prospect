@@ -2693,7 +2693,7 @@
         "Prepara avviso",
         "Avviso Telegram"
       ],
-      "description": "A fine esecuzione scrive una riga di statistiche nella scheda Log e, se 3 o più ricerche AI falliscono o non arriva nessun candidato, manda un avviso Telegram."
+      "description": "Statistiche nella scheda Log; avviso Telegram se 3+ ricerche AI falliscono o non arriva nessun candidato."
     }
   ],
   "settings": {

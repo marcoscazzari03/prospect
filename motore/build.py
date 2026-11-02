@@ -282,8 +282,9 @@ def build(cfg):
             if g['name'].startswith('13 '):
                 g['name'] = '13 · Log e avviso'
                 g['nodeNames'] += ['Serve un avviso?', 'Prepara avviso', 'Avviso Telegram']
-                g['description'] = ('A fine esecuzione scrive una riga di statistiche nella scheda Log e, se 3 o più '
-                                    'ricerche AI falliscono o non arriva nessun candidato, manda un avviso Telegram.')
+                # n8n accetta descrizioni dei riquadri di massimo 145 caratteri.
+                g['description'] = ('Statistiche nella scheda Log; avviso Telegram se 3+ ricerche AI falliscono '
+                                    'o non arriva nessun candidato.')
 
     nota = nodi['Nota: come funziona']
     nota['parameters'].update(content=leggi(CAMPAGNE, cfg['id'], 'nota.md').rstrip(), height=420, width=1240)
