@@ -82,14 +82,14 @@ App web su **Vercel**, dominio **leads.stagira.it**: panoramica delle campagne, 
 Checklist:
 - [x] 1. Utente: hosting → **Vercel** (nota: il piano gratuito Hobby è solo per uso non commerciale; per uso aziendale serve Pro, circa 20 $/mese).
 - [x] 2. Utente: accesso **solo per Marco** → login con **password personale** (salvata solo nelle variabili segrete di Vercel), sessione ricordata 30 giorni, blocco dopo troppi tentativi, pagina non indicizzata.
-- [ ] 3. Utente: export del lunedì da spegnere quando l'app funziona, o da tenere come riserva?
-- [ ] 4. Utente: dove si gestisce il DNS di stagira.it.
+- [x] 3. Utente: l'**export del lunedì si spegne** quando l'app funziona (anche la pagina Download Mailup).
+- [x] 4. Utente: DNS di stagira.it su **Keliweb**.
 - [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
 - [ ] 6. Claude: webhook n8n per l'app (panoramica, scarica nuovi, storico) — con ok prima di creare su n8n.
 - [ ] 7. Claude: app in `app/` (login, panoramica, scarica, storico) + prova.
 - [ ] 8. Utente con guida: collegamento a Vercel, variabili segrete, dominio leads.stagira.it.
 - [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
-- [ ] 10. Da valutare: repo prospect privata (servirà un token GitHub per i workflow che la leggono).
+- [ ] 10. Repo prospect **privata** (decisa il 2 novembre). Prima serve un **token GitHub di sola lettura** (fine-grained, solo repo prospect, Contents: Read-only) salvato su n8n come credenziale Header Auth **GitHub prospect (lettura)** (`Authorization: Bearer …`) e collegato ai workflow che leggono da GitHub: Export Mailup settimanale, Deploy da GitHub, Aggiungi colonne, Setup foglio (quest'ultimo legge da raw.githubusercontent: passare all'API). Le campagne di ricerca non leggono da GitHub.
 
 ## Progetto Comunità, Settore e Apertura (approvato il 29 ottobre 2026)
 
