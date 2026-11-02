@@ -20,6 +20,10 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 - **Quando l'utente chiede "la checklist"**: rispondere con la checklist completa in corso (da OPERATIVO.md, con lo stato di ogni punto) **più l'elenco di cosa serve dall'utente per procedere**.
 - Dopo ogni lavoro aggiornare OPERATIVO.md (e la ROADMAP della campagna): è la memoria tra una sessione e l'altra.
 
+## Se qualcosa va storto
+
+In OPERATIVO.md, sezione **"Punto di ripristino"**, ci sono gli ID delle ultime versioni funzionanti di tutti i workflow (n8n) e il tag git con le istantanee delle campagne. Ripristinare quelle (con l'ok dell'utente) prima di cercare altre soluzioni. Quando l'utente dichiara una nuova situazione "funzionante", aggiornare quella sezione con le nuove versioni e creare un nuovo tag `ripristino-AAAA-MM-GG`.
+
 ## Verifica di una modifica al motore
 
 Il motore è condiviso: una modifica cambia tutte le campagne.

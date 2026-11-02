@@ -2,6 +2,23 @@
 
 Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
 
+## 🛟 Punto di ripristino: versioni funzionanti del 2 novembre 2026
+
+Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva la cronologia delle versioni: basta ripristinare l'ID qui sotto (strumento MCP `restore_workflow_version`, oppure su n8n: workflow → menu → *Version history* → ripristina → pubblica). Per le tre campagne c'è anche l'istantanea nella repo: tag git **`ripristino-2026-11-02`** (`dist/<campagna>.json`), da rimettere con il deploy.
+
+| Workflow | ID | Versione funzionante | Stato |
+|---|---|---|---|
+| Prospect \| Asia PMI \| Ricerca | `f03lATvrzkJYAOw6` | `6b828405-52dc-43e3-8f0d-433b14089bc0` | attivo 03:00 · 15:00 |
+| Prospect \| Avvocati \| Ricerca | `rKUcaJepe2momTLB` | `0b858b79-652f-4275-822f-6fda12afc5a9` | attivo 06:00 · 18:00 |
+| Prospect \| Startup \| Ricerca | `iXkSFJOLpJq8gl3D` | `67dfb0e7-1ca1-4efd-a282-2df1c6e70e29` | attivo 09:00 · 21:00 |
+| Prospect \| Strumenti \| Avvisi Telegram | `cOTn9YehQThgLc3y` | `043d6ce0-ad92-4cff-8ed9-1ca558d03062` | attivo |
+| Prospect \| Strumenti \| Export Mailup settimanale | `8BUuXswSFV3JHWs7` | `a5a9970a-9ff9-4103-b1bd-4f7acab059e1` | attivo lunedì 08:00 |
+| Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | attivo (password) |
+| Prospect \| Strumenti \| Deploy da GitHub | `dfcTpLlJ3RyHO8BR` | `5eba5e13-51ff-4566-9d65-0dc50d063587` | manuale |
+| Prospect \| Strumenti \| Setup foglio | `GPtrh61BOYhfp8Mc` | `a47c4571-dbf0-4308-948a-49df1d5802fa` | manuale |
+
+Tabelle n8n in uso: `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`), `prospect_export_stato` (`6uYSjDtswew1752T`), `prospect_export_partenza` (`5PNFQ2Od1xTZlZ4P`).
+
 ## Campagne
 
 | Campagna | Workflow n8n | Stato | Orario (Italia) | Foglio Google | RocketReach |
@@ -75,7 +92,7 @@ Checklist (in ordine):
   - ⏳ Limite di caratteri dei campi personalizzati MailUp (risposta in arrivo).
 - [x] 3. Claude: analisi dei "Settore AI" (2 novembre). L'AI scrive settori liberi: Asia 1.946 diciture diverse su 2.207 lead, Startup 157 su 163, Avvocati quasi tutto "Diritto penale". Tabella fissa impraticabile → **regole a parole chiave** (`motore/liste/parole-chiave-settori.json`) come rete di sicurezza: riconducono ai 52 settori il 94% (Asia) e il 99% (Avvocati, Startup). Per i lead nuovi l'AI sceglierà direttamente dalla lista.
 - [x] 4. Claude: proposta di regole per la Comunità di appartenenza in `motore/liste/regole-comunita.md` (2 novembre), con la distribuzione stimata.
-- [ ] 5. Utente: approva le tabelle.
+- [x] 5. Utente: regole approvate il 2 novembre (startup italiane → 02 CEO; banche/finanza/assicurazioni → 15; 04 e 12 non usate).
 
 **B · Comunità e Settore sui lead nuovi**
 - [ ] 6. Claude: prompt con le due liste (solo valori in lista) + controllo automatico (fuori lista → tabella o "Da classificare").

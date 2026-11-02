@@ -1,4 +1,4 @@
-# Regole per la Comunità di appartenenza (PROPOSTA, da approvare)
+# Regole per la Comunità di appartenenza (APPROVATE il 2 novembre 2026)
 
 Ogni lead ha fino a **2 comunità**: una **principale** e, se serve, una **seconda**.
 Le comunità sono in `comunita.txt`, i settori in `settori.txt`.
@@ -33,8 +33,8 @@ Se il settore del lead è uno di questi, la comunità tematica è:
 - Principale: **03 Comunità di CEO Internazionali** (sempre: sono imprenditori e manager esteri).
 - Seconda: la comunità tematica del settore; se non c'è, **01 Comunità Business**.
 
-## 3. Casi aperti (da decidere con l'utente)
+## 3. Decisioni (2 novembre 2026)
 
-- 04 Comunità di CEO Regionali e 12 Comunità Operazioni Straordinarie: con le campagne attuali non c'è un criterio chiaro per assegnarle. Proposta: non usarle per ora.
-- Banking / Financial Services / Insurance → 15 Asset Management, oppure lasciarle senza comunità tematica?
-- Startup italiane: 02 CEO (nazionale) o 04 CEO Regionali?
+- Banking / Financial Services / Insurance → **15 Comunità dell'Asset Management** (come da tabella).
+- Startup italiane: seconda comunità **02 Comunità di CEO**.
+- **04 Comunità di CEO Regionali** e **12 Comunità Operazioni Straordinarie**: non usate per ora.
