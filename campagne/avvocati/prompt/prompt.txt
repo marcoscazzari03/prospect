@@ -79,7 +79,7 @@ REGOLE OUTPUT
 * "azienda": nome dello studio (per lo studio individuale, il nome con cui l'avvocato si presenta).
 * "ruolo": es. Founder, Founding Partner, Managing Partner, Senior Partner, Owner, Sole Practitioner, Abogado titular.
 * "tipo_studio": "individuale" oppure "associato".
-* "citta": città dell'ufficio principale.
+* "citta": città dell'ufficio principale, scritta in INGLESE (es. Prague, Zurich, Warsaw, Lisbon, The Hague; non Praga, Zurigo, Varsavia).
 * "settore": "Diritto penale" oppure la specializzazione (es. "Diritto penale dell'economia").
 * "specializzazione": l'area del penale in cui lo studio lavora di più, scelta ESATTAMENTE (stesse parole, in inglese) da questa lista:
   white-collar crime · tax crime · financial crime and anti-money laundering · corruption and fraud · cybercrime · environmental and workplace safety offences · medical liability · crimes against the person · drug offences · road traffic offences · extradition and international criminal law · criminal defence

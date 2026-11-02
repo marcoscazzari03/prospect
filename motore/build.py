@@ -74,6 +74,7 @@ def liste_comuni():
         'settori': righe('settori.txt'),
         'parole_settori': [[x['parole'], x['settore']] for x in json.loads(leggi(MOTORE, 'liste', 'parole-chiave-settori.json'))],
         'comunita_tematiche': json.loads(leggi(MOTORE, 'liste', 'comunita-tematiche.json')),
+        'citta_inglese': json.loads(leggi(MOTORE, 'liste', 'citta-inglese.json')),
     }
 
 
@@ -384,4 +385,8 @@ if __name__ == '__main__':
     colonne = [{'campagna': x['campagna'], 'foglio_id': x['foglio_id'], 'scheda': scheda, 'colonne': cols}
                for x in export for scheda, cols in carica(x['campagna']).get('colonne_nuove', {}).items()]
     scrivi('colonne.json', colonne)
+
+    # Letto dallo strumento "Prospect | Strumenti | Compila specializzazione avvocati".
+    scrivi('compila-avvocati.json', {'specializzazione': carica('avvocati')['motore']['specializzazione'],
+                                     'citta_inglese': liste_comuni()['citta_inglese']})
     print('colonne da garantire:', len(colonne), 'schede')

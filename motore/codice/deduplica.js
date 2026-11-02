@@ -106,6 +106,10 @@ const specializzazione = (scelta, testo) => {
   return SPEC.riserva;
 };
 
+// Città in inglese per le email (es. Praga -> Prague, Warszawa -> Warsaw): lista in motore/liste/citta-inglese.json.
+const CITTA_EN = new Map(Object.entries(CFG.citta_inglese).map(([k, v]) => [k.toLowerCase(), v]));
+const cittaInglese = (c) => CITTA_EN.get(String(c ?? '').trim().toLowerCase()) || c;
+
 const archivio = $('Prepara archivio').first().json;
 const visti = new Set(archivio.chiavi_esistenti || []);
 const nomiVisti = new Set(archivio.nomi_esistenti || []);
@@ -165,7 +169,8 @@ for (const item of $input.all()) {
         'Azienda': azienda,
         'Ruolo proposto': pulito(c?.ruolo),
         // Colonne in piu della campagna (es. Tipo studio, Città), dal campo dell'AI.
-        ...Object.fromEntries(CFG.campi_extra.map(([colonna, campo]) => [colonna, pulito(c?.[campo])])),
+        ...Object.fromEntries(CFG.campi_extra.map(([colonna, campo]) =>
+          [colonna, colonna === 'Città' ? cittaInglese(pulito(c?.[campo])) : pulito(c?.[campo])])),
         'Paese': pulito(c?.paese),
         'Settore': settoreAI,
         ...(SPEC ? { [SPEC.colonna]: specializzazione(c?.[SPEC.campo], settoreAI) } : {}),

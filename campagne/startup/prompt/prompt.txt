@@ -76,7 +76,7 @@ REGOLE OUTPUT
 * "nome_proprio" e "cognome": nome e cognome reali.
 * "azienda": nome della startup.
 * "ruolo": es. Founder, Co-Founder & CEO, CEO, Founder & CTO.
-* "citta": città della sede principale.
+* "citta": città della sede principale, scritta in INGLESE (es. Prague, Zurich, Warsaw, Lisbon, The Hague; non Praga, Zurigo, Varsavia).
 * "anno_fondazione": anno di fondazione (es. "2021"), oppure "" se non è noto.
 * "fase": "bootstrapped", "pre-seed", "seed", "Series A" oppure "" se non è nota.
 * "settore": settore della startup (es. "Fintech", "Healthtech", "SaaS B2B", "Climate tech").

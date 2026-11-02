@@ -1,8 +1,12 @@
-// Compila, per i contatti avvocati gia presenti, le colonne nuove rimaste vuote:
-// - Prospect AI: Specializzazione (dal "Settore" scritto dall'AI, con le parole chiave di campagna.json);
-// - Mailup: Specializzazione (dal suo "Settore") e Città (presa da Prospect AI, stessa email).
-// Scrive solo le celle vuote: i valori gia presenti restano. Nessuna chiamata AI.
-const cfg = $('GitHub - Impostazioni avvocati').first().json.motore.specializzazione;
+// Per i contatti avvocati gia presenti (nessuna chiamata AI):
+// - Specializzazione (Prospect AI e Mailup): solo celle vuote, dal "Settore" con le parole chiave di campagna.json;
+// - Città (Prospect AI e Mailup): celle vuote di Mailup prese da Prospect AI (stessa email), e
+//   nomi tradotti in inglese con motore/liste/citta-inglese.json (es. Praga -> Prague).
+// Impostazioni da dist/compila-avvocati.json (generato da motore/build.py).
+const imp = $('GitHub - Impostazioni avvocati').first().json;
+const cfg = imp.specializzazione;
+const CITTA_EN = new Map(Object.entries(imp.citta_inglese).map(([k, v]) => [k.toLowerCase(), v]));
+const inglese = (c) => CITTA_EN.get(String(c ?? '').trim().toLowerCase()) || c;
 const parole = cfg.parole.map(([rx, v]) => [new RegExp(rx, 'i'), v]);
 const spec = (testo) => {
   for (const [rx, v] of parole) if (rx.test(String(testo ?? ''))) return v;
@@ -32,29 +36,36 @@ if (manca.length) throw new Error(`Colonne mancanti (eseguire prima Aggiungi col
 const cittaPerEmail = new Map();
 for (const r of pa.righe) {
   const email = pulito(r[pa.col('Email certa')]).toLowerCase();
-  const citta = pulito(r[pa.col('Città')]);
+  const citta = inglese(pulito(r[pa.col('Città')]));
   if (email && citta && !cittaPerEmail.has(email)) cittaPerEmail.set(email, citta);
 }
 
-// Colonna intera (dalla riga 2 all'ultima letta), con i valori nuovi solo dove la cella e vuota.
-const colonna = (s, nomeScheda, intestazione, calcola) => {
+// Colonna intera (dalla riga 2 all'ultima letta): i valori nuovi solo dove la cella e vuota;
+// "correggi" (se c'e) puo cambiare un valore gia presente (per le città: traduzione in inglese).
+const colonna = (s, nomeScheda, intestazione, calcola, correggi) => {
   const k = s.col(intestazione);
   let compilate = 0;
+  let corrette = 0;
   const valori = s.righe.map(r => {
     const attuale = pulito(r[k]);
-    if (attuale) return [attuale];
+    if (attuale) {
+      const nuovo = correggi ? correggi(attuale) : attuale;
+      if (nuovo !== attuale) corrette++;
+      return [nuovo];
+    }
     const nuovo = calcola(r);
     if (nuovo) compilate++;
     return [nuovo || ''];
   });
   const L = lettera(k);
-  return { range: `'${nomeScheda}'!${L}2:${L}${s.righe.length + 1}`, values: valori, compilate, scheda: nomeScheda, colonna: intestazione };
+  return { range: `'${nomeScheda}'!${L}2:${L}${s.righe.length + 1}`, values: valori, compilate, corrette, scheda: nomeScheda, colonna: intestazione };
 };
 
 const blocchi = [
   colonna(pa, NOME_PA, 'Specializzazione', r => spec(r[pa.col('Settore')])),
   colonna(mu, NOME_MU, 'Specializzazione', r => spec(r[mu.col('Settore')])),
-  colonna(mu, NOME_MU, 'Città', r => cittaPerEmail.get(pulito(r[mu.col('Email')]).toLowerCase()) || '')
+  colonna(pa, NOME_PA, 'Città', () => '', inglese),
+  colonna(mu, NOME_MU, 'Città', r => cittaPerEmail.get(pulito(r[mu.col('Email')]).toLowerCase()) || '', inglese)
 ].filter(b => b.values.length);
 
 // Riepilogo (conteggi per valore) per controllare il risultato senza aprire il foglio.
@@ -62,6 +73,6 @@ const conta = (b) => b.values.reduce((m, [v]) => (m[v || '(vuota)'] = (m[v || '(
 return [{
   json: {
     corpo: { valueInputOption: 'RAW', data: blocchi.map(({ range, values }) => ({ range, values })) },
-    riepilogo: blocchi.map(b => ({ scheda: b.scheda, colonna: b.colonna, righe: b.values.length, compilate_ora: b.compilate, valori: conta(b) }))
+    riepilogo: blocchi.map(b => ({ scheda: b.scheda, colonna: b.colonna, righe: b.values.length, compilate_ora: b.compilate, corrette_ora: b.corrette, valori: conta(b) }))
   }
 }];

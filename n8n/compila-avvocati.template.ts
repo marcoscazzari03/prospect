@@ -18,13 +18,13 @@ const impostazioni = node({
     name: 'GitHub - Impostazioni avvocati',
     position: [220, 0],
     parameters: {
-      url: 'https://api.github.com/repos/marcoscazzari03/prospect/contents/campagne/avvocati/campagna.json?ref=main',
+      url: 'https://api.github.com/repos/marcoscazzari03/prospect/contents/dist/compila-avvocati.json?ref=main',
       sendHeaders: true,
       headerParameters: { parameters: [{ name: 'Accept', value: 'application/vnd.github.raw+json' }, { name: 'User-Agent', value: 'n8n-prospect' }] },
       options: { response: { response: { responseFormat: 'json' } } }
     }
   },
-  output: [{ motore: { specializzazione: { parole: [], riserva: 'criminal defence' } } }]
+  output: [{ specializzazione: { parole: [], riserva: 'criminal defence' }, citta_inglese: { Praga: 'Prague' } }]
 });
 
 const prospectAI = node({
@@ -90,7 +90,7 @@ const scrivi = node({
   output: [{ totalUpdatedCells: 0 }]
 });
 
-const nota = sticky('## Compila specializzazione avvocati\nUna tantum: per gli avvocati gia nel foglio riempie le celle vuote di **Specializzazione** (Prospect AI e Mailup, ricavata dal vecchio Settore con le parole chiave di campagne/avvocati/campagna.json) e di **Città** nella scheda Mailup (da Prospect AI, stessa email). Nessuna chiamata AI. Scrive solo celle vuote. Non eseguire mentre gira la campagna avvocati (06:00, 18:00).', [impostazioni, scrivi], { color: 7 });
+const nota = sticky('## Compila specializzazione avvocati\nUna tantum: per gli avvocati gia nel foglio riempie le celle vuote di **Specializzazione** (Prospect AI e Mailup, ricavata dal vecchio Settore con le parole chiave di campagne/avvocati/campagna.json) e di **Città** nella scheda Mailup (da Prospect AI, stessa email); traduce in inglese le città scritte in italiano o in lingua locale (motore/liste/citta-inglese.json). Nessuna chiamata AI. Specializzazione: solo celle vuote. Non eseguire mentre gira la campagna avvocati (06:00, 18:00).', [impostazioni, scrivi], { color: 7 });
 
 export default workflow('prospect-compila-avvocati', 'Prospect | Strumenti | Compila specializzazione avvocati')
   .add(avvio)
