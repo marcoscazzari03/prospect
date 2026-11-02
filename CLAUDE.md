@@ -22,7 +22,7 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 
 ## Se qualcosa va storto
 
-In OPERATIVO.md, sezione **"Punto di ripristino"**, ci sono gli ID delle ultime versioni funzionanti di tutti i workflow (n8n) e il tag git con le istantanee delle campagne. Ripristinare quelle (con l'ok dell'utente) prima di cercare altre soluzioni. Quando l'utente dichiara una nuova situazione "funzionante", aggiornare quella sezione con le nuove versioni e creare un nuovo tag `ripristino-AAAA-MM-GG`.
+In OPERATIVO.md, sezione **"Punto di ripristino"**, ci sono gli ID delle ultime versioni funzionanti di tutti i workflow (n8n) e il ramo git `ripristino-…` con le istantanee delle campagne. Ripristinare quelle (con l'ok dell'utente) prima di cercare altre soluzioni. Quando l'utente dichiara una nuova situazione "funzionante", aggiornare quella sezione con le nuove versioni e creare un nuovo ramo `ripristino-AAAA-MM-GG` (non cancellare i vecchi).
 
 ## Verifica di una modifica al motore
 

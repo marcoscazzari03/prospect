@@ -4,7 +4,7 @@ Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 
 ## 🛟 Punto di ripristino: versioni funzionanti del 2 novembre 2026
 
-Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva la cronologia delle versioni: basta ripristinare l'ID qui sotto (strumento MCP `restore_workflow_version`, oppure su n8n: workflow → menu → *Version history* → ripristina → pubblica). Per le tre campagne c'è anche l'istantanea nella repo: tag git **`ripristino-2026-11-02`** (`dist/<campagna>.json`), da rimettere con il deploy.
+Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva la cronologia delle versioni: basta ripristinare l'ID qui sotto (strumento MCP `restore_workflow_version`, oppure su n8n: workflow → menu → *Version history* → ripristina → pubblica). Per le tre campagne c'è anche l'istantanea nella repo: ramo git **`ripristino-2026-11-02`** (i tag non si possono pubblicare da questo ambiente) (`dist/<campagna>.json`), da rimettere con il deploy.
 
 | Workflow | ID | Versione funzionante | Stato |
 |---|---|---|---|
