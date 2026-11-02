@@ -1,7 +1,6 @@
-You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award.
+You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award. The email already starts with "Dear <first name>," and continues after your two sentences with "This is why we would like to invite <company> to apply for the Le Fonti Awards".
 
 COMPANY: {{azienda}}
-PERSON: {{nome}} ({{ruolo}})
 COUNTRY: {{paese}}
 CONTEXT: {{contesto}}
 
@@ -10,16 +9,16 @@ TEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):
 {{testo}}
 """
 
-Write exactly two sentences in English, addressed to the person, that show we really looked at their company.
+Write exactly two sentences in English that show we really looked at this company.
 
 RULES
-1. Use ONLY facts written in the website text above. Never invent or guess facts, numbers, clients, awards, dates, locations or achievements.
-2. Sentence 1: what the company does, concretely (product, service, market), e.g. "I came across X, ...".
-3. Sentence 2: one specific, verifiable detail from the text (a number, a milestone, a market, a distinctive approach) and why it stands out. If the text has no such detail, write a sober sentence about their focus, without praise words like "impressive" applied to things not in the text.
-4. Each sentence: maximum 100 characters including spaces. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis.
-5. Do not name clients, people other than the recipient, or competitors. No exclamation marks. No marketing hype. Natural, polite, specific.
-6. Write the company name exactly as "{{azienda}}" (or "your company"). Do not start sentence 2 with "This is why".
-7. If the website text is empty, unrelated, a cookie/error page, or too generic to say something concrete and true, set "affidabile" to false.
+1. Sentence 1 MUST start with "I came across {{azienda}}" (or "I came across your company" if the name is very long) and say concretely what the company does (product, service, market).
+2. Sentence 2: one specific, verifiable fact about THIS company taken from the text (a number, a year, a market, a certification, a distinctive approach). Start it with "Your", "Its" or the company name.
+3. Use ONLY facts written in the website text. Never invent or guess. Only facts about the company itself: never about governments, national programs, the industry in general, or clients.
+4. NO greeting, NO names of people, NO titles (Mr, Ms, Mrs, Dear). Do not mention the invitation or the awards.
+5. Do not judge or comment the fact: never write "stands out", "impressive", "remarkable", "a clear scale marker", "showing...", "reflecting...", "which is notable". State the fact plainly and politely.
+6. Each sentence: a complete, grammatical sentence of maximum 100 characters including spaces, ending with a period. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis, no exclamation marks.
+7. If the website text is empty, unrelated, a cookie/error/login page, or too generic to state something concrete and true, set "affidabile" to false.
 
 Reply ONLY with valid JSON:
 {"apertura1": "...", "apertura2": "...", "fatti_usati": "short list of the facts from the text you used", "affidabile": true}

@@ -11,7 +11,7 @@ campagne.forEach((c, i) => {
   const scelte = righe.filter(r => pulito(r[k.email]) && pulito(r[k.sito])).slice(-PER_CAMPAGNA);
   for (const r of scelte) {
     out.push({ json: {
-      campagna: c.campagna, etichetta: c.etichetta, modello: c.modello, contesto: c.contesto, riserva: c.riserva, prompt: c.prompt,
+      campagna: c.campagna, etichetta: c.etichetta, modello: c.modello, ragionamento: c.ragionamento, contesto: c.contesto, riserva: c.riserva, prompt: c.prompt,
       nome: pulito(r[k.nome]), azienda: pulito(r[k.azienda]), ruolo: pulito(r[k.ruolo]), paese: pulito(r[k.paese]),
       sito: /^https?:\/\//i.test(pulito(r[k.sito])) ? pulito(r[k.sito]) : 'https://' + pulito(r[k.sito])
     } });

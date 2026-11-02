@@ -17,6 +17,9 @@ const validaAperture = (risposta, riserva, azienda) => {
     if (dati && !f) problemi.push(`${nome} vuota`);
     if (f.length > 100) problemi.push(`${nome} troppo lunga (${f.length})`);
     if (/!|\[|\]|http/i.test(f)) problemi.push(`${nome} con caratteri non ammessi`);
+    if (/^(dear|mr|mrs|ms|miss|dr)\b|\b(mr|mrs|ms)\.?\s+[A-Z]/i.test(f)) problemi.push(`${nome} con saluto o titolo`);
+    if (/stands? out|impressive|remarkable|scale marker|\binvite\b|le fonti|award/i.test(f)) problemi.push(`${nome} con espressioni vietate`);
+    if (f && !/[.]$/.test(f)) problemi.push(`${nome} non finisce con il punto`);
   }
   const usaRiserva = problemi.length > 0;
   const metti = (s) => ascii(String(s).replace(/\[azienda\]/g, azienda || 'your company'));

@@ -111,7 +111,8 @@
         "I came across [azienda] while researching growing companies in Southeast Asia.",
         "Your work is exactly the kind of business excellence our awards celebrate."
       ],
-      "modello": "gpt-5.6-luna"
+      "modello": "gpt-5.6-luna",
+      "ragionamento": "low"
     }
   },
   "colonne_nuove": {
