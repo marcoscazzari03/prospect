@@ -73,8 +73,8 @@ Checklist (in ordine):
   - ✅ Apertura su misura solo per Startup e Asia PMI.
   - ⏳ Un template per comunità o uno solo? (risposta in arrivo)
   - ⏳ Limite di caratteri dei campi personalizzati MailUp (risposta in arrivo).
-- [ ] 3. Claude: analisi dei "Settore AI" nei tre fogli → tabella Settore AI → Settore.
-- [ ] 4. Claude: regole per la Comunità di appartenenza (comunità base per campagna + casi misti CEO / Internazionali / Regionali / Business).
+- [x] 3. Claude: analisi dei "Settore AI" (2 novembre). L'AI scrive settori liberi: Asia 1.946 diciture diverse su 2.207 lead, Startup 157 su 163, Avvocati quasi tutto "Diritto penale". Tabella fissa impraticabile → **regole a parole chiave** (`motore/liste/parole-chiave-settori.json`) come rete di sicurezza: riconducono ai 52 settori il 94% (Asia) e il 99% (Avvocati, Startup). Per i lead nuovi l'AI sceglierà direttamente dalla lista.
+- [x] 4. Claude: proposta di regole per la Comunità di appartenenza in `motore/liste/regole-comunita.md` (2 novembre), con la distribuzione stimata.
 - [ ] 5. Utente: approva le tabelle.
 
 **B · Comunità e Settore sui lead nuovi**

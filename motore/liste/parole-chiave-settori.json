@@ -1,0 +1,202 @@
+[
+ {
+  "parole": "\\b(law|legal|lawyer|attorney|solicitor|notar|diritto|penale|avvocat|litigation|arbitration|conveyancing)",
+  "settore": "Legal Services"
+ },
+ {
+  "parole": "pharma|drug",
+  "settore": "Pharmaceutical"
+ },
+ {
+  "parole": "biotech|life science|genomic",
+  "settore": "Biotechnology"
+ },
+ {
+  "parole": "medtech|medical device|diagnostic",
+  "settore": "Medical Device"
+ },
+ {
+  "parole": "hospital|clinic|dental|aesthetic|medical|health|wellness|care home|nursing",
+  "settore": "Hospitals & Health Care"
+ },
+ {
+  "parole": "nutraceutical|supplement",
+  "settore": "Nutraceutical"
+ },
+ {
+  "parole": "veterinar|animal|pet",
+  "settore": "Animal Health & Food"
+ },
+ {
+  "parole": "venture capital|private equity|asset management|wealth|investment|fund|capital market",
+  "settore": "Capital Markets & Investment Management"
+ },
+ {
+  "parole": "bank",
+  "settore": "Banking"
+ },
+ {
+  "parole": "insur",
+  "settore": "Insurance"
+ },
+ {
+  "parole": "fintech|payment|finance|financial|lending|crypto|blockchain",
+  "settore": "Financial Services"
+ },
+ {
+  "parole": "account|audit|tax|fiscal|bookkeep|corporate secretar|corporate services",
+  "settore": "Fiscal & Accounting Services"
+ },
+ {
+  "parole": "recruit|executive search|staffing|human resource|\\bhr\\b|payroll|talent",
+  "settore": "Human Resources Services"
+ },
+ {
+  "parole": "school|education|edtech|e-learning|training|university|tutor|academy",
+  "settore": "Training, Education & E-Learning"
+ },
+ {
+  "parole": "advertis|marketing|martech|seo|digital agency|branding",
+  "settore": "Advertising Services"
+ },
+ {
+  "parole": "public relations|\\bpr\\b|communication",
+  "settore": "Public Relations & Communications Services"
+ },
+ {
+  "parole": "event|exhibition|conference",
+  "settore": "Events Services"
+ },
+ {
+  "parole": "media|broadcast|tv|radio|film|video",
+  "settore": "Broadcast Media"
+ },
+ {
+  "parole": "publish|magazine|news",
+  "settore": "Publishing"
+ },
+ {
+  "parole": "real estate|property|proptech",
+  "settore": "Real Estate"
+ },
+ {
+  "parole": "architect|interior design|engineering|urban planning",
+  "settore": "Engineering, Architecture & Planning"
+ },
+ {
+  "parole": "construct|building",
+  "settore": "Construction"
+ },
+ {
+  "parole": "energy|renewable|solar|climate|sustainab|environment|cleantech|recycl|waste|carbon",
+  "settore": "Energy, Renewables & Environmental Services"
+ },
+ {
+  "parole": "logistic|freight|shipping|transport|packaging|supply chain|mobility",
+  "settore": "Transportation, Logistics & Packaging"
+ },
+ {
+  "parole": "delivery|courier",
+  "settore": "Delivery"
+ },
+ {
+  "parole": "aviation|aerospace|space",
+  "settore": "Aviation & Aerospace"
+ },
+ {
+  "parole": "automotive|vehicle|\\bev\\b",
+  "settore": "Motor Vehicle"
+ },
+ {
+  "parole": "telecom",
+  "settore": "Telecommunications"
+ },
+ {
+  "parole": "cyber|security|investigat",
+  "settore": "Security & Investigations"
+ },
+ {
+  "parole": "\\bit\\b|it consult|it services|software house|systems integrat",
+  "settore": "IT Consulting & Services"
+ },
+ {
+  "parole": "saas|software|\\bai\\b|artificial intelligence|app|platform|internet|e-commerce|ecommerce|cloud|data|tech|digital|robot|gaming|devtools",
+  "settore": "Internet & Applications Services"
+ },
+ {
+  "parole": "consult|advisory|business services",
+  "settore": "Business Consulting & Services"
+ },
+ {
+  "parole": "research|analytics|intelligence",
+  "settore": "Information & Research Services"
+ },
+ {
+  "parole": "food|beverage|restaurant|f&b|coffee|wine|bakery|catering|agritech|agtech",
+  "settore": "Food & Beverage"
+ },
+ {
+  "parole": "farm|agricultur|plantation",
+  "settore": "Farming"
+ },
+ {
+  "parole": "hotel|hospitality|travel|tourism",
+  "settore": "Travel, Hospitality & Tourism"
+ },
+ {
+  "parole": "fashion|apparel|clothing|textile",
+  "settore": "Apparel & Fashion"
+ },
+ {
+  "parole": "cosmetic|beauty|skincare|personal care",
+  "settore": "Cosmetics & Personal Care"
+ },
+ {
+  "parole": "furniture|home goods|homeware",
+  "settore": "Furniture & Goods"
+ },
+ {
+  "parole": "electronic|appliance|semiconductor",
+  "settore": "Appliances & Electronics"
+ },
+ {
+  "parole": "chemical",
+  "settore": "Chemical"
+ },
+ {
+  "parole": "machinery|equipment",
+  "settore": "Machinery"
+ },
+ {
+  "parole": "manufactur|industrial|factory|hardware",
+  "settore": "Manufacturing"
+ },
+ {
+  "parole": "retail|shop|store",
+  "settore": "Retail"
+ },
+ {
+  "parole": "wholesale|distribution|trading",
+  "settore": "Wholesale"
+ },
+ {
+  "parole": "sport|fitness|gym",
+  "settore": "Sports"
+ },
+ {
+  "parole": "entertain|music|game",
+  "settore": "Entertainment Providers"
+ },
+ {
+  "parole": "utilit",
+  "settore": "Utilities & Services"
+ },
+ {
+  "parole": "association|chamber|non-profit|ngo",
+  "settore": "Trade Association & Development"
+ },
+ {
+  "parole": "government|public sector",
+  "settore": "Government Administration"
+ }
+]
