@@ -1,0 +1,5 @@
+{
+  "nota": "Workflow n8n che manda gli avvisi Telegram (Prospect | Strumenti | Avvisi Telegram). Finche workflow_id e null, il motore non aggiunge gli avvisi.",
+  "workflow_id": null,
+  "lotti_falliti_minimi": 3
+}

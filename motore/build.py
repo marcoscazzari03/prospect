@@ -240,6 +240,46 @@ def build(cfg):
         if numero in cfg.get('descrizioni_gruppi', {}):
             g['description'] = cfg['descrizioni_gruppi'][numero]
 
+    # Avviso Telegram se l'esecuzione va male (motore/avvisi.json): 3+ ricerche AI fallite
+    # o nessun candidato. Chiama "Prospect | Strumenti | Avvisi Telegram" senza aspettarlo.
+    avvisi = json.loads(leggi(MOTORE, 'avvisi.json'))
+    if avvisi.get('workflow_id'):
+        x, y = nodi['Calcola statistiche']['position']
+        nodi['Serve un avviso?'] = {
+            'id': 'a1b2c3d4-0001-4a5b-8c6d-avviso000001', 'name': 'Serve un avviso?',
+            'type': 'n8n-nodes-base.if', 'typeVersion': 2.2, 'position': [x + 208, y + 224],
+            'parameters': {'conditions': {
+                'options': {'caseSensitive': True, 'leftValue': '', 'typeValidation': 'loose', 'version': 2},
+                'conditions': [{'id': 'av1', 'operator': {'type': 'boolean', 'operation': 'true', 'singleValue': True},
+                                'leftValue': "={{ Number($json['Lotti falliti']) >= %d || Number($json['Candidati AI']) === 0 }}"
+                                             % avvisi['lotti_falliti_minimi'], 'rightValue': ''}],
+                'combinator': 'and'}, 'options': {}}}
+        nodi['Prepara avviso'] = {
+            'id': 'a1b2c3d4-0002-4a5b-8c6d-avviso000002', 'name': 'Prepara avviso',
+            'type': 'n8n-nodes-base.set', 'typeVersion': 3.4, 'position': [x + 416, y + 224],
+            'parameters': {'assignments': {'assignments': [
+                {'id': 'p1', 'name': 'tipo', 'type': 'string', 'value': 'esecuzione'},
+                {'id': 'p2', 'name': 'workflow', 'type': 'string', 'value': cfg['nome_workflow']},
+                {'id': 'p3', 'name': 'workflow_id', 'type': 'string', 'value': cfg.get('id_n8n') or ''},
+                {'id': 'p4', 'name': 'esecuzione', 'type': 'string', 'value': '={{ $execution.id }}'},
+                {'id': 'p5', 'name': 'lotti', 'type': 'number', 'value': "={{ $json['Lotti'] }}"},
+                {'id': 'p6', 'name': 'lotti_falliti', 'type': 'number', 'value': "={{ $json['Lotti falliti'] }}"},
+                {'id': 'p7', 'name': 'candidati', 'type': 'number', 'value': "={{ $json['Candidati AI'] }}"},
+                {'id': 'p8', 'name': 'salvati', 'type': 'number', 'value': "={{ $json['Salvati Prospect AI'] }}"},
+                {'id': 'p9', 'name': 'errore', 'type': 'string',
+                 'value': "={{ $('Aggiungi da riprovare').all().map(i => i.json.errore).filter(Boolean)[0] || '' }}"}]},
+                'options': {}}}
+        nodi['Avviso Telegram'] = {
+            'id': 'a1b2c3d4-0003-4a5b-8c6d-avviso000003', 'name': 'Avviso Telegram',
+            'type': 'n8n-nodes-base.executeWorkflow', 'typeVersion': 1.2, 'position': [x + 624, y + 224],
+            'parameters': {'workflowId': {'__rl': True, 'mode': 'id', 'value': avvisi['workflow_id']},
+                           'options': {'waitForSubWorkflow': False}}}
+        link('Calcola statistiche', 'Serve un avviso?')
+        link('Serve un avviso?', 'Prepara avviso')
+        link('Prepara avviso', 'Avviso Telegram')
+        gruppi.append({'name': '14 · Avviso', 'nodeNames': ['Serve un avviso?', 'Prepara avviso', 'Avviso Telegram'],
+                       'description': 'Se 3 o più ricerche AI falliscono o non arriva nessun candidato: messaggio Telegram.'})
+
     nota = nodi['Nota: come funziona']
     nota['parameters'].update(content=leggi(CAMPAGNE, cfg['id'], 'nota.md').rstrip(), height=420, width=1240)
 
@@ -250,6 +290,9 @@ def build(cfg):
     if cfg.get('fuso_workflow'):
         settings['timezone'] = cfg['fuso_workflow']
     settings['callerPolicy'] = 'workflowsFromSameOwner'
+    if avvisi.get('workflow_id'):
+        # Se il workflow si blocca con un errore, n8n avvisa lo stesso workflow degli avvisi.
+        settings['errorWorkflow'] = avvisi['workflow_id']
 
     return {
         'name': cfg['nome_workflow'],
