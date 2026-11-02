@@ -81,7 +81,7 @@ App web su **Vercel**, dominio **leads.stagira.it**: panoramica delle campagne, 
 
 Checklist:
 - [x] 1. Utente: hosting → **Vercel** (nota: il piano gratuito Hobby è solo per uso non commerciale; per uso aziendale serve Pro, circa 20 $/mese).
-- [ ] 2. Utente: tipo di login (Google aziendale o utente e password) e chi la usa.
+- [x] 2. Utente: accesso **solo per Marco** → login con **password personale** (salvata solo nelle variabili segrete di Vercel), sessione ricordata 30 giorni, blocco dopo troppi tentativi, pagina non indicizzata.
 - [ ] 3. Utente: export del lunedì da spegnere quando l'app funziona, o da tenere come riserva?
 - [ ] 4. Utente: dove si gestisce il DNS di stagira.it.
 - [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
