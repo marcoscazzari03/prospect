@@ -386,6 +386,12 @@ if __name__ == '__main__':
                for x in export for scheda, cols in carica(x['campagna']).get('colonne_nuove', {}).items()]
     scrivi('colonne.json', colonne)
 
+    # Letto dal workflow "Prospect | Strumenti | Prova aperture": campagne con le frasi su misura.
+    scrivi('aperture.json', [{'campagna': x['campagna'], 'etichetta': x['etichetta'], 'foglio_id': x['foglio_id'],
+                               'scheda': 'Prospect AI', **carica(x['campagna'])['motore']['aperture'],
+                               'prompt': leggi(MOTORE, 'aperture', 'prompt.txt')}
+                              for x in export if carica(x['campagna'])['motore'].get('aperture')])
+
     # Letto dallo strumento "Prospect | Strumenti | Compila specializzazione avvocati".
     scrivi('compila-avvocati.json', {'specializzazione': carica('avvocati')['motore']['specializzazione'],
                                      'citta_inglese': liste_comuni()['citta_inglese']})

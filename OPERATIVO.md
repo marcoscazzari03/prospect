@@ -123,8 +123,8 @@ Checklist (in ordine):
 
 **C · Apertura (due righe su misura)**
 - Deciso il 2 novembre: la fase C parte **dopo** il controllo delle prime righe della fase B (punto 8, 3 novembre).
-- [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead. Attivo solo per `startup` e `asia-pmi` (impostazione in `campagna.json`).
-- [ ] 11. Claude: prova su 50 lead in un file a parte; utente controlla.
+- [~] 10. Claude (2 novembre, nella repo): generatore pronto. Prompt `motore/aperture/prompt.txt` (inglese, solo fatti della homepage, max 100 caratteri a frase, solo ASCII, niente clienti o superlativi inventati, "affidabile": false se il sito non basta); testo della homepage `motore/aperture/testo-sito.js`; controllo e frasi di riserva `motore/aperture/valida.js`; impostazioni per campagna in `campagna.json` → `motore.aperture` (contesto, frasi di riserva, modello gpt-5.6-luna; avvocati: null). `dist/aperture.json` generato da build.py.
+- [ ] 11. Claude: prova su 50 lead (25 Startup + 25 Asia) con il workflow **Prospect | Strumenti | Prova aperture** (`n8n/prova-aperture.*`, validato): legge homepage e chiede le frasi, **non scrive** da nessuna parte; risultati e costo letti dall'esecuzione. **Da creare ed eseguire su n8n (ok).** Poi utente e capo controllano le frasi.
 - [ ] 12. Claude: attivazione nel motore (solo con ok) + misura costi e tempi.
 
 **D · Export e MailUp**

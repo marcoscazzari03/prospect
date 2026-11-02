@@ -1,0 +1,25 @@
+You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award.
+
+COMPANY: {{azienda}}
+PERSON: {{nome}} ({{ruolo}})
+COUNTRY: {{paese}}
+CONTEXT: {{contesto}}
+
+TEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):
+"""
+{{testo}}
+"""
+
+Write exactly two sentences in English, addressed to the person, that show we really looked at their company.
+
+RULES
+1. Use ONLY facts written in the website text above. Never invent or guess facts, numbers, clients, awards, dates, locations or achievements.
+2. Sentence 1: what the company does, concretely (product, service, market), e.g. "I came across X, ...".
+3. Sentence 2: one specific, verifiable detail from the text (a number, a milestone, a market, a distinctive approach) and why it stands out. If the text has no such detail, write a sober sentence about their focus, without praise words like "impressive" applied to things not in the text.
+4. Each sentence: maximum 100 characters including spaces. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis.
+5. Do not name clients, people other than the recipient, or competitors. No exclamation marks. No marketing hype. Natural, polite, specific.
+6. Write the company name exactly as "{{azienda}}" (or "your company"). Do not start sentence 2 with "This is why".
+7. If the website text is empty, unrelated, a cookie/error page, or too generic to say something concrete and true, set "affidabile" to false.
+
+Reply ONLY with valid JSON:
+{"apertura1": "...", "apertura2": "...", "fatti_usati": "short list of the facts from the text you used", "affidabile": true}

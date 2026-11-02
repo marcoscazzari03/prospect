@@ -1,0 +1,28 @@
+[
+  {
+    "campagna": "asia-pmi",
+    "etichetta": "Asia PMI",
+    "foglio_id": "1mSipsEIoCcARMJj6PBnh1tkFVxYmLiBNcUnXRtSmiE4",
+    "scheda": "Prospect AI",
+    "contesto": "Small and medium-sized private company in Singapore, Malaysia or Indonesia; the recipient is a founder, CEO or senior manager.",
+    "riserva": [
+      "I came across [azienda] while researching growing companies in Southeast Asia.",
+      "Your work is exactly the kind of business excellence our awards celebrate."
+    ],
+    "modello": "gpt-5.6-luna",
+    "prompt": "You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award.\n\nCOMPANY: {{azienda}}\nPERSON: {{nome}} ({{ruolo}})\nCOUNTRY: {{paese}}\nCONTEXT: {{contesto}}\n\nTEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):\n\"\"\"\n{{testo}}\n\"\"\"\n\nWrite exactly two sentences in English, addressed to the person, that show we really looked at their company.\n\nRULES\n1. Use ONLY facts written in the website text above. Never invent or guess facts, numbers, clients, awards, dates, locations or achievements.\n2. Sentence 1: what the company does, concretely (product, service, market), e.g. \"I came across X, ...\".\n3. Sentence 2: one specific, verifiable detail from the text (a number, a milestone, a market, a distinctive approach) and why it stands out. If the text has no such detail, write a sober sentence about their focus, without praise words like \"impressive\" applied to things not in the text.\n4. Each sentence: maximum 100 characters including spaces. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis.\n5. Do not name clients, people other than the recipient, or competitors. No exclamation marks. No marketing hype. Natural, polite, specific.\n6. Write the company name exactly as \"{{azienda}}\" (or \"your company\"). Do not start sentence 2 with \"This is why\".\n7. If the website text is empty, unrelated, a cookie/error page, or too generic to say something concrete and true, set \"affidabile\" to false.\n\nReply ONLY with valid JSON:\n{\"apertura1\": \"...\", \"apertura2\": \"...\", \"fatti_usati\": \"short list of the facts from the text you used\", \"affidabile\": true}\n"
+  },
+  {
+    "campagna": "startup",
+    "etichetta": "Startup",
+    "foglio_id": "1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M",
+    "scheda": "Prospect AI",
+    "contesto": "Small European startup; the recipient is the founder or CEO.",
+    "riserva": [
+      "I came across [azienda] while researching Europe's most promising startups.",
+      "Your work is exactly the kind of innovation our awards celebrate."
+    ],
+    "modello": "gpt-5.6-luna",
+    "prompt": "You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award.\n\nCOMPANY: {{azienda}}\nPERSON: {{nome}} ({{ruolo}})\nCOUNTRY: {{paese}}\nCONTEXT: {{contesto}}\n\nTEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):\n\"\"\"\n{{testo}}\n\"\"\"\n\nWrite exactly two sentences in English, addressed to the person, that show we really looked at their company.\n\nRULES\n1. Use ONLY facts written in the website text above. Never invent or guess facts, numbers, clients, awards, dates, locations or achievements.\n2. Sentence 1: what the company does, concretely (product, service, market), e.g. \"I came across X, ...\".\n3. Sentence 2: one specific, verifiable detail from the text (a number, a milestone, a market, a distinctive approach) and why it stands out. If the text has no such detail, write a sober sentence about their focus, without praise words like \"impressive\" applied to things not in the text.\n4. Each sentence: maximum 100 characters including spaces. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis.\n5. Do not name clients, people other than the recipient, or competitors. No exclamation marks. No marketing hype. Natural, polite, specific.\n6. Write the company name exactly as \"{{azienda}}\" (or \"your company\"). Do not start sentence 2 with \"This is why\".\n7. If the website text is empty, unrelated, a cookie/error page, or too generic to say something concrete and true, set \"affidabile\" to false.\n\nReply ONLY with valid JSON:\n{\"apertura1\": \"...\", \"apertura2\": \"...\", \"fatti_usati\": \"short list of the facts from the text you used\", \"affidabile\": true}\n"
+  }
+]
