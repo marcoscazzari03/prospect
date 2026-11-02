@@ -12,6 +12,9 @@ return $input.all()
       Azienda: pulito(j.Azienda),
       Ruolo: pulito(j.Ruolo),
       Settore: pulito(j.Settore),
+      'Settore Le Fonti': pulito(j['Settore Le Fonti']),
+      'Comunità 1': pulito(j['Comunità 1']),
+      'Comunità 2': pulito(j['Comunità 2']),
       Email: pulito(j['Email certa']),
       ...(CFG.mailup_paese ? { Paese: pulito(j.Paese) } : {})
     }

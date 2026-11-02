@@ -95,8 +95,8 @@ Checklist (in ordine):
 - [x] 5. Utente: regole approvate il 2 novembre (startup italiane → 02 CEO; banche/finanza/assicurazioni → 15; 04 e 12 non usate).
 
 **B · Comunità e Settore sui lead nuovi**
-- [ ] 6. Claude: prompt con le due liste (solo valori in lista) + controllo automatico (fuori lista → tabella o "Da classificare").
-- [ ] 7. Claude: colonne nei fogli (Prospect AI e Mailup) + verifica su dati reali.
+- [x] 6. Claude (2 novembre, nella repo): prompt Startup e Asia con il campo `settore_lefonti` (lista dei 52); Avvocati con settore fisso Legal Services. Nel motore (deduplica) il calcolo di **Settore Le Fonti** (lista → parole chiave → "Other") e **Comunità 1 / Comunità 2** dalle regole in `campagna.json` (`comunita`). Liste in `motore/liste/`.
+- [~] 7. Claude: verifica sui dati reali fatta (avvocati 4133: unica differenza le 3 colonne nuove). Colonne nei fogli: nuovo strumento **Prospect | Strumenti | Aggiungi colonne** (`n8n/aggiungi-colonne.*`, elenco `dist/colonne.json`), da creare ed eseguire su n8n **prima** del deploy: le schede Prospect AI e Mailup ignorano le colonne che non hanno.
 - [ ] 8. Claude: prova manuale su una campagna; utente controlla 30 righe.
 - [ ] 9. Claude: deploy sulle tre campagne (solo con ok).
 

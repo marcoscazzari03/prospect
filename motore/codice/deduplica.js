@@ -67,6 +67,32 @@ const generaEmail = (nomeCompleto, dominio) => {
   return [`${first}.${last}@${dominio}`, `${first}@${dominio}`, `${first.charAt(0)}${last}@${dominio}`];
 };
 
+// Settore Le Fonti (uno dei settori ufficiali) e Comunità di appartenenza.
+// Il settore scelto dall'AI vale se è nella lista; altrimenti si usano le parole chiave
+// sul testo dell'AI; se nessuna regola vale: "Other".
+const SETTORI = new Map(CFG.settori.map(s => [s.toLowerCase(), s]));
+const PAROLE = CFG.parole_settori.map(([rx, s]) => [new RegExp(rx, 'i'), s]);
+const settoreLeFonti = (scelto, testo) => {
+  if (CFG.settore_fisso) return CFG.settore_fisso;
+  const esatto = SETTORI.get(String(scelto ?? '').trim().toLowerCase());
+  if (esatto) return esatto;
+  const t = `${scelto ?? ''} ${testo ?? ''}`;
+  for (const [rx, s] of PAROLE) if (rx.test(t)) return s;
+  return 'Other';
+};
+const ITALIA = /^(italia|italy)$/i;
+const comunita = (settore, paese) => {
+  const r = CFG.comunita;
+  const tematica = CFG.comunita_tematiche[settore] || '';
+  const scegli = (regola, riserva) =>
+    regola === 'tematica' ? (tematica || riserva || '') :
+    regola === 'ceo_per_paese' ? (ITALIA.test(String(paese ?? '').trim()) ? '02 Comunità di CEO' : '03 Comunità di CEO Internazionali') :
+    (regola || '');
+  const prima = scegli(r.principale, r.principale_riserva);
+  const seconda = scegli(r.seconda, r.seconda_riserva);
+  return [prima, seconda === prima ? '' : seconda];
+};
+
 const archivio = $('Prepara archivio').first().json;
 const visti = new Set(archivio.chiavi_esistenti || []);
 const nomiVisti = new Set(archivio.nomi_esistenti || []);
@@ -114,6 +140,10 @@ for (const item of $input.all()) {
     nomiVisti.add(nomeN);
     dominiVisti.add(studio);
 
+    const settoreAI = pulito(c?.settore) || CFG.settore_default;
+    const settoreLF = settoreLeFonti(c?.settore_lefonti, settoreAI);
+    const [comunita1, comunita2] = comunita(settoreLF, c?.paese);
+
     nuovi.push({
       json: {
         'Nome': nome,
@@ -124,7 +154,10 @@ for (const item of $input.all()) {
         // Colonne in piu della campagna (es. Tipo studio, Città), dal campo dell'AI.
         ...Object.fromEntries(CFG.campi_extra.map(([colonna, campo]) => [colonna, pulito(c?.[campo])])),
         'Paese': pulito(c?.paese),
-        'Settore': pulito(c?.settore) || CFG.settore_default,
+        'Settore': settoreAI,
+        'Settore Le Fonti': settoreLF,
+        'Comunità 1': comunita1,
+        'Comunità 2': comunita2,
         'Sito': sito,
         'Email probabile/i': generaEmail(nome, dominio).join(', '),
         'Fonte analizzata': fonte,

@@ -36,7 +36,10 @@
     "Fonte email",
     "Stato email",
     "Email probabili",
-    "LinkedIn"
+    "LinkedIn",
+    "Settore Le Fonti",
+    "Comunità 1",
+    "Comunità 2"
   ],
   "colonne_mailup": [
     "Nome",
@@ -45,7 +48,10 @@
     "Ruolo",
     "Settore",
     "Email",
-    "Paese"
+    "Paese",
+    "Settore Le Fonti",
+    "Comunità 1",
+    "Comunità 2"
   ],
   "colonne_scartati": [
     "Data",
@@ -125,6 +131,23 @@
     ],
     "tetto_rocketreach": 60,
     "max_tentativi": 3,
-    "max_riprova": 40
+    "max_riprova": 40,
+    "settore_fisso": "Legal Services",
+    "comunita": {
+      "principale": "09 Comunità di Avvocati Penalisti",
+      "seconda": "08 Comunità di Avvocati"
+    }
+  },
+  "colonne_nuove": {
+    "Prospect AI": [
+      "Settore Le Fonti",
+      "Comunità 1",
+      "Comunità 2"
+    ],
+    "Mailup": [
+      "Settore Le Fonti",
+      "Comunità 1",
+      "Comunità 2"
+    ]
   }
 }

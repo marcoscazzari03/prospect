@@ -67,15 +67,26 @@ def carica(id_campagna):
     return cfg
 
 
+def liste_comuni():
+    """Liste uguali per tutte le campagne (motore/liste), disponibili nel codice come CFG.<chiave>."""
+    righe = lambda f: [r for r in leggi(MOTORE, 'liste', f).split('\n') if r.strip()]
+    return {
+        'settori': righe('settori.txt'),
+        'parole_settori': [[x['parole'], x['settore']] for x in json.loads(leggi(MOTORE, 'liste', 'parole-chiave-settori.json'))],
+        'comunita_tematiche': json.loads(leggi(MOTORE, 'liste', 'comunita-tematiche.json')),
+    }
+
+
 def con_cfg(js, cfg):
     """Mette in testa al codice le impostazioni della campagna usate dal nodo."""
     chiavi = sorted(set(re.findall(r'\bCFG\.([a-z_]+)', js)))
     if not chiavi:
         return js
-    mancanti = [k for k in chiavi if k not in cfg['motore']]
+    valori = {**liste_comuni(), **cfg['motore']}
+    mancanti = [k for k in chiavi if k not in valori]
     if mancanti:
         raise KeyError(f"{cfg['id']}: in campagna.json manca motore.{', motore.'.join(mancanti)}")
-    righe = [f'  {json.dumps(k)}: {json.dumps(cfg["motore"][k], ensure_ascii=False)}' for k in chiavi]
+    righe = [f'  {json.dumps(k)}: {json.dumps(valori[k], ensure_ascii=False)}' for k in chiavi]
     testa = (f"// Impostazioni della campagna \"{cfg['id']}\": generate da motore/build.py,\n"
              f"// si cambiano in campagne/{cfg['id']}/campagna.json (non qui).\n"
              'const CFG = {\n' + ',\n'.join(righe) + '\n};\n\n')
@@ -355,3 +366,10 @@ if __name__ == '__main__':
                        'foglio_id': cfg['foglio']['id'] if cfg.get('foglio') else mailup_modello})
     scrivi('campagne.json', export)
     print('export Mailup:', ', '.join(x['campagna'] for x in export))
+
+    # Elenco letto dal workflow "Prospect | Strumenti | Aggiungi colonne": colonne che devono
+    # esistere nell'intestazione delle schede (le schede ignorano le colonne che non hanno).
+    colonne = [{'campagna': x['campagna'], 'foglio_id': x['foglio_id'], 'scheda': scheda, 'colonne': cols}
+               for x in export for scheda, cols in carica(x['campagna']).get('colonne_nuove', {}).items()]
+    scrivi('colonne.json', colonne)
+    print('colonne da garantire:', len(colonne), 'schede')

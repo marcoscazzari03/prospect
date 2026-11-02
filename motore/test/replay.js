@@ -91,8 +91,15 @@ const htmlProva = (p) => {
     firstname.lastname@${dom} logo@2x.png noreply@${dom} ${nome}@yahoo.com.sg`;
 };
 
+// IGNORA="campo1,campo2": campi nuovi voluti, tolti dalla versione nuova prima del confronto.
+const IGNORA = (process.env.IGNORA || '').split(',').map(x => x.trim()).filter(Boolean);
+const senza = (v) => Array.isArray(v) ? v.map(senza)
+  : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).filter(([k]) => !IGNORA.includes(k)).map(([k, x]) => [k, senza(x)]))
+  : v;
+
 let errori = 0;
 const confronta = (nome, a, b) => {
+  if (IGNORA.length) b = senza(b);
   try {
     assert.deepStrictEqual(b, a);
     console.log(`OK      ${nome} (${a.length} item)`);

@@ -221,6 +221,7 @@ Formato esatto:
   "azienda": "",
   "ruolo": "",
   "settore": "",
+  "settore_lefonti": "",
   "sito": "https://...",
   "fonte": "https://..."
 }
@@ -233,6 +234,7 @@ REGOLE OUTPUT
 * "azienda": nome dell'azienda.
 * "ruolo": ruolo attuale della persona.
 * "settore": settore principale dell'azienda.
+* "settore_lefonti": scegli ESATTAMENTE UNO di questi settori, copiandolo identico (se nessuno è adatto: "Other"): Advertising Services; Animal Health & Food; Apparel & Fashion; Appliances & Electronics; Aviation & Aerospace; Banking; Biotechnology; Broadcast Media; Business Consulting & Services; Capital Markets & Investment Management; Chemical; Construction; Cosmetics & Personal Care; Delivery; Energy, Renewables & Environmental Services; Engineering, Architecture & Planning; Entertainment Providers; Events Services; Farming; Financial Services; Fiscal & Accounting Services; Food & Beverage; Furniture & Goods; Government Administration; Healthcare & Life Science Services; Hospitals & Health Care; Human Resources Services; Information & Research Services; Insurance; Internet & Applications Services; IT Consulting & Services; Legal Services; Machinery; Manufacturing; Medical Device; Motor Vehicle; Nutraceutical; Other; Pharmaceutical; Public Relations & Communications Services; Publishing; Real Estate; Retail; Security & Investigations; Sports; Telecommunications; Trade Association & Development; Training, Education & E-Learning; Transportation, Logistics & Packaging; Travel, Hospitality & Tourism; Utilities & Services; Wholesale.
 * "sito": URL del sito UFFICIALE dell'azienda. È OBBLIGATORIO.
 * "fonte": URL della fonte utilizzata per identificare o verificare il candidato.
 * "nome": nome completo della persona, come appare nelle fonti.

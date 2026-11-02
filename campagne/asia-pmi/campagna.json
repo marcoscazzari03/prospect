@@ -96,6 +96,24 @@
     "paesi_rocketreach": null,
     "tetto_rocketreach": 60,
     "max_tentativi": null,
-    "max_riprova": 40
+    "max_riprova": 40,
+    "settore_fisso": null,
+    "comunita": {
+      "principale": "03 Comunità di CEO Internazionali",
+      "seconda": "tematica",
+      "seconda_riserva": "01 Comunità Business"
+    }
+  },
+  "colonne_nuove": {
+    "Prospect AI": [
+      "Settore Le Fonti",
+      "Comunità 1",
+      "Comunità 2"
+    ],
+    "Mailup": [
+      "Settore Le Fonti",
+      "Comunità 1",
+      "Comunità 2"
+    ]
   }
 }
