@@ -66,7 +66,7 @@ Comunità di appartenenza: 01 Comunità Business · 02 Comunità di CEO · 03 Co
 Checklist (in ordine):
 
 **A · Preparazione (nessuna modifica a n8n)**
-- [ ] 1. Utente: lista dei settori.
+- [x] 1. Utente: lista dei settori (52 settori, 2 novembre) → `motore/liste/settori.txt`; comunità → `motore/liste/comunita.txt`.
 - [ ] 2. Utente: risposte.
   - ✅ Lingua delle email: inglese.
   - ✅ **Fino a 2 comunità per lead** (comunità principale + eventuale seconda).

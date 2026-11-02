@@ -1,0 +1,15 @@
+01 Comunità Business
+02 Comunità di CEO
+03 Comunità di CEO Internazionali
+04 Comunità di CEO Regionali
+05 Comunità Pharma
+06 Comunità Sostenibilità
+07 Comunità di Innovazione e Tecnologia
+08 Comunità di Avvocati
+09 Comunità di Avvocati Penalisti
+10 Comunità di Diritto del Lavoro
+11 Comunità Risorse Umane
+12 Comunità Operazioni Straordinarie
+13 Comunità di Fiscalisti
+14 Comunità del Marketing
+15 Comunità dell'Asset Management
