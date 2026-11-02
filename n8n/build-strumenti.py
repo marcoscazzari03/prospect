@@ -27,17 +27,18 @@ SCHEMI = {
     '__SCHEMA_PARTENZA__': schema([('campagna', 'string'), ('email', 'string'), ('data', 'string')]),
     '__SCHEMA_DOWNLOAD__': schema([(c, 'string') for c in
                                    ['settimana', 'campagna', 'etichetta', 'nome', 'cognome', 'azienda', 'ruolo', 'settore', 'email', 'paese',
-                                    'settore_lefonti', 'comunita1', 'comunita2']]),
+                                    'settore_lefonti', 'comunita1', 'comunita2', 'citta', 'specializzazione']]),
     '__SCHEMA_STATO__': schema([('campagna', 'string'), ('etichetta', 'string'), ('ultima_riga', 'number'), ('ultimo_export', 'string')]),
 }
 
-for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne', 'api-app']:
+for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne', 'api-app', 'compila-avvocati']:
     ts = leggi(f'{nome}.template.ts')
     pagina = leggi('download-mailup.pagina.js').replace(
         '__HTML_PAGINA__', json.dumps(leggi('pagine', 'download-mailup.html'), ensure_ascii=False))
     ts = ts.replace('__CODICE_CALCOLA__', json.dumps(leggi('export-mailup.calcola.js'), ensure_ascii=False))
     ts = ts.replace('__CODICE_PAGINA__', json.dumps(pagina, ensure_ascii=False))
     ts = ts.replace('__CODICE_COLONNE__', json.dumps(leggi('aggiungi-colonne.calcola.js'), ensure_ascii=False))
+    ts = ts.replace('__CODICE_COMPILA__', json.dumps(leggi('compila-avvocati.calcola.js'), ensure_ascii=False))
     ts = ts.replace('__CODICE_MESSAGGIO__', json.dumps(leggi('avvisi-telegram.messaggio.js'), ensure_ascii=False))
     for k, v in SCHEMI.items():
         ts = ts.replace(k, v)

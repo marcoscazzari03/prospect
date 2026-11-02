@@ -192,7 +192,9 @@
       "principale": "tematica",
       "principale_riserva": "07 Comunità di Innovazione e Tecnologia",
       "seconda": "ceo_per_paese"
-    }
+    },
+    "specializzazione": null,
+    "mailup_extra": []
   },
   "colonne_nuove": {
     "Prospect AI": [

@@ -64,6 +64,7 @@ Restituisci ESCLUSIVAMENTE JSON valido, senza Markdown e senza testo prima o dop
   "tipo_studio": "individuale",
   "citta": "",
   "settore": "Diritto penale",
+  "specializzazione": "criminal defence",
   "sito": "https://...",
   "pagina_contatti": "",
   "fonte": "https://..."
@@ -80,6 +81,9 @@ REGOLE OUTPUT
 * "tipo_studio": "individuale" oppure "associato".
 * "citta": città dell'ufficio principale.
 * "settore": "Diritto penale" oppure la specializzazione (es. "Diritto penale dell'economia").
+* "specializzazione": l'area del penale in cui lo studio lavora di più, scelta ESATTAMENTE (stesse parole, in inglese) da questa lista:
+  white-collar crime · tax crime · financial crime and anti-money laundering · corruption and fraud · cybercrime · environmental and workplace safety offences · medical liability · crimes against the person · drug offences · road traffic offences · extradition and international criminal law · criminal defence
+  Una sola voce. Scegli in base alle aree di attività indicate sul sito o nelle fonti (es. "reati societari, bancarotta" → white-collar crime; "reati tributari" → tax crime). Se il penale è generico o non specificato: "criminal defence". Non indovinare.
 * "sito": URL del sito UFFICIALE. Obbligatorio.
 * "pagina_contatti": URL della pagina contatti / note legali sul sito ufficiale, oppure "".
 * "fonte": URL della fonte che conferma persona e ruolo.

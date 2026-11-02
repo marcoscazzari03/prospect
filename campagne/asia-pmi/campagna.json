@@ -102,7 +102,9 @@
       "principale": "03 Comunità di CEO Internazionali",
       "seconda": "tematica",
       "seconda_riserva": "01 Comunità Business"
-    }
+    },
+    "specializzazione": null,
+    "mailup_extra": []
   },
   "colonne_nuove": {
     "Prospect AI": [

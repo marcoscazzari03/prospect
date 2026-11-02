@@ -93,6 +93,19 @@ const comunita = (settore, paese) => {
   return [prima, seconda === prima ? '' : seconda];
 };
 
+// Specializzazione (solo campagne che la usano, es. avvocati): valore della lista scelto dall'AI;
+// altrimenti parole chiave sul settore scritto dall'AI; altrimenti il valore di riserva.
+const SPEC = CFG.specializzazione;
+const SPEC_VALORI = SPEC ? new Map(SPEC.valori.map(v => [v.toLowerCase(), v])) : new Map();
+const SPEC_PAROLE = SPEC ? SPEC.parole.map(([rx, v]) => [new RegExp(rx, 'i'), v]) : [];
+const specializzazione = (scelta, testo) => {
+  const esatta = SPEC_VALORI.get(String(scelta ?? '').trim().toLowerCase());
+  if (esatta) return esatta;
+  const t = `${scelta ?? ''} ${testo ?? ''}`;
+  for (const [rx, v] of SPEC_PAROLE) if (rx.test(t)) return v;
+  return SPEC.riserva;
+};
+
 const archivio = $('Prepara archivio').first().json;
 const visti = new Set(archivio.chiavi_esistenti || []);
 const nomiVisti = new Set(archivio.nomi_esistenti || []);
@@ -155,6 +168,7 @@ for (const item of $input.all()) {
         ...Object.fromEntries(CFG.campi_extra.map(([colonna, campo]) => [colonna, pulito(c?.[campo])])),
         'Paese': pulito(c?.paese),
         'Settore': settoreAI,
+        ...(SPEC ? { [SPEC.colonna]: specializzazione(c?.[SPEC.campo], settoreAI) } : {}),
         'Settore Le Fonti': settoreLF,
         'Comunità 1': comunita1,
         'Comunità 2': comunita2,

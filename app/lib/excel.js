@@ -6,6 +6,8 @@ const COLONNE = [
   ['Settore', 'settore'], ['Email', 'email'], ['Paese', 'paese'],
   ['Settore Le Fonti', 'settore_lefonti'], ['Comunità 1', 'comunita1'], ['Comunità 2', 'comunita2']
 ];
+// Colonne che solo alcune campagne hanno (es. avvocati): nel foglio solo se almeno una riga le ha.
+const FACOLTATIVE = [['Città', 'citta'], ['Specializzazione', 'specializzazione']];
 
 // Un foglio per campagna (con "tutte" le campagne finiscono nello stesso file, su fogli diversi).
 export async function creaExcel(righe) {
@@ -14,7 +16,8 @@ export async function creaExcel(righe) {
   for (const r of righe) (perCampagna[r.etichetta || r.campagna] ??= []).push(r);
   for (const [nome, elenco] of Object.entries(perCampagna)) {
     const foglio = libro.addWorksheet(nome.slice(0, 31));
-    foglio.columns = COLONNE.map(([intestazione, campo]) => ({ header: intestazione, key: campo, width: 22 }));
+    const colonne = [...COLONNE, ...FACOLTATIVE.filter(([, campo]) => elenco.some(r => r[campo]))];
+    foglio.columns = colonne.map(([intestazione, campo]) => ({ header: intestazione, key: campo, width: 22 }));
     foglio.getRow(1).font = { bold: true };
     elenco.forEach(r => foglio.addRow(r));
   }

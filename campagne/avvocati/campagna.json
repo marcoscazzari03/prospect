@@ -39,7 +39,8 @@
     "LinkedIn",
     "Settore Le Fonti",
     "Comunità 1",
-    "Comunità 2"
+    "Comunità 2",
+    "Specializzazione"
   ],
   "colonne_mailup": [
     "Nome",
@@ -51,7 +52,9 @@
     "Paese",
     "Settore Le Fonti",
     "Comunità 1",
-    "Comunità 2"
+    "Comunità 2",
+    "Città",
+    "Specializzazione"
   ],
   "colonne_scartati": [
     "Data",
@@ -136,7 +139,76 @@
     "comunita": {
       "principale": "09 Comunità di Avvocati Penalisti",
       "seconda": "08 Comunità di Avvocati"
-    }
+    },
+    "specializzazione": {
+      "colonna": "Specializzazione",
+      "campo": "specializzazione",
+      "valori": [
+        "white-collar crime",
+        "tax crime",
+        "financial crime and anti-money laundering",
+        "corruption and fraud",
+        "cybercrime",
+        "environmental and workplace safety offences",
+        "medical liability",
+        "crimes against the person",
+        "drug offences",
+        "road traffic offences",
+        "extradition and international criminal law",
+        "criminal defence"
+      ],
+      "riserva": "criminal defence",
+      "parole": [
+        [
+          "tributar|fiscal|\\btax|steuerstraf|belasting",
+          "tax crime"
+        ],
+        [
+          "riciclag|money laundering|\\baml\\b|blanqueo|branqueamento|witwas|geldw[äa]sche|finanziari|financial crime|market abuse|abusi di mercato|insider",
+          "financial crime and anti-money laundering"
+        ],
+        [
+          "impresa|economi|white.?collar|societar|corporate|business crime|bancarott|fallimentar|insolven|\\b231\\b|wirtschaftsstraf|penal econ|commercial crime|compliance",
+          "white-collar crime"
+        ],
+        [
+          "corruzion|corrup|truff|\\bfrod|fraud|estafa|oplichting|betrug",
+          "corruption and fraud"
+        ],
+        [
+          "informatic|cyber|computer|privacy|data protection",
+          "cybercrime"
+        ],
+        [
+          "ambient|environment|sicurezza sul lavoro|workplace|infortun|umwelt|medioambiente",
+          "environmental and workplace safety offences"
+        ],
+        [
+          "medic|sanitari|malpractice|healthcare",
+          "medical liability"
+        ],
+        [
+          "contro la persona|violen|omicid|homicid|sessual|sexual|domestic|stalking|murder|maltrattament",
+          "crimes against the person"
+        ],
+        [
+          "stupefacent|\\bdrog|\\bdrug|narcot|estupefac|bet[äa]ubungsmittel|verdovende",
+          "drug offences"
+        ],
+        [
+          "circolazione|stradal|traffic|verkeer|verkehr|tr[áa]fico|tr[âa]nsito|road|drink.?driv",
+          "road traffic offences"
+        ],
+        [
+          "estradiz|extradi|internazional|international|arrest warrant|mandato d.arresto|auslieferung",
+          "extradition and international criminal law"
+        ]
+      ]
+    },
+    "mailup_extra": [
+      "Città",
+      "Specializzazione"
+    ]
   },
   "colonne_nuove": {
     "Prospect AI": [

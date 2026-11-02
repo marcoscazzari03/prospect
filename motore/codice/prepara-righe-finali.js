@@ -36,6 +36,7 @@ return {
     ...Object.fromEntries(CFG.campi_extra.map(([colonna]) => [colonna, $json[colonna] || ''])),
     Paese: $json.Paese || '',
     Settore: $json.Settore || '',
+    ...(CFG.specializzazione ? { [CFG.specializzazione.colonna]: $json[CFG.specializzazione.colonna] || '' } : {}),
     'Settore Le Fonti': $json['Settore Le Fonti'] || '',
     'Comunità 1': $json['Comunità 1'] || '',
     'Comunità 2': $json['Comunità 2'] || '',

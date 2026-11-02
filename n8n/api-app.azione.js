@@ -23,7 +23,8 @@ const nuoveDi = (c, i, visti) => {
   const k = {
     nome: col('nome'), cognome: col('cognome'), azienda: col('azienda'), ruolo: col('ruolo'),
     settore: col('settore'), email: col('email'), paese: col('paese'),
-    settore_lefonti: col('settore le fonti'), comunita1: col('comunità 1'), comunita2: col('comunità 2')
+    settore_lefonti: col('settore le fonti'), comunita1: col('comunità 1'), comunita2: col('comunità 2'),
+    citta: col('città'), specializzazione: col('specializzazione')
   };
   const val = (r, campo) => (k[campo] >= 0 ? pulito(r[k[campo]]) : '');
   const out = [];
@@ -35,7 +36,8 @@ const nuoveDi = (c, i, visti) => {
       campagna: c.campagna, etichetta: c.etichetta,
       nome: val(r, 'nome'), cognome: val(r, 'cognome'), azienda: val(r, 'azienda'), ruolo: val(r, 'ruolo'),
       settore: val(r, 'settore'), email, paese: val(r, 'paese'),
-      settore_lefonti: val(r, 'settore_lefonti'), comunita1: val(r, 'comunita1'), comunita2: val(r, 'comunita2')
+      settore_lefonti: val(r, 'settore_lefonti'), comunita1: val(r, 'comunita1'), comunita2: val(r, 'comunita2'),
+      citta: val(r, 'citta'), specializzazione: val(r, 'specializzazione')
     });
   }
   return out;

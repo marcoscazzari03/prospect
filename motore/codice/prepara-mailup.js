@@ -16,6 +16,8 @@ return $input.all()
       'Comunità 1': pulito(j['Comunità 1']),
       'Comunità 2': pulito(j['Comunità 2']),
       Email: pulito(j['Email certa']),
-      ...(CFG.mailup_paese ? { Paese: pulito(j.Paese) } : {})
+      ...(CFG.mailup_paese ? { Paese: pulito(j.Paese) } : {}),
+      // Colonne in piu della campagna nella scheda Mailup (es. Città, Specializzazione per gli avvocati).
+      ...Object.fromEntries(CFG.mailup_extra.map(c => [c, pulito(j[c])]))
     }
   }));
