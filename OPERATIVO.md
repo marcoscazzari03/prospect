@@ -15,6 +15,7 @@ Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva 
 | Prospect \| Strumenti \| Export Mailup settimanale | `8BUuXswSFV3JHWs7` | `a5a9970a-9ff9-4103-b1bd-4f7acab059e1` | attivo lunedì 08:00 |
 | Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | attivo (password) |
 | Prospect \| Strumenti \| Deploy da GitHub | `dfcTpLlJ3RyHO8BR` | `5eba5e13-51ff-4566-9d65-0dc50d063587` | manuale |
+| Prospect \| Strumenti \| Aggiungi colonne | `AtE5Ney79dkoEQEq` | (creato dopo il punto di ripristino) | manuale |
 | Prospect \| Strumenti \| Setup foglio | `GPtrh61BOYhfp8Mc` | `a47c4571-dbf0-4308-948a-49df1d5802fa` | manuale |
 
 Tabelle n8n in uso: `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`), `prospect_export_stato` (`6uYSjDtswew1752T`), `prospect_export_partenza` (`5PNFQ2Od1xTZlZ4P`).
@@ -96,9 +97,9 @@ Checklist (in ordine):
 
 **B · Comunità e Settore sui lead nuovi**
 - [x] 6. Claude (2 novembre, nella repo): prompt Startup e Asia con il campo `settore_lefonti` (lista dei 52); Avvocati con settore fisso Legal Services. Nel motore (deduplica) il calcolo di **Settore Le Fonti** (lista → parole chiave → "Other") e **Comunità 1 / Comunità 2** dalle regole in `campagna.json` (`comunita`). Liste in `motore/liste/`.
-- [~] 7. Claude: verifica sui dati reali fatta (avvocati 4133: unica differenza le 3 colonne nuove). Colonne nei fogli: nuovo strumento **Prospect | Strumenti | Aggiungi colonne** (`n8n/aggiungi-colonne.*`, elenco `dist/colonne.json`), da creare ed eseguire su n8n **prima** del deploy: le schede Prospect AI e Mailup ignorano le colonne che non hanno.
-- [ ] 8. Claude: prova manuale su una campagna; utente controlla 30 righe.
-- [ ] 9. Claude: deploy sulle tre campagne (solo con ok).
+- [x] 7. Claude: verifica sui dati reali (avvocati 4133: unica differenza le 3 colonne nuove). Colonne aggiunte ai fogli il 2 novembre con **Prospect | Strumenti | Aggiungi colonne** (`AtE5Ney79dkoEQEq`, esecuzione 4215): Settore Le Fonti, Comunità 1, Comunità 2 in Prospect AI e Mailup dei tre fogli. Deploy delle tre campagne il 2 novembre (4216).
+- [ ] 8. Claude: controllo delle prime esecuzioni automatiche (Avvocati 18:00, Startup 21:00, Asia 03:00 del 2–3 novembre); utente controlla 30 righe.
+- [x] 9. Claude: deploy sulle tre campagne (2 novembre, con ok). Da fare: nuovo punto di ripristino quando l'utente conferma che funziona.
 
 **C · Apertura (due righe su misura)**
 - [ ] 10. Claude: generatore dal testo del sito, regole anti-invenzione, frase standard di riserva, controllo automatico; costo per lead. Attivo solo per `startup` e `asia-pmi` (impostazione in `campagna.json`).
