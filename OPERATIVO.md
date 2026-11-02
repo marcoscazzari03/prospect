@@ -75,6 +75,22 @@ Le campagne ora condividono un motore unico (`motore/`) e si distinguono solo pe
 - Collegati alle tre campagne il 2 novembre (deploy 4214): 56 nodi ciascuna, riquadro **13 · Log e avviso**, Error workflow impostato. Nota per i deploy: n8n vuole riquadri con **una sola uscita** e descrizioni di **max 145 caratteri**; se il deploy è rifiutato per un riquadro, toglierlo su n8n, rifare il deploy e rimetterlo.
 - Motivo: dal 30 ottobre ~12:00 al 2 novembre le tre campagne non hanno trovato nessuno per **credito OpenAI esaurito** ("OpenAI: Rate limit reached"); nessuno se n'era accorto. Il 2 novembre ricaricati **20 $** su OpenAI: da misurare quanto durano.
 
+## Progetto App web leads.stagira.it (deciso il 2 novembre 2026)
+
+App web su **Vercel**, dominio **leads.stagira.it**: panoramica delle campagne, **scarica nuovi** (Excel con solo i contatti mai scaricati, che poi vengono segnati come scaricati), **storico** dei download con possibilità di riscaricare. n8n resta il motore (fogli, conteggi, Excel); l'app parla con n8n tramite webhook protetti da chiave segreta. Codice in `app/` della repo prospect (Vercel: *Root Directory* = `app`).
+
+Checklist:
+- [x] 1. Utente: hosting → **Vercel** (nota: il piano gratuito Hobby è solo per uso non commerciale; per uso aziendale serve Pro, circa 20 $/mese).
+- [ ] 2. Utente: tipo di login (Google aziendale o utente e password) e chi la usa.
+- [ ] 3. Utente: export del lunedì da spegnere quando l'app funziona, o da tenere come riserva?
+- [ ] 4. Utente: dove si gestisce il DNS di stagira.it.
+- [ ] 5. Utente: account Vercel collegato a GitHub (repo `marcoscazzari03/prospect`).
+- [ ] 6. Claude: webhook n8n per l'app (panoramica, scarica nuovi, storico) — con ok prima di creare su n8n.
+- [ ] 7. Claude: app in `app/` (login, panoramica, scarica, storico) + prova.
+- [ ] 8. Utente con guida: collegamento a Vercel, variabili segrete, dominio leads.stagira.it.
+- [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
+- [ ] 10. Da valutare: repo prospect privata (servirà un token GitHub per i workflow che la leggono).
+
 ## Progetto Comunità, Settore e Apertura (approvato il 29 ottobre 2026)
 
 Tre colonne nuove per ogni lead: **Comunità di appartenenza** (una delle 15 comunità Le Fonti), **Settore** (lista dell'utente, in arrivo), **Apertura** (due righe su misura in **inglese**, solo da fatti presenti sul sito ufficiale; **solo per Startup e Asia PMI**, non per Avvocati: impostazione per campagna). Il settore scritto oggi dall'AI resta in Prospect AI come **Settore AI**. Email ai lead: **in inglese**.
