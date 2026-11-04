@@ -1,6 +1,7 @@
 // API dell'app leads.stagira.it. Azioni (campo "azione" nel corpo della richiesta):
 // - panoramica: per ogni campagna contatti nuovi pronti, gia scaricati, ultimo download;
 // - scarica: contatti mai scaricati di una campagna (o "tutte"), da salvare come nuovo download;
+// - anteprima: gli stessi contatti di "scarica", solo da vedere (NON vengono segnati come scaricati);
 // - storico: elenco dei download fatti (campagna, data, numero contatti);
 // - download: righe di un download passato, per riscaricarlo.
 // Nuovi = email della scheda Mailup non registrate alla partenza e mai scaricate (anche da altre campagne).
@@ -80,6 +81,15 @@ if (azione === 'panoramica') {
     risposta.download = download;
     risposta.righe = righe;
   }
+} else if (azione === 'anteprima') {
+  const scelta = String(corpo.campagna || '');
+  const visti = new Set(gia);
+  const elenco = [];
+  campagne.forEach((c, i) => {
+    const nuove = nuoveDi(c, i, visti);
+    if (scelta === 'tutte' || scelta === c.campagna) elenco.push(...nuove);
+  });
+  risposta.righe = elenco;
 } else if (azione === 'storico') {
   risposta.storico = storico;
 } else if (azione === 'download') {
