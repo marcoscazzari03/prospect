@@ -1,23 +1,23 @@
 # Bozze email Le Fonti Awards® — traduzione italiana (2 novembre 2026)
 
 Traduzione per la lettura interna: **le email verranno inviate in inglese** (versione originale in `bozze-2026-11-02.md`).
-Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[specializzazione]`, `[citta]` (solo Avvocati), `[apertura1]`, `[apertura2]` (Asia PMI e Startup).
+Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[citta]` (solo Avvocati), `[apertura1]`, `[apertura2]` (Asia PMI e Startup).
 `[apertura1] [apertura2]` = due frasi su misura per ogni contatto (max 100 caratteri l'una), scritte dall'AI **solo con fatti presi dal sito ufficiale** dell'azienda. Se il sito non dà abbastanza informazioni, l'AI mette una frase standard di riserva: il testo resta sempre corretto. Solo per Asia PMI e Startup.
 
 **Da confermare (⚠️):** esistenza di una categoria dedicata ai penalisti e di una per le aziende emergenti / startup.
 
 ---
 
-## 1. Avvocati penalisti in Europa (email classica, con la specializzazione)
+## 1. Avvocati penalisti in Europa (email classica, con la città)
 
-**Oggetto:** [nome], Le Fonti Awards® 2026: premiamo l'eccellenza in [specializzazione]
-*(alternativa: Le Fonti Awards® 2026: candidature aperte per gli studi di diritto penale)*
+**Oggetto:** [nome], Le Fonti Awards® 2026: candidature aperte per gli studi di diritto penale
+*(alternativa: [nome], le candidature ai Le Fonti Awards® sono aperte)*
 
 Gentile [nome],
 
-le candidature ai Le Fonti Awards®, prestigioso premio internazionale che celebra l'eccellenza nel mondo delle imprese e della professione legale, sono ufficialmente aperte. La contattiamo per il lavoro di [azienda] in [specializzazione] a [citta].
+le candidature ai Le Fonti Awards®, prestigioso premio internazionale che celebra l'eccellenza nel mondo delle imprese e della professione legale, sono ufficialmente aperte. La contattiamo per il lavoro di [azienda] nel diritto penale a [citta].
 
-Da oltre 15 anni i Le Fonti Awards® premiano studi legali e professionisti di eccellenza insieme ad aziende e professionisti di primo piano, con eventi nei principali centri d'affari del mondo, tra cui Milano, New York, Londra, Dubai, Singapore e Hong Kong. ⚠️ L'edizione di quest'anno dà spazio anche all'eccellenza nel diritto penale, in ambiti come [specializzazione].
+Da oltre 15 anni i Le Fonti Awards® premiano studi legali e professionisti di eccellenza insieme ad aziende e professionisti di primo piano, con eventi nei principali centri d'affari del mondo, tra cui Milano, New York, Londra, Dubai, Singapore e Hong Kong. ⚠️ L'edizione di quest'anno dà spazio anche all'eccellenza nel diritto penale.
 
 Oltre al riconoscimento, i Le Fonti Awards® aprono le porte a una Business Community internazionale di oltre 10,5 milioni di persone, che comprende una comunità dedicata agli avvocati penalisti, dove nascono nuovi contatti, collaborazioni e idee.
 
@@ -27,7 +27,6 @@ Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 
 Per qualsiasi informazione, risponda semplicemente a questa email: un membro del nostro team la ricontatterà personalmente.
 
-> `[specializzazione]` = area del penale in cui lo studio lavora, scelta dall'AI dalle aree di attività del sito (nell'email vera è in inglese). Esempi: *penale d'impresa (white-collar)* · *penale tributario* · *reati finanziari e antiriciclaggio* · *cybercrime* · *reati ambientali e sicurezza sul lavoro* · *responsabilità medica* · *stupefacenti* · *circolazione stradale* · *estradizione e penale internazionale*. Se il sito non specifica: *difesa penale*.
 
 ---
 

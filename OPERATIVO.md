@@ -14,7 +14,7 @@ Aggiornato: **4 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 - Campagne attive: Asia PMI (03:00, 15:00) versione `968b216b-3aed-4880-b978-4963af1a27b2`; Startup (09:00, 21:00) `ad834204-4353-4db0-a8a1-a8e0eef4b20f`; Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
 - App **https://prospect-gilt.vercel.app** (password su Vercel): Scarica nuovi, Anteprima (Excel che non segna nulla), Scarica storico completo, storico dei download, Modelli email. API App su n8n versione `8f1c1db0-d10e-4c81-b585-9ea5955a3068`.
 - Contatti in attesa al 4 novembre: Asia 161, Avvocati 101, Startup 203 (Asia/Startup con frasi: 341 su misura, 23 riserva). Nessun download dall'app ancora fatto.
-- Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. L'utente sta creando i template e i campi su MailUp (`apertura1`, `apertura2`, `specializzazione`, `citta`).
+- Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. **Dal 5 novembre la mail Avvocati non usa più la specializzazione** (decisione dell'utente): oggetto "…applications are open for criminal law firms", testo "…[azienda]'s work in criminal law in [citta]". La colonna Specializzazione resta nei fogli e nell'Excel (utile per filtrare). Campi MailUp da creare: `apertura1`, `apertura2`, `citta`.
 - Nessun resoconto automatico mattutino (cancellato su richiesta dell'utente).
 
 **In sospeso (in ordine)**
