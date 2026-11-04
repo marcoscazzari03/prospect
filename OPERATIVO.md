@@ -16,7 +16,7 @@ Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva 
 | Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | attivo (password) |
 | Prospect \| Strumenti \| Deploy da GitHub | `dfcTpLlJ3RyHO8BR` | `5eba5e13-51ff-4566-9d65-0dc50d063587` | manuale |
 | Prospect \| Strumenti \| Aggiungi colonne | `AtE5Ney79dkoEQEq` | (creato dopo il punto di ripristino) | manuale |
-| Prospect \| Strumenti \| API App | `B5pNQHB32c8PiTyw` | `cec54ecc-0a0d-471b-b523-9aabd3efd6cd` (creato dopo il punto di ripristino) | attivo (webhook con chiave) |
+| Prospect \| Strumenti \| API App | `B5pNQHB32c8PiTyw` | `5e08a80a-2c57-4e9c-bf29-80766749189c` (creato dopo il punto di ripristino) | attivo (webhook con chiave) |
 | Prospect \| Strumenti \| Compila specializzazione avvocati | `OpnxAAqppiIzBmSp` | (creato dopo il punto di ripristino) | manuale, una tantum (eseguito: 4257, 4261) |
 | Prospect \| Strumenti \| Correggi settori | `mopbqmV8nS3PJbxz` | (creato dopo il punto di ripristino) | manuale (eseguito: 4282) |
 | Prospect \| Strumenti \| Prova aperture | `Pu0E1gx3zaoZ72XC` | (creato dopo il punto di ripristino) | manuale, solo prova (4263, 4264) |
@@ -94,7 +94,7 @@ Checklist:
 - [x] 7. Claude: app in `app/` (Next.js 15: login con password, panoramica, scarica nuovi / tutti, storico con riscarica), provata in locale con un finto n8n e un browser automatico, poi con l'API vera (2 novembre). Istruzioni in `app/README.md`.
 - [x] 8. Utente (2 novembre): app pubblicata su Vercel con le variabili segrete. **Dominio: `prospect-gilt.vercel.app`** (deciso di tenere quello di Vercel; leads.stagira.it e DNS Keliweb non servono).
 - Deciso il 2 novembre: per Asia la colonna **Paese** in Mailup resta assente (`mailup_paese: false`), quindi nell'Excel dell'app è vuota. Va bene così.
-- [~] 9b. **Anteprima** (richiesta del 4 novembre): pulsante "Anteprima" su ogni campagna e "Anteprima di tutti" → pagina `/anteprima` con la tabella dei contatti nuovi, senza segnarli come scaricati. Azione `anteprima` in `n8n/api-app.azione.js`. Provata in locale (conteggio invariato). Commit solo sul ramo `claude/motore-comune`: **da fare (ok): aggiornare il codice dell'API App su n8n, poi unire su `main`** (Vercel pubblica da `main`).
+- [x] 9b. **Anteprima** (4 novembre): pulsante "Anteprima" su ogni campagna e "Anteprima di tutti" → pagina `/anteprima` con la tabella dei contatti nuovi, senza segnarli come scaricati. Azione `anteprima` nell'API App (versione `5e08a80a-2c57-4e9c-bf29-80766749189c`); provata sull'API vera (avvocati 101 righe, conteggi invariati).
 - [ ] 9. Insieme: prova completa; poi spegnimento della pagina Download Mailup / export del lunedì (se deciso).
 - [ ] 10. ⏸️ **Rinviata** (2 novembre) — repo prospect **privata**. Prima serve un **token GitHub di sola lettura** (fine-grained, solo repo prospect, Contents: Read-only) salvato su n8n come credenziale Header Auth **GitHub prospect (lettura)** (`Authorization: Bearer …`) e collegato ai workflow che leggono da GitHub: Export Mailup settimanale, Deploy da GitHub, Aggiungi colonne, Setup foglio (quest'ultimo legge da raw.githubusercontent: passare all'API). Le campagne di ricerca non leggono da GitHub.
 
