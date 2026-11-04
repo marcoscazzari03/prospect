@@ -7,7 +7,7 @@ const COLONNE = [
   ['Settore Le Fonti', 'settore_lefonti'], ['Comunità 1', 'comunita1'], ['Comunità 2', 'comunita2']
 ];
 // Colonne che solo alcune campagne hanno (es. avvocati): nel foglio solo se almeno una riga le ha.
-const FACOLTATIVE = [['Città', 'citta'], ['Specializzazione', 'specializzazione'], ['Apertura 1', 'apertura1'], ['Apertura 2', 'apertura2']];
+const FACOLTATIVE = [['Città', 'citta'], ['Specializzazione', 'specializzazione'], ['Apertura 1', 'apertura1'], ['Apertura 2', 'apertura2'], ['Stato', 'stato']];
 
 // Un foglio per campagna (con "tutte" le campagne finiscono nello stesso file, su fogli diversi).
 export async function creaExcel(righe) {

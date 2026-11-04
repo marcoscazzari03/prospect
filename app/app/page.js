@@ -77,6 +77,10 @@ export default async function Panoramica() {
       )}
 
       <h2>Storico dei download</h2>
+      <div className="azioni">
+        <a className="pulsante secondario" href="/api/storico-excel">Scarica storico completo</a>
+        <span className="tenue">Tutti i contatti con email di tutte le campagne, con lo stato (nuovo, scaricato, già inviato). Non segna nulla.</span>
+      </div>
       {storico.length ? (
         <div className="tabella">
           <table>

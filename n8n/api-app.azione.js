@@ -3,7 +3,8 @@
 // - scarica: contatti mai scaricati di una campagna (o "tutte"), da salvare come nuovo download;
 // - anteprima: gli stessi contatti di "scarica", solo da vedere (NON vengono segnati come scaricati);
 // - storico: elenco dei download fatti (campagna, data, numero contatti);
-// - download: righe di un download passato, per riscaricarlo.
+// - download: righe di un download passato, per riscaricarlo;
+// - tutto: tutti i contatti delle schede Mailup, con lo stato (partenza, scaricato il..., nuovo). Non segna nulla.
 // Nuovi = email della scheda Mailup non registrate alla partenza e mai scaricate (anche da altre campagne).
 const corpo = $('Richiesta app').first().json.body || {};
 const azione = String(corpo.azione || '');
@@ -90,6 +91,19 @@ if (azione === 'panoramica') {
   campagne.forEach((c, i) => {
     const nuove = nuoveDi(c, i, visti);
     if (scelta === 'tutte' || scelta === c.campagna) elenco.push(...nuove);
+  });
+  risposta.righe = elenco;
+} else if (azione === 'tutto') {
+  // Stato di ogni email: registrata alla partenza (gia inviata prima dell'app), scaricata (data) o nuova.
+  const inPartenza = new Set(partenza.map(r => minuscolo(r.email)));
+  const quando = {};
+  for (const r of scaricate) { const e = minuscolo(r.email); if (!quando[e] || String(r.settimana) < quando[e]) quando[e] = String(r.settimana); }
+  const elenco = [];
+  campagne.forEach((c, i) => {
+    for (const r of nuoveDi(c, i, new Set())) {
+      const stato = inPartenza.has(r.email) ? 'Gia inviato prima dell app' : quando[r.email] ? `Scaricato il ${quando[r.email]}` : 'Nuovo';
+      elenco.push({ ...r, stato });
+    }
   });
   risposta.righe = elenco;
 } else if (azione === 'storico') {
