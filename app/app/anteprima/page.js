@@ -29,9 +29,12 @@ export default async function Anteprima({ searchParams }) {
       <header>
         <div>
           <h1>Anteprima · {campagna === 'tutte' ? 'Tutte le campagne' : etichetta}</h1>
-          <span className="tenue">{righe.length} contatti nuovi. Solo da vedere: non vengono segnati come scaricati.</span>
+          <span className="tenue">{righe.length} contatti nuovi. Anteprima ed Excel dell&apos;anteprima non li segnano come scaricati: restano &quot;nuovi&quot; finché non usi Scarica nuovi.</span>
         </div>
-        <a className="pulsante secondario" href="/">Torna ai contatti</a>
+        <div className="navigazione">
+          {righe.length > 0 && <a className="pulsante" href={`/api/anteprima-excel?campagna=${encodeURIComponent(campagna)}`}>Scarica Excel dell&apos;anteprima</a>}
+          <a className="pulsante secondario" href="/">Torna ai contatti</a>
+        </div>
       </header>
       {errore && <p className="scheda errore">Non riesco a leggere i dati da n8n: {errore}</p>}
       {!errore && !righe.length && <p className="tenue">Nessun contatto nuovo.</p>}
