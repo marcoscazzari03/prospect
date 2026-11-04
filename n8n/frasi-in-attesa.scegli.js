@@ -1,6 +1,8 @@
 // Contatti "in attesa" (nella scheda Mailup, mai scaricati e non registrati alla partenza) senza Apertura 1,
 // oppure con la frase di riserva (Tipo apertura = RISERVA in Prospect AI): si riprova a leggere il sito.
-// Sito e riga di Prospect AI si trovano con l'email. Un elemento per contatto.
+// Sito e riga di Prospect AI si trovano con l'email. Un elemento per contatto, al massimo PER_VOLTA per esecuzione
+// (le pagine dei siti occupano memoria: con troppi contatti n8n si ferma). Rieseguire finche restano contatti.
+const PER_VOLTA = 50;
 const campagne = $('GitHub - Campagne con aperture').all().map(i => i.json);
 const schede = $('Elenca schede').all().map(i => i.json);
 const valori = $input.all().map(i => i.json.values || []);
@@ -34,7 +36,7 @@ for (const c of campagne) {
     if (!email || gia.has(email) || (pulito(r[k.a1]) && !riserva)) return;
     const sito = x ? pulito(x.r[p.sito]) : '';
     out.push({ json: {
-      campagna: c.campagna, foglio_id: c.foglio_id, email, sito: sito ? (/^https?:\/\//i.test(sito) ? sito : 'https://' + sito) : '',
+      campagna: c.campagna, foglio_id: c.foglio_id, email, era_riserva: Boolean(riserva), sito: sito ? (/^https?:\/\//i.test(sito) ? sito : 'https://' + sito) : '',
       azienda: x ? pulito(x.r[p.azienda]) : '', paese: x ? pulito(x.r[p.paese]) : '',
       celle_mailup: { a1: `'Mailup'!${lettera(k.a1)}${j + 2}`, a2: `'Mailup'!${lettera(k.a2)}${j + 2}` },
       celle_pa: x ? { a1: `'Prospect AI'!${lettera(p.a1)}${x.riga}`, a2: `'Prospect AI'!${lettera(p.a2)}${x.riga}`,
@@ -42,4 +44,4 @@ for (const c of campagne) {
     } });
   });
 }
-return out;
+return out.slice(0, PER_VOLTA);

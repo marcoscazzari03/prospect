@@ -9,6 +9,8 @@ $input.all().forEach((item, i) => {
   const risp = item.json || {};
   const testo = (risp.output || []).flatMap(o => o.content || []).find(c => c.type === 'output_text')?.text || '';
   const v = validaAperture(testo, campagne[l.campagna].riserva, l.azienda);
+  // Chi era gia in riserva e resta in riserva non viene ripreso alla prossima esecuzione.
+  if (l.era_riserva && v.tipo_apertura === 'RISERVA') v.tipo_apertura = 'RISERVA (ritentato)';
   token += (risp.usage?.input_tokens || 0) + (risp.usage?.output_tokens || 0);
   const k = `${l.campagna} ${v.tipo_apertura}`; conta[k] = (conta[k] || 0) + 1;
   const d = (perFoglio[l.foglio_id] ??= []);
