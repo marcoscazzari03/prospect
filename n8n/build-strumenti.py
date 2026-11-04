@@ -31,7 +31,7 @@ SCHEMI = {
     '__SCHEMA_STATO__': schema([('campagna', 'string'), ('etichetta', 'string'), ('ultima_riga', 'number'), ('ultimo_export', 'string')]),
 }
 
-for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne', 'api-app', 'compila-avvocati']:
+for nome in ['export-mailup', 'download-mailup', 'avvisi-telegram', 'aggiungi-colonne', 'api-app', 'compila-avvocati', 'correggi-settori', 'prova-aperture']:
     ts = leggi(f'{nome}.template.ts')
     pagina = leggi('download-mailup.pagina.js').replace(
         '__HTML_PAGINA__', json.dumps(leggi('pagine', 'download-mailup.html'), ensure_ascii=False))

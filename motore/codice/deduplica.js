@@ -72,12 +72,18 @@ const generaEmail = (nomeCompleto, dominio) => {
 // sul testo dell'AI; se nessuna regola vale: "Other".
 const SETTORI = new Map(CFG.settori.map(s => [s.toLowerCase(), s]));
 const PAROLE = CFG.parole_settori.map(([rx, s]) => [new RegExp(rx, 'i'), s]);
+// Rete di sicurezza (motore/liste/settori-software.json): un'azienda di software o AI che lavora
+// per banche, studi legali, assicurazioni... non e del loro settore (es. legaltech -> Internet & Applications Services).
+const SW = CFG.settori_software;
+const SW_PAROLE = new RegExp(SW.parole, 'i');
+const correggiSoftware = (settore, testo) =>
+  SW.settori_da_controllare.includes(settore) && SW_PAROLE.test(String(testo ?? '')) ? SW.settore : settore;
 const settoreLeFonti = (scelto, testo) => {
   if (CFG.settore_fisso) return CFG.settore_fisso;
   const esatto = SETTORI.get(String(scelto ?? '').trim().toLowerCase());
-  if (esatto) return esatto;
+  if (esatto) return correggiSoftware(esatto, testo);
   const t = `${scelto ?? ''} ${testo ?? ''}`;
-  for (const [rx, s] of PAROLE) if (rx.test(t)) return s;
+  for (const [rx, s] of PAROLE) if (rx.test(t)) return correggiSoftware(s, testo);
   return 'Other';
 };
 const ITALIA = /^(italia|italy)$/i;

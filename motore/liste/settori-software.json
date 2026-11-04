@@ -1,0 +1,14 @@
+{
+  "nota": "Rete di sicurezza: chi vende software/AI a banche, studi legali, assicurazioni ecc. NON e del loro settore. Se l'AI sceglie uno di questi settori ma il suo testo del settore parla di software, il settore diventa quello indicato.",
+  "settori_da_controllare": [
+    "Legal Services",
+    "Financial Services",
+    "Banking",
+    "Insurance",
+    "Fiscal & Accounting Services",
+    "Capital Markets & Investment Management",
+    "Information & Research Services"
+  ],
+  "parole": "\\bsaas\\b|software|legaltech|regtech|\\bai\\b|\\bai-|artificial intelligence|machine learning|digital identity|conversational|automation",
+  "settore": "Internet & Applications Services"
+}

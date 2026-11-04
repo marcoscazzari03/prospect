@@ -75,6 +75,7 @@ def liste_comuni():
         'parole_settori': [[x['parole'], x['settore']] for x in json.loads(leggi(MOTORE, 'liste', 'parole-chiave-settori.json'))],
         'comunita_tematiche': json.loads(leggi(MOTORE, 'liste', 'comunita-tematiche.json')),
         'citta_inglese': json.loads(leggi(MOTORE, 'liste', 'citta-inglese.json')),
+        'settori_software': json.loads(leggi(MOTORE, 'liste', 'settori-software.json')),
     }
 
 
@@ -391,6 +392,17 @@ if __name__ == '__main__':
                                'scheda': 'Prospect AI', **carica(x['campagna'])['motore']['aperture'],
                                'prompt': leggi(MOTORE, 'aperture', 'prompt.txt')}
                               for x in export if carica(x['campagna'])['motore'].get('aperture')])
+
+    # Letto dallo strumento "Prospect | Strumenti | Correggi settori": regole per ricalcolare Settore Le Fonti
+    # e Comunità nelle righe gia salvate, e marchi da aggiungere alla scheda Esclusioni.
+    liste = liste_comuni()
+    scrivi('correggi-settori.json', {
+        'settori_software': liste['settori_software'],
+        'comunita_tematiche': liste['comunita_tematiche'],
+        'campagne': [{'campagna': x['campagna'], 'foglio_id': x['foglio_id'], 'comunita': carica(x['campagna'])['motore']['comunita'],
+                      'esclusioni_nuove': carica(x['campagna'])['motore'].get('esclusioni_nuove', [])}
+                     for x in export if not carica(x['campagna'])['motore'].get('settore_fisso')]
+    })
 
     # Letto dallo strumento "Prospect | Strumenti | Compila specializzazione avvocati".
     scrivi('compila-avvocati.json', {'specializzazione': carica('avvocati')['motore']['specializzazione'],
