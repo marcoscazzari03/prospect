@@ -1,6 +1,6 @@
 # Stato operativo
 
-Aggiornato: **4 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
+Aggiornato: **5 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
 
 ## ▶️ Riparti da qui (leggere per primo)
 
@@ -13,41 +13,41 @@ Aggiornato: **4 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 **Stato al 4 novembre (sera)**
 - Campagne attive: Asia PMI (03:00, 15:00) versione `968b216b-3aed-4880-b978-4963af1a27b2`; Startup (09:00, 21:00) `ad834204-4353-4db0-a8a1-a8e0eef4b20f`; Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
 - App **https://prospect-gilt.vercel.app** (password su Vercel): Scarica nuovi, Anteprima (Excel che non segna nulla), Scarica storico completo, storico dei download, Modelli email. API App su n8n versione `8f1c1db0-d10e-4c81-b585-9ea5955a3068`.
-- Contatti in attesa al 4 novembre: Asia 161, Avvocati 101, Startup 203 (Asia/Startup con frasi: 341 su misura, 23 riserva). Nessun download dall'app ancora fatto.
+- 4 novembre 14:30: l'utente ha scaricato dall'app tutti i 465 contatti in attesa (Asia 161, Avvocati 101, Startup 203). Campi MailUp creati (`apertura1`, `apertura2`, `citta`); **primo invio con i nuovi template programmato per la notte del 5 novembre**. Primo giro con frasi dal motore (Asia 4 nov 15:00): 33 nuovi, 29 su misura, 4 riserva.
 - Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. **Dal 5 novembre la mail Avvocati non usa più la specializzazione** (decisione dell'utente): oggetto "…applications are open for criminal law firms", testo "…[azienda]'s work in criminal law in [citta]". La colonna Specializzazione resta nei fogli e nell'Excel (utile per filtrare). Campi MailUp da creare: `apertura1`, `apertura2`, `citta`.
 - Nessun resoconto automatico mattutino (cancellato su richiesta dell'utente).
 
 **In sospeso (in ordine)**
 1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
-2. Dopo il primo uso vero dell'app: **nuovo punto di ripristino** (ramo `ripristino-AAAA-MM-GG` + versioni) e, con ok, **spegnere l'export del lunedì** (`8BUuXswSFV3JHWs7`) e la pagina **Download Mailup** (`n6dqEqH9MuWpslT3`).
+2. ✅ (5 novembre) Punto di ripristino `ripristino-2026-11-05`; export del lunedì e pagina Download Mailup **disattivati**.
 3. Confermare col capo la frase sulle categorie del premio (penale / aziende emergenti) nei modelli.
 4. Contatti delle grandi reti già salvati in Asia (RSM, Andersen, Forvis Mazars, Crowe…): l'utente decide se toglierli dalla scheda Mailup.
 5. **Italia PMI**: decisioni dell'utente (dimensione, settori, regioni, ruoli, comunità 02 o 04, lingua email), poi repo → prova → foglio → workflow (ok per ogni passo).
 6. Più avanti: repo privata (token GitHub), "non consumare i temi quando il lotto AI fallisce", storico completo da dividere quando supera ~4 MB.
 
 
-## 🛟 Punto di ripristino: versioni funzionanti del 2 novembre 2026
+## 🛟 Punto di ripristino: versioni funzionanti del 5 novembre 2026
 
-Se qualcosa va storto si torna a queste versioni. Su n8n ogni workflow conserva la cronologia delle versioni: basta ripristinare l'ID qui sotto (strumento MCP `restore_workflow_version`, oppure su n8n: workflow → menu → *Version history* → ripristina → pubblica). Per le tre campagne c'è anche l'istantanea nella repo: ramo git **`ripristino-2026-11-02`** (i tag non si possono pubblicare da questo ambiente) (`dist/<campagna>.json`), da rimettere con il deploy.
+Dichiarate funzionanti dall'utente il 5 novembre (primo invio MailUp con i nuovi template programmato per la notte). Se qualcosa va storto si torna a queste versioni: su n8n ogni workflow conserva la cronologia delle versioni (strumento MCP `restore_workflow_version`, oppure workflow → menu → *Version history* → ripristina → pubblica). Per le campagne c'è anche l'istantanea nella repo: ramo git **`ripristino-2026-11-05`** (`dist/<campagna>.json`, da rimettere con il deploy). Il punto precedente resta nel ramo `ripristino-2026-11-02`.
 
 | Workflow | ID | Versione funzionante | Stato |
 |---|---|---|---|
-| Prospect \| Asia PMI \| Ricerca | `f03lATvrzkJYAOw6` | `6b828405-52dc-43e3-8f0d-433b14089bc0` | attivo 03:00 · 15:00 |
-| Prospect \| Avvocati \| Ricerca | `rKUcaJepe2momTLB` | `0b858b79-652f-4275-822f-6fda12afc5a9` | attivo 06:00 · 18:00 |
-| Prospect \| Startup \| Ricerca | `iXkSFJOLpJq8gl3D` | `67dfb0e7-1ca1-4efd-a282-2df1c6e70e29` | attivo 09:00 · 21:00 |
+| Prospect \| Asia PMI \| Ricerca | `f03lATvrzkJYAOw6` | `968b216b-3aed-4880-b978-4963af1a27b2` | attivo 03:00 · 15:00 (frasi su misura) |
+| Prospect \| Avvocati \| Ricerca | `rKUcaJepe2momTLB` | `0a7bf89a-2f03-4aff-9554-e3123bcafd94` | attivo 06:00 · 18:00 (specializzazione, città) |
+| Prospect \| Startup \| Ricerca | `iXkSFJOLpJq8gl3D` | `ad834204-4353-4db0-a8a1-a8e0eef4b20f` | attivo 09:00 · 21:00 (frasi su misura) |
 | Prospect \| Strumenti \| Avvisi Telegram | `cOTn9YehQThgLc3y` | `043d6ce0-ad92-4cff-8ed9-1ca558d03062` | attivo |
-| Prospect \| Strumenti \| Export Mailup settimanale | `8BUuXswSFV3JHWs7` | `a5a9970a-9ff9-4103-b1bd-4f7acab059e1` | attivo lunedì 08:00 |
-| Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | attivo (password) |
+| Prospect \| Strumenti \| API App | `B5pNQHB32c8PiTyw` | `8f1c1db0-d10e-4c81-b585-9ea5955a3068` | attivo (webhook con chiave, app Vercel) |
 | Prospect \| Strumenti \| Deploy da GitHub | `dfcTpLlJ3RyHO8BR` | `5eba5e13-51ff-4566-9d65-0dc50d063587` | manuale |
-| Prospect \| Strumenti \| Aggiungi colonne | `AtE5Ney79dkoEQEq` | (creato dopo il punto di ripristino) | manuale |
-| Prospect \| Strumenti \| API App | `B5pNQHB32c8PiTyw` | `8f1c1db0-d10e-4c81-b585-9ea5955a3068` (creato dopo il punto di ripristino) | attivo (webhook con chiave) |
-| Prospect \| Strumenti \| Compila specializzazione avvocati | `OpnxAAqppiIzBmSp` | (creato dopo il punto di ripristino) | manuale, una tantum (eseguito: 4257, 4261) |
-| Prospect \| Strumenti \| Correggi settori | `mopbqmV8nS3PJbxz` | (creato dopo il punto di ripristino) | manuale (eseguito: 4282) |
-| Prospect \| Strumenti \| Frasi contatti in attesa | `CpGg4j5I6GVMIMmJ` | (creato dopo il punto di ripristino) | manuale, una tantum (4330) |
-| Prospect \| Strumenti \| Prova aperture | `Pu0E1gx3zaoZ72XC` | (creato dopo il punto di ripristino) | manuale, solo prova (4263, 4264) |
+| Prospect \| Strumenti \| Aggiungi colonne | `AtE5Ney79dkoEQEq` | `4ecc016b-ef75-4841-a473-5e8df421bdcb` | manuale |
 | Prospect \| Strumenti \| Setup foglio | `GPtrh61BOYhfp8Mc` | `a47c4571-dbf0-4308-948a-49df1d5802fa` | manuale |
+| Prospect \| Strumenti \| Correggi settori | `mopbqmV8nS3PJbxz` | `29dd96b7-dc7e-4587-adc2-33ce9f684ab3` | manuale (eseguito: 4282) |
+| Prospect \| Strumenti \| Compila specializzazione avvocati | `OpnxAAqppiIzBmSp` | `8ae57f07-a92b-4811-a0c2-fa7fcbff15bc` | manuale, una tantum (4257, 4261) |
+| Prospect \| Strumenti \| Frasi contatti in attesa | `CpGg4j5I6GVMIMmJ` | `d96b3707-9f57-4b26-99bd-b8d5f73cd447` | manuale, una tantum (4330–4332) |
+| Prospect \| Strumenti \| Prova aperture | `Pu0E1gx3zaoZ72XC` | `3af2fa66-e9b0-4bcd-8c4f-2eb0479f3021` | manuale, solo prova |
+| Prospect \| Strumenti \| Export Mailup settimanale | `8BUuXswSFV3JHWs7` | `a5a9970a-9ff9-4103-b1bd-4f7acab059e1` | **disattivato il 5 novembre** (sostituito dall'app) |
+| Prospect \| Strumenti \| Download Mailup | `n6dqEqH9MuWpslT3` | `906937a3-87c9-4c1b-987c-6f191e7ed988` | **disattivato il 5 novembre** (sostituito dall'app) |
 
-Tabelle n8n in uso: `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`), `prospect_export_stato` (`6uYSjDtswew1752T`), `prospect_export_partenza` (`5PNFQ2Od1xTZlZ4P`).
+App Vercel: https://prospect-gilt.vercel.app (codice `app/` su `main`). Tabelle n8n in uso: `prospect_export_righe` (`R9wNDMOmHDGj7Hi5`, download dell'app), `prospect_export_partenza` (`5PNFQ2Od1xTZlZ4P`, email già inviate prima dell'app), `prospect_export_stato` (`6uYSjDtswew1752T`, usata solo dal vecchio export).
 
 ## Campagne
 
