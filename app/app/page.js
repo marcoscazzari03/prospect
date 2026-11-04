@@ -62,7 +62,7 @@ export default async function Panoramica() {
             {prossimoGiro(c.campagna) && <div className="tenue">Prossimo giro: {prossimoGiro(c.campagna)}</div>}
             <div className="azioni">
               <Scarica campagna={c.campagna} testo="Scarica nuovi" disattivo={!c.nuovi} />
-              {c.nuovi > 0 && <a className="pulsante secondario" href={`/anteprima?campagna=${encodeURIComponent(c.campagna)}`}>Anteprima</a>}
+              {c.nuovi > 0 && <a className="pulsante secondario" href={`/api/anteprima-excel?campagna=${encodeURIComponent(c.campagna)}`} title="Excel dei contatti nuovi, senza segnarli come scaricati">Anteprima</a>}
             </div>
           </section>
         ))}
@@ -71,8 +71,8 @@ export default async function Panoramica() {
       {campagne.length > 1 && (
         <div className="azioni">
           <Scarica campagna="tutte" testo={`Scarica tutti i nuovi (${totaleNuovi})`} disattivo={!totaleNuovi} />
-          {totaleNuovi > 0 && <a className="pulsante secondario" href="/anteprima?campagna=tutte">Anteprima di tutti</a>}
-          <span className="tenue">Un solo file con un foglio per campagna.</span>
+          {totaleNuovi > 0 && <a className="pulsante secondario" href="/api/anteprima-excel?campagna=tutte" title="Excel dei contatti nuovi, senza segnarli come scaricati">Anteprima di tutti</a>}
+          <span className="tenue">Un solo file con un foglio per campagna. &quot;Anteprima&quot; scarica l&apos;Excel senza segnare i contatti come scaricati.</span>
         </div>
       )}
 
