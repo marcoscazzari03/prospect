@@ -4,9 +4,12 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 
 ## All'inizio di ogni sessione
 
-1. Leggere [OPERATIVO.md](OPERATIVO.md): campagne, ID n8n, orari, regole, decisioni prese, prossimi passi.
+L'utente apre **una sessione nuova ogni giorno** (dal 4 novembre 2026): le sessioni lunghe perdono il collegamento a n8n.
+
+1. Leggere [OPERATIVO.md](OPERATIVO.md), prima di tutto la sezione **"Riparti da qui"**: stato, versioni attive, cose in sospeso. Poi campagne, ID n8n, orari, regole, decisioni prese.
 2. Se il lavoro riguarda una campagna, leggere anche `campagne/<id>/ROADMAP.md`.
-3. Per lo stato reale guardare n8n (strumenti MCP n8n): esecuzioni recenti, errori, nodi. La repo dice cosa *dovrebbe* girare, n8n dice cosa gira davvero.
+3. Controllare subito che gli strumenti n8n funzionino; se chiedono autorizzazione, dirlo all'utente (riconnettere n8n su claude.ai e aprire una sessione nuova).
+4. Per lo stato reale guardare n8n (strumenti MCP n8n): esecuzioni recenti, errori, nodi. La repo dice cosa *dovrebbe* girare, n8n dice cosa gira davvero.
 
 ## Regole fisse
 
@@ -18,7 +21,7 @@ Questa repo è il centro operativo di tutte le campagne di ricerca prospect per 
 - **Setup foglio:** ogni esecuzione crea un file Google nuovo. Eseguirlo solo per una campagna nuova, una volta.
 - **Su n8n non si cambia niente senza il passaggio esplicito dell'utente** (regola dell'utente, 29 ottobre 2026): niente deploy, creazione o modifica di workflow, tabelle o credenziali, esecuzioni, attivazioni, archiviazioni, nuovi fogli. Prima si prepara tutto nella repo, si spiega cosa cambierà e si aspetta l'ok per quella specifica azione. **Le letture invece si fanno sempre, senza chiedere** (esecuzioni, dati, workflow, tabelle: solo lettura).
 - **Quando l'utente chiede "la checklist"**: rispondere con la checklist completa in corso (da OPERATIVO.md, con lo stato di ogni punto) **più l'elenco di cosa serve dall'utente per procedere**.
-- Dopo ogni lavoro aggiornare OPERATIVO.md (e la ROADMAP della campagna): è la memoria tra una sessione e l'altra.
+- Dopo ogni lavoro aggiornare OPERATIVO.md (sezione "Riparti da qui" compresa) e la ROADMAP della campagna: è la memoria tra una sessione e l'altra.
 
 ## Se qualcosa va storto
 

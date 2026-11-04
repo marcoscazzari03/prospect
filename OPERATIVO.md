@@ -1,6 +1,30 @@
 # Stato operativo
 
-Aggiornato: **29 ottobre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
+Aggiornato: **4 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
+
+## ▶️ Riparti da qui (leggere per primo)
+
+**Dal 4 novembre l'utente apre una sessione nuova ogni giorno** (le sessioni lunghe perdono il collegamento a n8n: il connettore scade e non si ricarica a metà conversazione). Ogni sessione:
+1. legge questo file e `CLAUDE.md`;
+2. controlla subito che gli strumenti n8n funzionino (una lettura, es. ultime esecuzioni). Se n8n "richiede autorizzazione": dirlo all'utente (claude.ai → Impostazioni → Connettori → n8n → disconnetti e ricollega, poi **nuova sessione**);
+3. guarda i giri dall'ultima sessione (esito, numeri, settori e città: la priorità dell'utente) e lo dice in breve all'utente;
+4. a fine lavoro aggiorna questa sezione ("Stato" e "In sospeso").
+
+**Stato al 4 novembre (sera)**
+- Campagne attive: Asia PMI (03:00, 15:00) versione `968b216b-3aed-4880-b978-4963af1a27b2`; Startup (09:00, 21:00) `ad834204-4353-4db0-a8a1-a8e0eef4b20f`; Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
+- App **https://prospect-gilt.vercel.app** (password su Vercel): Scarica nuovi, Anteprima (Excel che non segna nulla), Scarica storico completo, storico dei download, Modelli email. API App su n8n versione `8f1c1db0-d10e-4c81-b585-9ea5955a3068`.
+- Contatti in attesa al 4 novembre: Asia 161, Avvocati 101, Startup 203 (Asia/Startup con frasi: 341 su misura, 23 riserva). Nessun download dall'app ancora fatto.
+- Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. L'utente sta creando i template e i campi su MailUp (`apertura1`, `apertura2`, `specializzazione`, `citta`).
+- Nessun resoconto automatico mattutino (cancellato su richiesta dell'utente).
+
+**In sospeso (in ordine)**
+1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
+2. Dopo il primo uso vero dell'app: **nuovo punto di ripristino** (ramo `ripristino-AAAA-MM-GG` + versioni) e, con ok, **spegnere l'export del lunedì** (`8BUuXswSFV3JHWs7`) e la pagina **Download Mailup** (`n6dqEqH9MuWpslT3`).
+3. Confermare col capo la frase sulle categorie del premio (penale / aziende emergenti) nei modelli.
+4. Contatti delle grandi reti già salvati in Asia (RSM, Andersen, Forvis Mazars, Crowe…): l'utente decide se toglierli dalla scheda Mailup.
+5. **Italia PMI**: decisioni dell'utente (dimensione, settori, regioni, ruoli, comunità 02 o 04, lingua email), poi repo → prova → foglio → workflow (ok per ogni passo).
+6. Più avanti: repo privata (token GitHub), "non consumare i temi quando il lotto AI fallisce", storico completo da dividere quando supera ~4 MB.
+
 
 ## 🛟 Punto di ripristino: versioni funzionanti del 2 novembre 2026
 
