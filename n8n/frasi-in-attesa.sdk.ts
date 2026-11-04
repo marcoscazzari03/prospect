@@ -85,9 +85,9 @@ const homepage = node({
         { name: 'Accept-Language', value: 'en;q=1.0,*;q=0.5' }
       ] },
       options: {
-        batching: { batch: { batchSize: 10, batchInterval: 200 } },
+        batching: { batch: { batchSize: 5, batchInterval: 1000 } },
         response: { response: { neverError: true, responseFormat: 'text', outputPropertyName: 'html' } },
-        timeout: 10000
+        timeout: 20000
       }
     }
   },

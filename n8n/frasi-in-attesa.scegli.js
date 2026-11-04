@@ -1,4 +1,5 @@
-// Contatti "in attesa" (nella scheda Mailup, mai scaricati e non registrati alla partenza) senza Apertura 1.
+// Contatti "in attesa" (nella scheda Mailup, mai scaricati e non registrati alla partenza) senza Apertura 1,
+// oppure con la frase di riserva (Tipo apertura = RISERVA in Prospect AI): si riprova a leggere il sito.
 // Sito e riga di Prospect AI si trovano con l'email. Un elemento per contatto.
 const campagne = $('GitHub - Campagne con aperture').all().map(i => i.json);
 const schede = $('Elenca schede').all().map(i => i.json);
@@ -28,8 +29,9 @@ for (const c of campagne) {
   pa.righe.forEach((r, j) => { const e = minuscolo(r[p.email]); if (e && !inPA.has(e)) inPA.set(e, { r, riga: j + 2 }); });
   mu.righe.forEach((r, j) => {
     const email = minuscolo(r[k.email]);
-    if (!email || gia.has(email) || pulito(r[k.a1])) return;
     const x = inPA.get(email);
+    const riserva = x && p.tipo >= 0 && pulito(x.r[p.tipo]) === 'RISERVA';
+    if (!email || gia.has(email) || (pulito(r[k.a1]) && !riserva)) return;
     const sito = x ? pulito(x.r[p.sito]) : '';
     out.push({ json: {
       campagna: c.campagna, foglio_id: c.foglio_id, email, sito: sito ? (/^https?:\/\//i.test(sito) ? sito : 'https://' + sito) : '',
