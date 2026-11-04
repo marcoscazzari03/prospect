@@ -144,10 +144,8 @@ Checklist (in ordine):
 
 ## Analisi giornaliere
 
-Attività programmata **Analisi giornaliera prospect** (`trig_01A9KLAQLyYv7ihPHm3vdzcz`, creata il 4 novembre su richiesta dell'utente): ogni giorno alle 9:30 (ora italiana) in questa sessione. Solo letture su n8n: giri delle ultime 24 ore, numeri, qualità di settori e città (priorità dell'utente), specializzazione, frasi su misura, contatti in attesa, consumo OpenAI; riepilogo all'utente e una riga qui sotto (solo numeri).
-
-| Data | Asia (salvati / Mailup) | Avvocati | Startup | Frasi su misura | Note |
-|---|---|---|---|---|---|
+Attività programmata delle 9:30 creata e poi **cancellata il 4 novembre su richiesta dell'utente** (non serve il resoconto mattutino). I controlli si fanno quando l'utente li chiede.
+Nota: il 4 novembre il connettore n8n di questa sessione è scaduto; riautorizzarlo da claude.ai → Impostazioni → Connettori vale per le sessioni nuove.
 
 ## Prossimi passi
 
