@@ -14,8 +14,7 @@ export default function Modelli() {
         <a className="pulsante secondario" href="/">Torna ai contatti</a>
       </header>
       <p className="tenue">
-        Da completare prima dell&apos;invio: il <strong>link al modulo</strong> di candidatura.
-        Le frasi su misura (Asia PMI, Startup) e la specializzazione (Avvocati) arrivano nei fogli quando le attiviamo nelle campagne.
+        I campi tra parentesi quadre sono le colonne dell&apos;Excel scaricato dall&apos;app (su MailUp: apertura1, apertura2, specializzazione, citta). Candidature: www.lefontiawards.com/application/
       </p>
       {modelli.map(m => <Modello key={m.campagna} modello={m} />)}
     </main>

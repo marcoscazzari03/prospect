@@ -4,7 +4,7 @@ Traduzione per la lettura interna: **le email verranno inviate in inglese** (ver
 Campi MailUp tra parentesi quadre: `[nome]`, `[azienda]`, `[specializzazione]`, `[citta]` (solo Avvocati), `[apertura1]`, `[apertura2]` (Asia PMI e Startup).
 `[apertura1] [apertura2]` = due frasi su misura per ogni contatto (max 100 caratteri l'una), scritte dall'AI **solo con fatti presi dal sito ufficiale** dell'azienda. Se il sito non dà abbastanza informazioni, l'AI mette una frase standard di riserva: il testo resta sempre corretto. Solo per Asia PMI e Startup.
 
-**Da confermare (⚠️):** link del modulo di candidatura (nell'email attuale manca); esistenza di una categoria dedicata ai penalisti e di una per le aziende emergenti / startup.
+**Da confermare (⚠️):** esistenza di una categoria dedicata ai penalisti e di una per le aziende emergenti / startup.
 
 ---
 
@@ -21,7 +21,7 @@ Da oltre 15 anni i Le Fonti Awards® premiano studi legali e professionisti di e
 
 Oltre al riconoscimento, i Le Fonti Awards® aprono le porte a una Business Community internazionale di oltre 10,5 milioni di persone, che comprende una comunità dedicata agli avvocati penalisti, dove nascono nuovi contatti, collaborazioni e idee.
 
-Se desidera candidarsi, può compilare il modulo online: ⚠️ [link al modulo]
+Se desidera candidarsi, può compilare il modulo online: www.lefontiawards.com/application/
 
 Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 
@@ -46,7 +46,7 @@ Da oltre 15 anni i Le Fonti Awards® premiano l'eccellenza in diversi settori, r
 
 Oltre al riconoscimento, i Le Fonti Awards® aprono le porte a una Business Community internazionale di oltre 10,5 milioni di persone, dove nascono nuovi contatti, collaborazioni e idee.
 
-Se desidera candidarsi, può compilare il modulo online: ⚠️ [link al modulo]
+Se desidera candidarsi, può compilare il modulo online: www.lefontiawards.com/application/
 
 Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 
@@ -72,7 +72,7 @@ Da oltre 15 anni i Le Fonti Awards® premiano l'eccellenza in diversi settori, r
 
 Oltre al riconoscimento, i Le Fonti Awards® aprono le porte a una Business Community internazionale di oltre 10,5 milioni di persone, dove nascono nuovi contatti, collaborazioni e idee: una vetrina preziosa per un'azienda in crescita.
 
-Se desidera candidarsi, può compilare il modulo online: ⚠️ [link al modulo]
+Se desidera candidarsi, può compilare il modulo online: www.lefontiawards.com/application/
 
 Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 

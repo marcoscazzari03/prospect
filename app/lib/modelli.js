@@ -2,7 +2,7 @@
 // Campi MailUp tra parentesi quadre. "esempio" serve solo per l'anteprima: dati inventati.
 // Le stesse bozze, con note, sono in email/ nella radice della repo.
 
-const LINK_MODULO = '[link al modulo]';
+const LINK_MODULO = 'www.lefontiawards.com/application/';
 const SELEZIONE = 'www.lefontiawards.com/selection/';
 
 const chiusuraEn = [
