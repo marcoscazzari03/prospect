@@ -40,7 +40,10 @@
     "LinkedIn",
     "Settore Le Fonti",
     "Comunità 1",
-    "Comunità 2"
+    "Comunità 2",
+    "Apertura 1",
+    "Apertura 2",
+    "Tipo apertura"
   ],
   "colonne_mailup": [
     "Nome",
@@ -52,7 +55,9 @@
     "Paese",
     "Settore Le Fonti",
     "Comunità 1",
-    "Comunità 2"
+    "Comunità 2",
+    "Apertura 1",
+    "Apertura 2"
   ],
   "colonne_scartati": [
     "Data",
@@ -194,7 +199,10 @@
       "seconda": "ceo_per_paese"
     },
     "specializzazione": null,
-    "mailup_extra": [],
+    "mailup_extra": [
+      "Apertura 1",
+      "Apertura 2"
+    ],
     "aperture": {
       "contesto": "Small European startup; the recipient is the founder or CEO.",
       "riserva": [
@@ -209,12 +217,17 @@
     "Prospect AI": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2",
+      "Tipo apertura"
     ],
     "Mailup": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2"
     ]
   }
 }

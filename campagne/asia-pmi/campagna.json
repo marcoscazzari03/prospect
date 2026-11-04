@@ -104,7 +104,10 @@
       "seconda_riserva": "01 Comunità Business"
     },
     "specializzazione": null,
-    "mailup_extra": [],
+    "mailup_extra": [
+      "Apertura 1",
+      "Apertura 2"
+    ],
     "aperture": {
       "contesto": "Small and medium-sized private company in Singapore, Malaysia or Indonesia; the recipient is a founder, CEO or senior manager.",
       "riserva": [
@@ -138,12 +141,17 @@
     "Prospect AI": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2",
+      "Tipo apertura"
     ],
     "Mailup": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2"
     ]
   }
 }

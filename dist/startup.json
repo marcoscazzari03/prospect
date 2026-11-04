@@ -332,14 +332,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Impostazioni della campagna \"startup\": generate da motore/build.py,\n// si cambiano in campagne/startup/campagna.json (non qui).\nconst CFG = {\n  \"mailup_extra\": [],\n  \"mailup_paese\": true\n};\n\n// Nel foglio Mailup vogliamo solo prospect con una email certa\n// (non quelle RocketReach di un altro dominio, da verificare a mano).\nconst pulito = (v) => String(v ?? '').trim().replace(/\\s+/g, ' ');\n\nreturn $input.all()\n  .map(i => i.json)\n  .filter(j => pulito(j['Email certa']) && j['Stato email'] !== 'EMAIL DA VERIFICARE')\n  .map(j => ({\n    json: {\n      Nome: pulito(j['Nome Mailup']),\n      Cognome: pulito(j['Cognome Mailup']),\n      Azienda: pulito(j.Azienda),\n      Ruolo: pulito(j.Ruolo),\n      Settore: pulito(j.Settore),\n      'Settore Le Fonti': pulito(j['Settore Le Fonti']),\n      'Comunità 1': pulito(j['Comunità 1']),\n      'Comunità 2': pulito(j['Comunità 2']),\n      Email: pulito(j['Email certa']),\n      ...(CFG.mailup_paese ? { Paese: pulito(j.Paese) } : {}),\n      // Colonne in piu della campagna nella scheda Mailup (es. Città, Specializzazione per gli avvocati).\n      ...Object.fromEntries(CFG.mailup_extra.map(c => [c, pulito(j[c])]))\n    }\n  }));\n"
+        "jsCode": "// Impostazioni della campagna \"startup\": generate da motore/build.py,\n// si cambiano in campagne/startup/campagna.json (non qui).\nconst CFG = {\n  \"mailup_extra\": [\"Apertura 1\", \"Apertura 2\"],\n  \"mailup_paese\": true\n};\n\n// Nel foglio Mailup vogliamo solo prospect con una email certa\n// (non quelle RocketReach di un altro dominio, da verificare a mano).\nconst pulito = (v) => String(v ?? '').trim().replace(/\\s+/g, ' ');\n\nreturn $input.all()\n  .map(i => i.json)\n  .filter(j => pulito(j['Email certa']) && j['Stato email'] !== 'EMAIL DA VERIFICARE')\n  .map(j => ({\n    json: {\n      Nome: pulito(j['Nome Mailup']),\n      Cognome: pulito(j['Cognome Mailup']),\n      Azienda: pulito(j.Azienda),\n      Ruolo: pulito(j.Ruolo),\n      Settore: pulito(j.Settore),\n      'Settore Le Fonti': pulito(j['Settore Le Fonti']),\n      'Comunità 1': pulito(j['Comunità 1']),\n      'Comunità 2': pulito(j['Comunità 2']),\n      Email: pulito(j['Email certa']),\n      ...(CFG.mailup_paese ? { Paese: pulito(j.Paese) } : {}),\n      // Colonne in piu della campagna nella scheda Mailup (es. Città, Specializzazione per gli avvocati).\n      ...Object.fromEntries(CFG.mailup_extra.map(c => [c, pulito(j[c])]))\n    }\n  }));\n"
       },
       "id": "e6199d58-6ace-4bfc-ba43-f6def6802999",
       "name": "Prepara Mailup",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        8736,
+        9632,
         0
       ]
     },
@@ -754,6 +754,33 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apertura 1",
+              "displayName": "Apertura 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apertura 2",
+              "displayName": "Apertura 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tipo apertura",
+              "displayName": "Tipo apertura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -768,7 +795,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        8736,
+        9632,
         -224
       ],
       "credentials": {
@@ -889,6 +916,24 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apertura 1",
+              "displayName": "Apertura 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apertura 2",
+              "displayName": "Apertura 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -903,7 +948,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        8960,
+        9856,
         0
       ],
       "credentials": {
@@ -1112,7 +1157,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        8736,
+        9632,
         224
       ]
     },
@@ -1150,7 +1195,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        8960,
+        9856,
         224
       ],
       "credentials": {
@@ -1183,7 +1228,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        9424,
+        10320,
         0
       ],
       "executeOnce": true,
@@ -1223,7 +1268,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        9632,
+        10528,
         0
       ],
       "credentials": {
@@ -1276,7 +1321,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        9200,
+        10096,
         0
       ]
     },
@@ -1837,12 +1882,123 @@
       ]
     },
     {
+      "parameters": {
+        "url": "={{ /^https?:\\/\\//i.test($json.Sito) ? $json.Sito : 'https://' + $json.Sito }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en,de;q=0.9,fr;q=0.9,it;q=0.8,es;q=0.8,nl;q=0.7,pt;q=0.7,pl;q=0.7,sv;q=0.6,*;q=0.5"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 10,
+              "batchInterval": 200
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text",
+              "outputPropertyName": "html"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "f1a2b3c4-0001-4d5e-8f60-frasi0000001",
+      "name": "HTTP - Homepage frasi",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        8720,
+        -448
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "f1a2b3c4-0002-4d5e-8f60-frasi0000002",
+      "name": "Prepara frasi su misura",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8944,
+        -448
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Impostazioni della campagna \"startup\": generate da motore/build.py,\n// si cambiano in campagne/startup/campagna.json (non qui).\nconst CFG = {\n  \"aperture\": {\"contesto\": \"Small European startup; the recipient is the founder or CEO.\", \"riserva\": [\"I came across [azienda] while researching Europe's most promising startups.\", \"Your work is exactly the kind of innovation our awards celebrate.\"], \"modello\": \"gpt-5.6-luna\", \"ragionamento\": \"low\"},\n  \"aperture_prompt\": \"You write the first two sentences of a short business email inviting a company to apply for the Le Fonti Awards, an international business award. The email already starts with \\\"Dear <first name>,\\\" and continues after your two sentences with \\\"This is why we would like to invite <company> to apply for the Le Fonti Awards\\\".\\n\\nCOMPANY: {{azienda}}\\nCOUNTRY: {{paese}}\\nCONTEXT: {{contesto}}\\n\\nTEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):\\n\\\"\\\"\\\"\\n{{testo}}\\n\\\"\\\"\\\"\\n\\nWrite exactly two sentences in English that show we really looked at this company.\\n\\nRULES\\n1. Sentence 1 MUST start with \\\"I came across {{azienda}}\\\" (or \\\"I came across your company\\\" if the name is very long) and say concretely what the company does (product, service, market).\\n2. Sentence 2: one specific, verifiable fact about THIS company taken from the text (a number, a year, a market, a certification, a distinctive approach). Start it with \\\"Your\\\", \\\"Its\\\" or the company name.\\n3. Use ONLY facts written in the website text. Never invent or guess. Only facts about the company itself: never about governments, national programs, the industry in general, or clients.\\n4. NO greeting, NO names of people, NO titles (Mr, Ms, Mrs, Dear). Do not mention the invitation or the awards.\\n5. Do not judge or comment the fact: never write \\\"stands out\\\", \\\"impressive\\\", \\\"remarkable\\\", \\\"a clear scale marker\\\", \\\"showing...\\\", \\\"reflecting...\\\", \\\"which is notable\\\". State the fact plainly and politely.\\n6. Each sentence: a complete, grammatical sentence of maximum 100 characters including spaces, ending with a period. Plain ASCII only: no accents, no curly quotes, no long dashes, no emojis, no exclamation marks.\\n7. If the website text is empty, unrelated, a cookie/error/login page, or too generic to state something concrete and true, set \\\"affidabile\\\" to false.\\n\\nReply ONLY with valid JSON:\\n{\\\"apertura1\\\": \\\"...\\\", \\\"apertura2\\\": \\\"...\\\", \\\"fatti_usati\\\": \\\"short list of the facts from the text you used\\\", \\\"affidabile\\\": true}\\n\"\n};\n\n// Frasi su misura (fase C): richiesta a OpenAI per ogni contatto con email, dal testo della\n// homepage (scaricata qui sopra). Prompt in motore/aperture/prompt.txt, impostazioni in campagna.json -> aperture.\n// Testo leggibile della homepage per le frasi su misura: titolo, descrizione, titoli e\n// testo visibile (senza script, stili, menu e cookie banner), al massimo ~3.000 caratteri.\nconst testoSito = (html) => {\n  let h = String(html ?? '');\n  const prendi = (rx) => (h.match(rx) || [])[1] || '';\n  const titolo = prendi(/<title[^>]*>([\\s\\S]*?)<\\/title>/i);\n  const descrizione = prendi(/<meta[^>]+name=[\"']description[\"'][^>]*content=[\"']([^\"']*)[\"']/i) ||\n    prendi(/<meta[^>]+property=[\"']og:description[\"'][^>]*content=[\"']([^\"']*)[\"']/i);\n  h = h\n    .replace(/<(script|style|noscript|svg|nav|footer|form|iframe)[\\s\\S]*?<\\/\\1>/gi, ' ')\n    .replace(/<[^>]*(cookie|consent|gdpr)[^>]*>[\\s\\S]*?<\\/(div|section)>/gi, ' ')\n    .replace(/<br\\s*\\/?>|<\\/(p|div|h\\d|li|section|article)>/gi, '\\n')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&#39;|&rsquo;/g, \"'\")\n    .replace(/&[a-z]+;/gi, ' ');\n  const righe = h.split('\\n').map(r => r.replace(/\\s+/g, ' ').trim()).filter(r => r.length > 25);\n  const visti = new Set();\n  const uniche = righe.filter(r => !visti.has(r) && visti.add(r));\n  const pulisci = (s) => String(s).replace(/\\s+/g, ' ').trim();\n  return [pulisci(titolo), pulisci(descrizione), ...uniche].filter(Boolean).join('\\n').slice(0, 3000);\n};\nconst riga = $('Ha email?').item.json;\nconst testo = testoSito($json.html);\nconst A = CFG.aperture;\nconst prompt = CFG.aperture_prompt\n  .replace(/{{azienda}}/g, riga.Azienda || '')\n  .replace(/{{paese}}/g, riga.Paese || '')\n  .replace(/{{contesto}}/g, A.contesto)\n  .replace(/{{testo}}/g, testo || '(empty)');\nreturn { json: {\n  riga,\n  richiesta: { model: A.modello, input: prompt, text: { format: { type: 'json_object' } },\n    ...(A.ragionamento ? { reasoning: { effort: A.ragionamento } } : {}) }\n} };\n"
+      }
+    },
+    {
+      "id": "f1a2b3c4-0003-4d5e-8f60-frasi0000003",
+      "name": "OpenAI - Frasi su misura",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9168,
+        -448
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "openAiApi": {
+          "id": "ZQVz3FqwCrCMFcB9",
+          "name": "OpenAi account"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/responses",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.richiesta) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 5,
+              "batchInterval": 1000
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 90000
+        }
+      }
+    },
+    {
+      "id": "f1a2b3c4-0004-4d5e-8f60-frasi0000004",
+      "name": "Aggiungi frasi su misura",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9392,
+        -448
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Impostazioni della campagna \"startup\": generate da motore/build.py,\n// si cambiano in campagne/startup/campagna.json (non qui).\nconst CFG = {\n  \"aperture\": {\"contesto\": \"Small European startup; the recipient is the founder or CEO.\", \"riserva\": [\"I came across [azienda] while researching Europe's most promising startups.\", \"Your work is exactly the kind of innovation our awards celebrate.\"], \"modello\": \"gpt-5.6-luna\", \"ragionamento\": \"low\"}\n};\n\n// Frasi su misura: controllo (max 100 caratteri, solo ASCII, niente saluti o frasi vietate);\n// se qualcosa non va, frasi di riserva della campagna. Le due frasi si aggiungono alla riga da salvare.\n// Controllo delle frasi su misura: JSON valido, \"affidabile\", massimo 100 caratteri, solo ASCII\n// (MailUp: 200 byte per campo). Se qualcosa non va: frasi di riserva della campagna.\nconst ascii = (s) => String(s ?? '')\n  .normalize('NFKD').replace(/[̀-ͯ]/g, '')\n  .replace(/[‘’‛]/g, \"'\").replace(/[“”]/g, '\"')\n  .replace(/[–—]/g, '-').replace(/…/g, '...')\n  .replace(/[^\\x20-\\x7E]/g, '').replace(/\\s+/g, ' ').trim();\nconst validaAperture = (risposta, riserva, azienda) => {\n  let dati = null;\n  try { dati = JSON.parse(String(risposta ?? '').replace(/^```(json)?|```$/g, '').trim()); } catch { dati = null; }\n  const a1 = ascii(dati?.apertura1);\n  const a2 = ascii(dati?.apertura2);\n  const problemi = [];\n  if (!dati) problemi.push('risposta non valida');\n  else if (dati.affidabile === false) problemi.push('sito poco chiaro');\n  for (const [nome, f] of [['apertura1', a1], ['apertura2', a2]]) {\n    if (dati && !f) problemi.push(`${nome} vuota`);\n    if (f.length > 100) problemi.push(`${nome} troppo lunga (${f.length})`);\n    if (/!|\\[|\\]|http/i.test(f)) problemi.push(`${nome} con caratteri non ammessi`);\n    if (/^(dear|mr|mrs|ms|miss|dr)\\b|\\b(mr|mrs|ms)\\.?\\s+[A-Z]/i.test(f)) problemi.push(`${nome} con saluto o titolo`);\n    if (/stands? out|impressive|remarkable|scale marker|\\binvite\\b|le fonti|award/i.test(f)) problemi.push(`${nome} con espressioni vietate`);\n    if (f && !/[.]$/.test(f)) problemi.push(`${nome} non finisce con il punto`);\n  }\n  const usaRiserva = problemi.length > 0;\n  const metti = (s) => ascii(String(s).replace(/\\[azienda\\]/g, azienda || 'your company'));\n  return {\n    apertura1: usaRiserva ? metti(riserva[0]) : a1,\n    apertura2: usaRiserva ? metti(riserva[1]) : a2,\n    tipo_apertura: usaRiserva ? 'RISERVA' : 'SU MISURA',\n    motivo_riserva: problemi.join('; '),\n    fatti_usati: ascii(dati?.fatti_usati).slice(0, 300)\n  };\n};\nconst { riga } = $('Prepara frasi su misura').item.json;\nconst testo = ($json.output || []).flatMap(o => o.content || []).find(c => c.type === 'output_text')?.text || '';\nconst v = validaAperture(testo, CFG.aperture.riserva, riga.Azienda);\nreturn { json: { ...riga, 'Apertura 1': v.apertura1, 'Apertura 2': v.apertura2, 'Tipo apertura': v.tipo_apertura } };\n"
+      }
+    },
+    {
       "id": "a1b2c3d4-0001-4a5b-8c6d-avviso000001",
       "name": "Serve un avviso?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        9632,
+        10528,
         224
       ],
       "parameters": {
@@ -1876,7 +2032,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        9840,
+        10736,
         224
       ],
       "parameters": {
@@ -1947,7 +2103,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        10048,
+        10944,
         224
       ],
       "parameters": {
@@ -2237,12 +2393,7 @@
       "main": [
         [
           {
-            "node": "Append - Prospect",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Prepara Mailup",
+            "node": "HTTP - Homepage frasi",
             "type": "main",
             "index": 0
           }
@@ -2592,6 +2743,55 @@
         [
           {
             "node": "Riunisci risultati email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP - Homepage frasi": {
+      "main": [
+        [
+          {
+            "node": "Prepara frasi su misura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara frasi su misura": {
+      "main": [
+        [
+          {
+            "node": "OpenAI - Frasi su misura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI - Frasi su misura": {
+      "main": [
+        [
+          {
+            "node": "Aggiungi frasi su misura",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggiungi frasi su misura": {
+      "main": [
+        [
+          {
+            "node": "Append - Prospect",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepara Mailup",
             "type": "main",
             "index": 0
           }

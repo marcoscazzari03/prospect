@@ -76,6 +76,7 @@ def liste_comuni():
         'comunita_tematiche': json.loads(leggi(MOTORE, 'liste', 'comunita-tematiche.json')),
         'citta_inglese': json.loads(leggi(MOTORE, 'liste', 'citta-inglese.json')),
         'settori_software': json.loads(leggi(MOTORE, 'liste', 'settori-software.json')),
+        'aperture_prompt': leggi(MOTORE, 'aperture', 'prompt.txt'),
     }
 
 
@@ -149,6 +150,13 @@ def motivo_scarto(cfg):
             ": ($json['Stato RocketReach'] === 'NO ROCKETREACH (PAESE)' "
             "? 'Nessuna email sul sito (RocketReach non usato per il paese)' "
             ": 'Nessuna email trovata (sito + RocketReach)')) }}")
+
+
+def codice_frasi(nome, cfg):
+    js = leggi(CODICE, f'frasi-{nome}.template.js')
+    js = js.replace('__TESTO_SITO__', leggi(MOTORE, 'aperture', 'testo-sito.js').rstrip())
+    js = js.replace('__VALIDA__', leggi(MOTORE, 'aperture', 'valida.js').rstrip())
+    return con_cfg(js.rstrip() + '\n', cfg)
 
 
 def build(cfg):
@@ -247,6 +255,43 @@ def build(cfg):
         for g in gruppi:
             if g['name'].startswith('6 '):
                 g['nodeNames'] += ['Serve terza pagina?', 'HTTP - Terza pagina', 'Estrai email terza pagina']
+
+    # Frasi su misura (fase C, campagna.json -> motore.aperture): tra "Ha email?" e i salvataggi,
+    # homepage -> richiesta -> OpenAI -> controllo; le colonne Apertura 1 / Apertura 2 vanno in Prospect AI e Mailup.
+    if m.get('aperture'):
+        x0, y0 = nodi['Ha email?']['position']
+        for n in nodi.values():
+            if n['position'][0] > x0:
+                n['position'] = [n['position'][0] + 896, n['position'][1]]
+        home = copy.deepcopy(nodi['HTTP - Homepage'])
+        home.update(name='HTTP - Homepage frasi', id='f1a2b3c4-0001-4d5e-8f60-frasi0000001', position=[x0 + 224, y0 - 448],
+                    onError='continueRegularOutput')
+        home['parameters']['url'] = "={{ /^https?:\\/\\//i.test($json.Sito) ? $json.Sito : 'https://' + $json.Sito }}"
+        nodi[home['name']] = home
+        nodi['Prepara frasi su misura'] = {
+            'id': 'f1a2b3c4-0002-4d5e-8f60-frasi0000002', 'name': 'Prepara frasi su misura',
+            'type': 'n8n-nodes-base.code', 'typeVersion': 2, 'position': [x0 + 448, y0 - 448],
+            'parameters': {'mode': 'runOnceForEachItem', 'jsCode': codice_frasi('prepara', cfg)}}
+        cred = nodi['OpenAI + Web Search'].get('credentials', {})
+        nodi['OpenAI - Frasi su misura'] = {
+            'id': 'f1a2b3c4-0003-4d5e-8f60-frasi0000003', 'name': 'OpenAI - Frasi su misura',
+            'type': 'n8n-nodes-base.httpRequest', 'typeVersion': 4.2, 'position': [x0 + 672, y0 - 448],
+            'onError': 'continueRegularOutput', 'credentials': cred,
+            'parameters': {'method': 'POST', 'url': 'https://api.openai.com/v1/responses',
+                           'authentication': 'predefinedCredentialType', 'nodeCredentialType': 'openAiApi',
+                           'sendBody': True, 'specifyBody': 'json', 'jsonBody': '={{ JSON.stringify($json.richiesta) }}',
+                           'options': {'batching': {'batch': {'batchSize': 5, 'batchInterval': 1000}},
+                                       'response': {'response': {'neverError': True}}, 'timeout': 90000}}}
+        nodi['Aggiungi frasi su misura'] = {
+            'id': 'f1a2b3c4-0004-4d5e-8f60-frasi0000004', 'name': 'Aggiungi frasi su misura',
+            'type': 'n8n-nodes-base.code', 'typeVersion': 2, 'position': [x0 + 896, y0 - 448],
+            'parameters': {'mode': 'runOnceForEachItem', 'jsCode': codice_frasi('aggiungi', cfg)}}
+        dopo = conn['Ha email?']['main'][0]
+        conn['Ha email?']['main'][0] = [{'node': 'HTTP - Homepage frasi', 'type': 'main', 'index': 0}]
+        link('HTTP - Homepage frasi', 'Prepara frasi su misura')
+        link('Prepara frasi su misura', 'OpenAI - Frasi su misura')
+        link('OpenAI - Frasi su misura', 'Aggiungi frasi su misura')
+        conn.setdefault('Aggiungi frasi su misura', {})['main'] = [dopo]
 
     for g in gruppi:
         numero = g['name'].split(' ')[0]

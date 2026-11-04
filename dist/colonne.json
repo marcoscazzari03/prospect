@@ -6,7 +6,10 @@
     "colonne": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2",
+      "Tipo apertura"
     ]
   },
   {
@@ -16,7 +19,9 @@
     "colonne": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2"
     ]
   },
   {
@@ -49,7 +54,10 @@
     "colonne": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2",
+      "Tipo apertura"
     ]
   },
   {
@@ -59,7 +67,9 @@
     "colonne": [
       "Settore Le Fonti",
       "Comunità 1",
-      "Comunità 2"
+      "Comunità 2",
+      "Apertura 1",
+      "Apertura 2"
     ]
   }
 ]

@@ -151,7 +151,8 @@ const salva = node({
           ruolo: expr('{{ $json.ruolo }}'), settore: expr('{{ $json.settore }}'), email: expr('{{ $json.email }}'),
           paese: expr('{{ $json.paese }}'), settore_lefonti: expr('{{ $json.settore_lefonti }}'),
           comunita1: expr('{{ $json.comunita1 }}'), comunita2: expr('{{ $json.comunita2 }}'),
-          citta: expr('{{ $json.citta }}'), specializzazione: expr('{{ $json.specializzazione }}')
+          citta: expr('{{ $json.citta }}'), specializzazione: expr('{{ $json.specializzazione }}'),
+          apertura1: expr('{{ $json.apertura1 }}'), apertura2: expr('{{ $json.apertura2 }}')
         },
         schema: __SCHEMA_DOWNLOAD__
       },
