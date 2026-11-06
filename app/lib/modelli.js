@@ -55,7 +55,7 @@ export const modelli = [
     campi: { nome: 'Nome', azienda: 'Azienda', apertura1: 'Apertura 1', apertura2: 'Apertura 2' },
     esempio: {
       nome: 'Daniel', azienda: 'Tookitaki',
-      apertura1: 'I came across FinCense, Tookitaki\'s AML and fraud prevention platform for APAC banks.',
+      apertura1: 'We noticed FinCense, Tookitaki\'s AML and fraud prevention platform for APAC banks.',
       apertura2: 'Monitoring over 100 billion transactions for 30+ institutions is a remarkable achievement.'
     },
     en: {
@@ -81,7 +81,7 @@ export const modelli = [
       ]
     },
     esempioIt: {
-      apertura1: 'Ho visto FinCense, la piattaforma di Tookitaki contro riciclaggio e frodi per le banche dell\'Asia-Pacifico.',
+      apertura1: 'Abbiamo notato FinCense, la piattaforma di Tookitaki contro riciclaggio e frodi per le banche dell\'Asia-Pacifico.',
       apertura2: 'Monitorare oltre 100 miliardi di transazioni per più di 30 istituti è un risultato notevole.'
     }
   },
@@ -92,7 +92,7 @@ export const modelli = [
     campi: { nome: 'Nome', azienda: 'Azienda', apertura1: 'Apertura 1', apertura2: 'Apertura 2' },
     esempio: {
       nome: 'Marta', azienda: 'FreshCast',
-      apertura1: 'I read about how FreshCast helps small retailers cut food waste with demand forecasting.',
+      apertura1: 'We noticed FreshCast, which helps small retailers cut food waste with demand forecasting.',
       apertura2: 'Growing from a Lisbon pilot to 200 stores in two years is impressive.'
     },
     en: {
@@ -118,7 +118,7 @@ export const modelli = [
       ]
     },
     esempioIt: {
-      apertura1: 'Ho letto di come FreshCast aiuta i piccoli negozi a ridurre lo spreco alimentare con le previsioni di domanda.',
+      apertura1: 'Abbiamo notato FreshCast, che aiuta i piccoli negozi a ridurre lo spreco alimentare con le previsioni di domanda.',
       apertura2: 'Passare da un progetto pilota a Lisbona a 200 negozi in due anni è un risultato notevole.'
     }
   }

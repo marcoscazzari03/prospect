@@ -17,6 +17,8 @@ Aggiornato: **5 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 - Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. **Dal 5 novembre la mail Avvocati non usa più la specializzazione** (decisione dell'utente): oggetto "…applications are open for criminal law firms", testo "…[azienda]'s work in criminal law in [citta]". La colonna Specializzazione resta nei fogli e nell'Excel (utile per filtrare). Nella pagina Modelli dell'app c'è anche la **versione precedente con specializzazione** (sotto Startup), per riferimento. Campi MailUp da creare: `apertura1`, `apertura2`, `citta`.
 - Nessun resoconto automatico mattutino (cancellato su richiesta dell'utente).
 
+- **6 novembre: frasi su misura al plurale** (richiesta utente): la frase 1 inizia con **"We noticed [azienda]…"** (prima "I came across"); frasi di riserva "We noticed [azienda] while researching…". Prompt `motore/aperture/prompt.txt`, riserve in `campagna.json`, rete di sicurezza in `motore/aperture/valida.js`, correzione delle frasi già scritte in **Correggi settori** (`n8n/correggi-settori.calcola.js`). Replay: nessuna differenza sui dati di prova. **Da fare (ok): deploy; aggiornare ed eseguire Correggi settori.**
+
 **In sospeso (in ordine)**
 1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
 2. ✅ (5 novembre) Punto di ripristino `ripristino-2026-11-05`; export del lunedì e pagina Download Mailup **disattivati**.

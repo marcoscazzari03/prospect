@@ -52,7 +52,7 @@ Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 Per qualsiasi informazione, risponda semplicemente a questa email: un membro del nostro team la ricontatterà personalmente.
 
 > Esempio di frasi su misura (inventato, solo per mostrare il risultato):
-> *"Ho visto il lavoro di [azienda] sulla compliance basata sull'intelligenza artificiale per le banche del Sud-est asiatico. La vostra espansione da Singapore verso Malesia e Indonesia ha attirato la nostra attenzione."*
+> *"Abbiamo notato il lavoro di [azienda] sulla compliance basata sull'intelligenza artificiale per le banche del Sud-est asiatico. La vostra espansione da Singapore verso Malesia e Indonesia ha attirato la nostra attenzione."*
 
 ---
 
@@ -78,4 +78,4 @@ Per i criteri di selezione e il regolamento: www.lefontiawards.com/selection/
 Per qualsiasi informazione, risponda semplicemente a questa email: un membro del nostro team la ricontatterà personalmente.
 
 > Esempio di frasi su misura (inventato):
-> *"Ho letto di come [azienda] aiuta i piccoli negozi a ridurre lo spreco alimentare con la sua piattaforma di previsione. Passare da un progetto pilota a Lisbona a 200 negozi in due anni è un risultato notevole."*
+> *"Abbiamo notato come [azienda] aiuta i piccoli negozi a ridurre lo spreco alimentare con la sua piattaforma di previsione. Passare da un progetto pilota a Lisbona a 200 negozi in due anni è un risultato notevole."*

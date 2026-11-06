@@ -8,7 +8,8 @@ const ascii = (s) => String(s ?? '')
 const validaAperture = (risposta, riserva, azienda) => {
   let dati = null;
   try { dati = JSON.parse(String(risposta ?? '').replace(/^```(json)?|```$/g, '').trim()); } catch { dati = null; }
-  const a1 = ascii(dati?.apertura1);
+  // Sempre al plurale ("We noticed"), anche se l'AI scrive ancora "I came across" / "I noticed".
+  const a1 = ascii(dati?.apertura1).replace(/^I (came across|noticed|found|read about)\b/, 'We noticed');
   const a2 = ascii(dati?.apertura2);
   const problemi = [];
   if (!dati) problemi.push('risposta non valida');

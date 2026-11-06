@@ -12,7 +12,7 @@ TEXT FROM THE COMPANY'S OFFICIAL WEBSITE (homepage):
 Write exactly two sentences in English that show we really looked at this company.
 
 RULES
-1. Sentence 1 MUST start with "I came across {{azienda}}" (or "I came across your company" if the name is very long) and say concretely what the company does (product, service, market).
+1. Sentence 1 MUST start with "We noticed {{azienda}}" (or "We noticed your company" if the name is very long). Always "we", never "I" and say concretely what the company does (product, service, market).
 2. Sentence 2: one specific, verifiable fact about THIS company taken from the text (a number, a year, a market, a certification, a distinctive approach). Start it with "Your", "Its" or the company name.
 3. Use ONLY facts written in the website text. Never invent or guess. Only facts about the company itself: never about governments, national programs, the industry in general, or clients.
 4. NO greeting, NO names of people, NO titles (Mr, Ms, Mrs, Dear). Do not mention the invitation or the awards.

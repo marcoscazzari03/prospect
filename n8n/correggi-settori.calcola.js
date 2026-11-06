@@ -43,6 +43,14 @@ schede.forEach((s, i) => {
   }
 
   const k = { settore: col('Settore'), lf: col('Settore Le Fonti'), c1: col('Comunità 1'), c2: col('Comunità 2'), paese: col('Paese'), azienda: col('Azienda') };
+  // Frasi su misura al plurale: "I came across ..." diventa "We noticed ..." (scelta del 6 novembre).
+  const kA = col('Apertura 1');
+  let plurale = 0;
+  if (kA >= 0) righe.forEach((r, j) => {
+    const v = pulito(r[kA]);
+    const nuovo = v.replace(/^I (came across|noticed|found|read about)\b/, 'We noticed');
+    if (nuovo !== v) { dati.push({ range: `'${s.scheda}'!${lettera(kA)}${j + 2}`, values: [[nuovo]] }); plurale++; }
+  });
   if (k.lf < 0 || k.settore < 0) { riepilogo.push({ campagna: s.campagna, scheda: s.scheda, errore: 'colonne mancanti' }); return; }
   const cambi = [];
   righe.forEach((r, j) => {
@@ -55,7 +63,7 @@ schede.forEach((s, i) => {
     if (k.c2 >= 0) dati.push({ range: `'${s.scheda}'!${lettera(k.c2)}${riga}`, values: [[c2]] });
     cambi.push(`${pulito(r[k.azienda])}: ${lf} -> ${SW.settore} (${pulito(r[k.settore])})`);
   });
-  riepilogo.push({ campagna: s.campagna, scheda: s.scheda, righe: righe.length, corrette: cambi.length, esempi: cambi.slice(0, 40) });
+  riepilogo.push({ campagna: s.campagna, scheda: s.scheda, righe: righe.length, corrette: cambi.length, frasi_al_plurale: plurale, esempi: cambi.slice(0, 40) });
 });
 
 const out = Object.entries(perFoglio).filter(([, d]) => d.length)
