@@ -1,6 +1,6 @@
 # Stato operativo
 
-Aggiornato: **5 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
+Aggiornato: **6 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria tra una sessione e l'altra.
 
 ## ▶️ Riparti da qui (leggere per primo)
 
@@ -11,13 +11,13 @@ Aggiornato: **5 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 4. a fine lavoro aggiorna questa sezione ("Stato" e "In sospeso").
 
 **Stato al 4 novembre (sera)**
-- Campagne attive: Asia PMI (03:00, 15:00) versione `968b216b-3aed-4880-b978-4963af1a27b2`; Startup (09:00, 21:00) `ad834204-4353-4db0-a8a1-a8e0eef4b20f`; Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
+- Campagne attive: Asia PMI (03:00, 15:00) versione `3cacf6e6-226f-42ea-93a5-09a88ce23e71`; Startup (09:00, 21:00) `375ba59e-19b6-4b26-bb57-1eef7435964b` (dal 6 novembre, frasi "We noticed"); Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
 - App **https://prospect-gilt.vercel.app** (password su Vercel): Scarica nuovi, Anteprima (Excel che non segna nulla), Scarica storico completo, storico dei download, Modelli email. API App su n8n versione `8f1c1db0-d10e-4c81-b585-9ea5955a3068`.
 - 4 novembre 14:30: l'utente ha scaricato dall'app tutti i 465 contatti in attesa (Asia 161, Avvocati 101, Startup 203). Campi MailUp creati (`apertura1`, `apertura2`, `citta`); **primo invio con i nuovi template programmato per la notte del 5 novembre**. Primo giro con frasi dal motore (Asia 4 nov 15:00): 33 nuovi, 29 su misura, 4 riserva.
 - Email: 3 modelli approvati dal capo (in `email/` e nell'app), link candidatura `https://lefontiawards.com/application/`. **Dal 5 novembre la mail Avvocati non usa più la specializzazione** (decisione dell'utente): oggetto "…applications are open for criminal law firms", testo "…[azienda]'s work in criminal law in [citta]". La colonna Specializzazione resta nei fogli e nell'Excel (utile per filtrare). Nella pagina Modelli dell'app c'è anche la **versione precedente con specializzazione** (sotto Startup), per riferimento. Campi MailUp da creare: `apertura1`, `apertura2`, `citta`.
 - Nessun resoconto automatico mattutino (cancellato su richiesta dell'utente).
 
-- **6 novembre: frasi su misura al plurale** (richiesta utente): la frase 1 inizia con **"We noticed [azienda]…"** (prima "I came across"); frasi di riserva "We noticed [azienda] while researching…". Prompt `motore/aperture/prompt.txt`, riserve in `campagna.json`, rete di sicurezza in `motore/aperture/valida.js`, correzione delle frasi già scritte in **Correggi settori** (`n8n/correggi-settori.calcola.js`). Replay: nessuna differenza sui dati di prova. **Da fare (ok): deploy; aggiornare ed eseguire Correggi settori.**
+- **6 novembre: frasi su misura al plurale** (richiesta utente): la frase 1 inizia con **"We noticed [azienda]…"** (prima "I came across"); frasi di riserva "We noticed [azienda] while researching…". Prompt `motore/aperture/prompt.txt`, riserve in `campagna.json`, rete di sicurezza in `motore/aperture/valida.js`, correzione delle frasi già scritte in **Correggi settori** (`n8n/correggi-settori.calcola.js`). Replay: nessuna differenza sui dati di prova. **Fatto (6 novembre): deploy 4392** (Asia `3cacf6e6-226f-42ea-93a5-09a88ce23e71`, Startup `375ba59e-19b6-4b26-bb57-1eef7435964b`, Avvocati invariato) e **Correggi settori 4393**: frasi già scritte portate al plurale (Asia 335 Prospect AI / 337 Mailup, Startup 495 / 488). Contatti in attesa: tutti "We noticed" (Asia 161, Startup 285).
 
 **In sospeso (in ordine)**
 1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
