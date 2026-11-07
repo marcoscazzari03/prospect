@@ -19,6 +19,8 @@ Aggiornato: **6 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 
 - **6 novembre: frasi su misura al plurale** (richiesta utente): la frase 1 inizia con **"We noticed [azienda]…"** (prima "I came across"); frasi di riserva "We noticed [azienda] while researching…". Prompt `motore/aperture/prompt.txt`, riserve in `campagna.json`, rete di sicurezza in `motore/aperture/valida.js`, correzione delle frasi già scritte in **Correggi settori** (`n8n/correggi-settori.calcola.js`). Replay: nessuna differenza sui dati di prova. **Fatto (6 novembre): deploy 4392** (Asia `3cacf6e6-226f-42ea-93a5-09a88ce23e71`, Startup `375ba59e-19b6-4b26-bb57-1eef7435964b`, Avvocati invariato) e **Correggi settori 4393**: frasi già scritte portate al plurale (Asia 335 Prospect AI / 337 Mailup, Startup 495 / 488). Contatti in attesa: tutti "We noticed" (Asia 161, Startup 285).
 
+- **7 novembre, 03:05: Asia esecuzione 4399 bloccata** nel nodo "Estrai email homepage" ("Task execution aborted because runner became unresponsive": il motore dei nodi Code di n8n si è fermato, quasi certamente su una homepage enorme). Unico errore su 17 giri dal 5 novembre; i contatti di quel giro non sono stati salvati. Correzione pronta nella repo (`motore/codice/estrai-email.template.js`: pagine oltre 600.000 caratteri ridotte a inizio + fine). Replay: nessuna differenza. **Da fare (ok): deploy.**
+
 **In sospeso (in ordine)**
 1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
 2. ✅ (5 novembre) Punto di ripristino `ripristino-2026-11-05`; export del lunedì e pagina Download Mailup **disattivati**.

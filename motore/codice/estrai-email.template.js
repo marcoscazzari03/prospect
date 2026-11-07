@@ -9,7 +9,11 @@
 const prospect = $('__SORGENTE__').item.json;
 const FASE = '__FASE__';
 
+// Pagine enormi (alcuni siti superano diversi MB) bloccano il nodo ("runner became unresponsive"):
+// si tengono solo inizio e fine della pagina, dove stanno contatti e footer.
+const MAX_PAGINA = 300000;
 let html = String($json.html ?? '');
+if (html.length > 2 * MAX_PAGINA) html = html.slice(0, MAX_PAGINA) + ' ' + html.slice(-MAX_PAGINA);
 
 const cleanHost = (raw) => String(raw ?? '').trim().toLowerCase()
   .replace(/^https?:\/\//i, '').replace(/^\/\//, '')
