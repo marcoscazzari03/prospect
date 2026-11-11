@@ -210,7 +210,7 @@
       "Specializzazione"
     ],
     "aperture": null,
-    "ruolo_richiesto": "found|owner|sole|name partner|principal|titolar|proprietor|co-?founder"
+    "ruolo_richiesto": null
   },
   "colonne_nuove": {
     "Prospect AI": [
