@@ -2,3 +2,4 @@
 fixture*.json
 *.fixture.json
 __pycache__/
+*.xlsx

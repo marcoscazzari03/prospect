@@ -211,7 +211,8 @@
       ],
       "modello": "gpt-5.6-luna",
       "ragionamento": "low"
-    }
+    },
+    "ruolo_richiesto": null
   },
   "colonne_nuove": {
     "Prospect AI": [

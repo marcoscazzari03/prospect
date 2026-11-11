@@ -21,6 +21,8 @@ Aggiornato: **6 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 
 - **7 novembre, 03:05: Asia esecuzione 4399 bloccata** nel nodo "Estrai email homepage" ("Task execution aborted because runner became unresponsive": il motore dei nodi Code di n8n si è fermato, quasi certamente su una homepage enorme). Unico errore su 17 giri dal 5 novembre; i contatti di quel giro non sono stati salvati. Correzione pronta nella repo (`motore/codice/estrai-email.template.js`: pagine oltre 600.000 caratteri ridotte a inizio + fine). Replay: nessuna differenza. **Da fare (ok): deploy.**
 
+- **11 novembre: avvocati, solo il fondatore** (richiesta utente: un solo avvocato per studio, il fondatore; se più fondatori, uno solo). Pronto nella repo: prompt avvocati (fondatore / titolare / name partner; managing o senior partner solo se fondatori; uno solo se più fondatori) + filtro nel motore `motore.ruolo_richiesto` (avvocati: ruolo con found/owner/sole/name partner/principal; Asia e Startup: nessun filtro). Già esisteva un contatto per studio (dominio del sito). Replay su un giro vero: 46 → 35 candidati (scartati partner, managing/senior partner non fondatori); Asia e Startup invariate. File dell'utente `Leads_avvocati_202611101153` pulito: 238 fondatori/titolari, 49 non fondatori spostati in un foglio a parte (nessuno studio doppio nel file né con lo storico). **Da fare (ok): deploy** (insieme alla correzione "pagine enormi").
+
 **In sospeso (in ordine)**
 1. Controllare i primi giri con le frasi su misura generate dal motore (dal 4 novembre 15:00) e i settori dopo la correzione software.
 2. ✅ (5 novembre) Punto di ripristino `ripristino-2026-11-05`; export del lunedì e pagina Download Mailup **disattivati**.

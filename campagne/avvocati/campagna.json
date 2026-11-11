@@ -209,7 +209,8 @@
       "Città",
       "Specializzazione"
     ],
-    "aperture": null
+    "aperture": null,
+    "ruolo_richiesto": "found|owner|sole|name partner|principal|titolar|proprietor|co-?founder"
   },
   "colonne_nuove": {
     "Prospect AI": [

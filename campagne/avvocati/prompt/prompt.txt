@@ -7,10 +7,11 @@ CHI CERCHIAMO
 
 Avvocati che esercitano davvero il diritto penale (difesa penale, penale d'impresa / white-collar, reati economici e tributari, frodi, corruzione, antiriciclaggio, reati informatici, estradizione, reati stradali, compliance penale).
 
-Per ogni studio indica UNA sola persona, il titolare:
+Per ogni studio indica UNA sola persona: il FONDATORE (o titolare).
 
-* studio individuale: l'avvocato stesso;
-* studio con più avvocati: il fondatore, il socio fondatore, il managing partner, il senior partner o il socio che dà il nome allo studio (name partner).
+* studio individuale: l'avvocato stesso (ruolo "Sole Practitioner" o "Owner");
+* studio con più avvocati: il fondatore / socio fondatore, oppure il socio che dà il nome allo studio (name partner). Se i fondatori sono più di uno, indicane UNO solo (il primo nel nome dello studio).
+* Managing partner, senior partner, partner o director SOLO se sono anche fondatori: in quel caso scrivi il ruolo includendo "Founder" (es. "Founder and Managing Partner"). Se non trovi chi ha fondato lo studio, scarta lo studio.
 
 NON indicare associati, praticanti, collaboratori, of counsel, assistenti o personale amministrativo.
 

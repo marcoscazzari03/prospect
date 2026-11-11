@@ -136,6 +136,9 @@ for (const item of $input.all()) {
     const aziendaN = normCompany(azienda) || norm(azienda);
     if (!nomeN || !aziendaN) continue;
 
+    // Solo il ruolo richiesto dalla campagna (es. avvocati: il fondatore / titolare dello studio).
+    if (CFG.ruolo_richiesto && !new RegExp(CFG.ruolo_richiesto, 'i').test(pulito(c?.ruolo))) continue;
+
     // Persona o nome + studio gia presenti
     const key = `${nomeN}|${aziendaN}`;
     if (visti.has(key) || nomiVisti.has(nomeN)) continue;
