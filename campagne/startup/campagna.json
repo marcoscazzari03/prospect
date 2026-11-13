@@ -3,7 +3,7 @@
   "etichetta": "Startup",
   "nome_workflow": "Prospect | Startup | Ricerca",
   "id_n8n": "iXkSFJOLpJq8gl3D",
-  "deploy": false,
+  "deploy": true,
   "trigger": {
     "nome": "Ogni 12 ore | 09:00 - 21:00",
     "cron": "0 9,21 * * *"
