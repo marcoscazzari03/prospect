@@ -121,6 +121,43 @@ export const modelli = [
       apertura1: 'Abbiamo notato FreshCast, che aiuta i piccoli negozi a ridurre lo spreco alimentare con le previsioni di domanda.',
       apertura2: 'Passare da un progetto pilota a Lisbona a 200 negozi in due anni è un risultato notevole.'
     }
+  },
+  {
+    campagna: 'europa-pmi',
+    etichetta: 'Europa PMI',
+    nota: 'Stessa struttura di Asia PMI: due frasi su misura dal sito ufficiale, rivolta a CEO, fondatori e titolari di PMI europee (Italia esclusa). Solo in inglese.',
+    campi: { nome: 'Nome', azienda: 'Azienda', apertura1: 'Apertura 1', apertura2: 'Apertura 2' },
+    esempio: {
+      nome: 'Lars', azienda: 'Nordvik Valves',
+      apertura1: 'We noticed Nordvik Valves designs and builds industrial control valves in Sweden.',
+      apertura2: 'Exporting to more than 40 countries is a remarkable achievement.'
+    },
+    en: {
+      oggetto: '[nome], an invitation for [azienda] to the Le Fonti Awards®',
+      testo: [
+        'Dear [nome],',
+        '[apertura1] [apertura2]',
+        'This is why we would like to invite [azienda] to apply for the Le Fonti Awards®, a prestigious international award celebrating business excellence and the companies that drive Europe\'s economy.',
+        'For over 15 years, Le Fonti Awards® have recognised excellence across different sectors, bringing together business owners, leading professionals and established companies through events held in major business hubs around the world, including Milan, London, New York, Dubai, Singapore and Hong Kong.',
+        communityEn,
+        ...chiusuraEn
+      ]
+    },
+    it: {
+      oggetto: '[nome], un invito per [azienda] ai Le Fonti Awards®',
+      testo: [
+        'Gentile [nome],',
+        '[apertura1] [apertura2]',
+        'Per questo vorremmo invitare [azienda] a candidarsi ai Le Fonti Awards®, prestigioso premio internazionale che celebra l\'eccellenza nel mondo delle imprese e le aziende che fanno crescere l\'economia europea.',
+        'Da oltre 15 anni i Le Fonti Awards® premiano l\'eccellenza in diversi settori, riunendo imprenditori, professionisti e aziende affermate con eventi nei principali centri d\'affari del mondo, tra cui Milano, Londra, New York, Dubai, Singapore e Hong Kong.',
+        communityIt,
+        ...chiusuraIt
+      ]
+    },
+    esempioIt: {
+      apertura1: 'Abbiamo notato Nordvik Valves, che progetta e costruisce valvole industriali in Svezia.',
+      apertura2: 'Esportare in oltre 40 paesi è un risultato notevole.'
+    }
   }
 ,
   {
