@@ -10,6 +10,11 @@ Aggiornato: **6 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 3. guarda i giri dall'ultima sessione (esito, numeri, settori e città: la priorità dell'utente) e lo dice in breve all'utente;
 4. a fine lavoro aggiorna questa sezione ("Stato" e "In sospeso").
 
+**Aggiornamento 13 novembre (per la sessione del 14)**
+- **Europa PMI attiva** (00:00, 12:00): workflow `StWwuSUputmE8fO8` versione `c50a7345-f1e2-49a7-916c-1e961e29fbe7`, foglio `1rWod1281ZoPVvUYHreqgTtHxyuZ8Q65pm5nIE9ovwGU`. Prova 4461: 85 salvati. Poi correzioni (settori, max 2 aziende per città, **RocketReach anche se il sito dà solo info@**: opzione `rocketreach_se_generica`, solo questa campagna). Modello email Europa PMI nell'app (campi MailUp come Asia).
+- **Domani per prima cosa:** guardare i giri di Europa PMI del 14 (00:00 e 12:00): salvati, email nominative vs generiche, ricerche RocketReach usate (tetto 40), settori e città.
+- Deploy fatti oggi **solo per Europa PMI** (le altre campagne messe temporaneamente a `deploy: false`). Su `main` restano **non deployate** per Asia/Startup/Avvocati: taglio pagine enormi e prompt avvocati "un solo nome per studio" (l'utente ha detto di lasciarle stare). Le modifiche motore di oggi non cambiano nulla per loro (replay: nessuna differenza).
+
 **Stato al 4 novembre (sera)**
 - Campagne attive: Asia PMI (03:00, 15:00) versione `3cacf6e6-226f-42ea-93a5-09a88ce23e71`; Startup (09:00, 21:00) `375ba59e-19b6-4b26-bb57-1eef7435964b` (dal 6 novembre, frasi "We noticed"); Avvocati (06:00, 18:00) `0a7bf89a-2f03-4aff-9554-e3123bcafd94`. Tutte con Settore Le Fonti + Comunità, città in inglese, regola "software → Internet & Applications Services"; Avvocati con Specializzazione; Asia e Startup con **frasi su misura** (Apertura 1/2).
 - App **https://prospect-gilt.vercel.app** (password su Vercel): Scarica nuovi, Anteprima (Excel che non segna nulla), Scarica storico completo, storico dei download, Modelli email. API App su n8n versione `8f1c1db0-d10e-4c81-b585-9ea5955a3068`.
