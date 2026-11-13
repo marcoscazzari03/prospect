@@ -1,0 +1,84 @@
+=Cerca sul web fino a {{ $json.target_lotto }} PMI NUOVE in {{ $json.paese }} e per ognuna UNA persona (CEO, fondatore, titolare o amministratore delegato), come prospect commerciali per Le Fonti Awards.
+
+LOTTO: {{ $json.lotto }}
+FOCUS DEL LOTTO: {{ $json.tema }}
+
+CHI CERCHIAMO
+
+Piccole e medie imprese private, reali e operative, con sede in {{ $json.paese }}:
+
+* aziende indipendenti o familiari, di qualsiasi settore (industria, servizi, commercio, tecnologia, turismo, alimentare, costruzioni…);
+* fatturato annuo fino a 50 milioni di euro (se non è noto va bene, purché l'azienda sia chiaramente una PMI);
+* di solito tra 10 e 250 dipendenti;
+* NON in Italia (le aziende italiane non vanno incluse).
+
+Per ogni azienda indica UNA SOLA persona (mai due nomi della stessa azienda): il CEO, il fondatore, il titolare (owner) o l'amministratore delegato / managing director (Geschäftsführer, gérant, director general, directeur général…). Se sono più di uno, indicane UNO solo: di preferenza il CEO o il fondatore.
+
+NON indicare dipendenti, manager senza poteri, consulenti, investitori o membri del board esterni.
+
+DA EVITARE
+
+* aziende quotate in borsa, grandi aziende (oltre 50 milioni di fatturato o oltre 250 dipendenti), multinazionali e loro filiali o divisioni;
+* startup (le cerca già un'altra campagna) e studi legali (idem);
+* Big Four e grandi reti internazionali di revisione e consulenza (KPMG, Deloitte, PwC, EY, BDO, Grant Thornton, RSM, Mazars, Crowe…), anche nella loro sede locale;
+* enti pubblici, associazioni, fondazioni, camere di commercio, università;
+* aziende chiuse o senza attività recente;
+* aziende senza un sito ufficiale proprio.
+
+SITO UFFICIALE OBBLIGATORIO
+
+"sito" deve essere il sito dell'azienda (dominio proprio).
+NON sono siti ufficiali: LinkedIn, Facebook, Instagram, X, directory e registri di imprese (Kompass, Europages, North Data, Pappers, Infobel, Bisnode, Dun & Bradstreet, Companies House), pagine gialle, articoli, marketplace.
+Usa directory, registri e articoli solo per SCOPRIRE i nomi, poi trova il sito ufficiale.
+Se non trovi il sito ufficiale, scarta il candidato e passa al successivo.
+
+PAGINA CONTATTI
+
+Se durante la ricerca vedi la pagina del sito ufficiale con i contatti (contact / kontakt / contacto / impressum / mentions légales / aviso legal / about / team), mettila in "pagina_contatti". Non fare ricerche apposta solo per trovarla e NON cercare email.
+
+METODO
+
+Usa davvero la ricerca web, in modo ampio e veloce: privilegia la quantità.
+Cerca anche nella lingua del paese (es. "Mittelstand Geschäftsführer", "PME dirigeant", "pyme director general", "MKB directeur-eigenaar", "MŚP prezes").
+Fonti utili per scoprire nomi: classifiche delle PMI in crescita dei media locali (es. FT 1000, Les Echos Champions de la croissance, Wachstumschampions), premi per imprenditori e aziende familiari, associazioni di categoria e distretti industriali, fiere di settore, notizie economiche locali, registri delle imprese.
+Non approfondire un candidato quando hai già: persona reale, ruolo da CEO / fondatore / titolare / amministratore delegato plausibile, PMI reale, sito ufficiale, una fonte.
+
+Non inventare mai persone, aziende, ruoli, siti o URL.
+Non inserire due persone della stessa azienda.
+
+OUTPUT
+
+Restituisci ESCLUSIVAMENTE JSON valido, senza Markdown e senza testo prima o dopo:
+
+{
+"candidati": [
+{
+  "nome": "",
+  "nome_proprio": "",
+  "cognome": "",
+  "azienda": "",
+  "ruolo": "",
+  "citta": "",
+  "settore": "",
+  "settore_lefonti": "",
+  "sito": "https://...",
+  "pagina_contatti": "",
+  "fonte": "https://..."
+}
+]
+}
+
+REGOLE OUTPUT
+
+* "nome": nome completo della persona come appare nelle fonti, senza titoli (Dr., Ing., Mag.…).
+* "nome_proprio" e "cognome": nome e cognome reali.
+* "azienda": nome dell'azienda.
+* "ruolo": es. CEO, Founder & CEO, Owner, Managing Director, Geschäftsführer, Directeur général.
+* "citta": città della sede principale, scritta in INGLESE (es. Prague, Zurich, Warsaw, Lisbon, The Hague, Munich, Cologne; non Praga, Zurigo, Varsavia, Monaco di Baviera).
+* "settore": attività dell'azienda in poche parole (es. "Industrial machinery", "Food processing", "Logistics", "Hotel group").
+* "settore_lefonti": scegli ESATTAMENTE UNO di questi settori, copiandolo identico (se nessuno è adatto: "Other"): Advertising Services; Animal Health & Food; Apparel & Fashion; Appliances & Electronics; Aviation & Aerospace; Banking; Biotechnology; Broadcast Media; Business Consulting & Services; Capital Markets & Investment Management; Chemical; Construction; Cosmetics & Personal Care; Delivery; Energy, Renewables & Environmental Services; Engineering, Architecture & Planning; Entertainment Providers; Events Services; Farming; Financial Services; Fiscal & Accounting Services; Food & Beverage; Furniture & Goods; Government Administration; Healthcare & Life Science Services; Hospitals & Health Care; Human Resources Services; Information & Research Services; Insurance; Internet & Applications Services; IT Consulting & Services; Legal Services; Machinery; Manufacturing; Medical Device; Motor Vehicle; Nutraceutical; Other; Pharmaceutical; Public Relations & Communications Services; Publishing; Real Estate; Retail; Security & Investigations; Sports; Telecommunications; Trade Association & Development; Training, Education & E-Learning; Transportation, Logistics & Packaging; Travel, Hospitality & Tourism; Utilities & Services; Wholesale. REGOLA: Legal Services, Financial Services, Banking, Insurance, Fiscal & Accounting Services e Capital Markets & Investment Management SOLO se l'azienda fornisce lei quel servizio (studio legale, banca, società di credito o di pagamento, assicurazione, studio fiscale, gestore di fondi). Chi vende software, SaaS, AI o piattaforme a quei clienti (legaltech, regtech, software per banche o per commercialisti, identità digitale…) è "Internet & Applications Services". "Information & Research Services" solo per società di ricerche, dati e informazioni, non per il software.
+* "sito": URL del sito UFFICIALE dell'azienda. Obbligatorio.
+* "pagina_contatti": URL della pagina contatti / impressum / note legali sul sito ufficiale, oppure "".
+* "fonte": URL della fonte che conferma persona e ruolo.
+
+Cerca di arrivare a {{ $json.target_lotto }} candidati. Se ne trovi meno, restituisci solo quelli reali.

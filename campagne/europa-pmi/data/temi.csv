@@ -1,0 +1,42 @@
+ID,Paese,Settore,Tema,Attivo
+DE01,Germania,PMI,"Mittelstand Maschinenbau und Industrie in Baden-Württemberg und Bayern (Familienunternehmen, Geschäftsführer)",SI
+DE02,Germania,PMI,"mittelständische Familienunternehmen in NRW und Niedersachsen: Logistik, Bau, Lebensmittel",SI
+DE03,Germania,PMI,"Hidden Champions und wachsende KMU in Hamburg, Berlin und Sachsen: IT-Dienstleister, Handel, Medizintechnik",SI
+DE04,Germania,PMI,"Wachstumschampions und Top-Arbeitgeber Mittelstand: Dienstleistungen, Beratung, Tourismus",SI
+FR01,Francia,PMI,"PME et ETI familiales en Auvergne-Rhône-Alpes et Occitanie: industrie, agroalimentaire",SI
+FR02,Francia,PMI,"PME en Île-de-France et Hauts-de-France: services aux entreprises, distribution, BTP",SI
+FR03,Francia,PMI,"Champions de la croissance (Les Echos): PME en Bretagne, Pays de la Loire, Nouvelle-Aquitaine",SI
+FR04,Francia,PMI,"PME du luxe, de la mode, du vin et de la gastronomie (dirigeant, président)",SI
+ES01,Spagna,PMI,"pymes familiares en Cataluña y Comunidad Valenciana: industria, alimentación, cerámica",SI
+ES02,Spagna,PMI,"pymes en Madrid y País Vasco: servicios, ingeniería, logística (director general, CEO)",SI
+ES03,Spagna,PMI,"empresas medianas en Andalucía y Galicia: agroalimentaria, turismo, pesca, construcción",SI
+PT01,Portogallo,PMI,"PME líder e PME excelência em Lisboa e Porto: indústria, têxtil, calçado, turismo",SI
+NL01,Paesi Bassi,PMI,"MKB-bedrijven en familiebedrijven in Noord-Brabant en Gelderland: maakindustrie, agrifood, logistiek",SI
+NL02,Paesi Bassi,PMI,"middelgrote bedrijven in Amsterdam, Rotterdam en Utrecht: zakelijke dienstverlening, handel, techniek",SI
+BE01,Belgio,PMI,"KMO's en familiebedrijven in Vlaanderen en PME en Wallonie et à Bruxelles: industrie, services, distribution",SI
+LU01,Lussemburgo,PMI,"PME et entreprises familiales au Luxembourg: services, construction, commerce",SI
+AT01,Austria,PMI,"KMU und Familienunternehmen in Oberösterreich, Steiermark und Wien: Industrie, Tourismus, Handel",SI
+CH01,Svizzera,PMI,"KMU und Familienunternehmen in Zürich, Bern und der Ostschweiz / PME en Suisse romande: Präzisionsindustrie, Uhren, Lebensmittel",SI
+UK01,Regno Unito,PMI,"UK SMEs and family businesses in the Midlands and the North (manufacturing, engineering, food & drink)",SI
+UK02,Regno Unito,PMI,"fast-growing SMEs in London and the South East (FT 1000, Sunday Times 100): services, retail, construction",SI
+UK03,Regno Unito,PMI,"SMEs in Scotland, Wales and Northern Ireland: hospitality, energy, agrifood (managing director, owner)",SI
+IE01,Irlanda,PMI,"Irish SMEs and family businesses: food, pharma services, construction, tourism (managing director, CEO)",SI
+PL01,Polonia,PMI,"MŚP i firmy rodzinne w Wielkopolsce, na Śląsku i Mazowszu: produkcja, logistyka, meble (prezes, właściciel)",SI
+PL02,Polonia,PMI,"Gazele Biznesu: średnie przedsiębiorstwa w Krakowie, Wrocławiu, Gdańsku: usługi, budownictwo, żywność",SI
+CZ01,Repubblica Ceca,PMI,"malé a střední podniky a rodinné firmy v Česku: strojírenství, sklo, potraviny (jednatel, majitel)",SI
+SK01,Slovacchia,PMI,"malé a stredné podniky na Slovensku: výroba, logistika, stavebníctvo (konateľ, majiteľ)",SI
+HU01,Ungheria,PMI,"kis- és középvállalkozások és családi cégek Magyarországon: gyártás, élelmiszer, turizmus (ügyvezető, tulajdonos)",SI
+SI01,Slovenia,PMI,"mala in srednja podjetja v Sloveniji: industrija, turizem, logistika (direktor, lastnik)",SI
+HR01,Croazia,PMI,"mala i srednja poduzeća u Hrvatskoj: turizam, prehrana, brodogradnja, IT usluge (direktor, vlasnik)",SI
+RO01,Romania,PMI,"IMM-uri și firme de familie din România: producție, construcții, agricultură, IT (director general, fondator)",SI
+BG01,Bulgaria,PMI,"малки и средни предприятия в България: производство, туризъм, храни (управител, собственик)",SI
+GR01,Grecia,PMI,"μικρομεσαίες επιχειρήσεις στην Ελλάδα: τρόφιμα, τουρισμός, ναυτιλιακές υπηρεσίες (διευθύνων σύμβουλος, ιδιοκτήτης)",SI
+CY01,Cipro,PMI,"Cyprus SMEs: shipping services, tourism, professional services (excluding Big Four), real estate (CEO, founder)",SI
+MT01,Malta,PMI,"Maltese SMEs and family businesses: hospitality, manufacturing, logistics (managing director, owner)",SI
+SE01,Svezia,PMI,"små och medelstora företag och familjeföretag i Sverige: industri, livsmedel, handel (VD, grundare) - Gasellföretag",SI
+DK01,Danimarca,PMI,"små og mellemstore virksomheder i Danmark: produktion, fødevarer, design (administrerende direktør, ejer) - Gazeller",SI
+NO01,Norvegia,PMI,"små og mellomstore bedrifter i Norge: maritim industri, sjømat, bygg (daglig leder, eier) - Gaselle",SI
+FI01,Finlandia,PMI,"pk-yritykset ja perheyritykset Suomessa: teollisuus, teknologia, puutuote (toimitusjohtaja, omistaja)",SI
+EE01,Estonia,PMI,"väikesed ja keskmise suurusega ettevõtted Eestis: tootmine, logistika, IT-teenused (juhatuse esimees, omanik)",SI
+LV01,Lettonia,PMI,"mazie un vidējie uzņēmumi Latvijā: ražošana, kokapstrāde, loģistika (valdes priekšsēdētājs, īpašnieks)",SI
+LT01,Lituania,PMI,"mažos ir vidutinės įmonės Lietuvoje: gamyba, baldai, logistika (generalinis direktorius, savininkas)",SI

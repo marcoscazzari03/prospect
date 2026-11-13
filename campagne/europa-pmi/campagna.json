@@ -1,0 +1,218 @@
+{
+  "descrizione": "PMI private in tutta Europa (Italia esclusa), fatturato fino a 50 milioni di euro: CEO, fondatore, titolare o amministratore delegato",
+  "etichetta": "Europa PMI",
+  "nome_workflow": "Prospect | Europa PMI | Ricerca",
+  "id_n8n": null,
+  "deploy": false,
+  "trigger": {
+    "nome": "Ogni 12 ore | 00:00 - 12:00",
+    "cron": "0 0,12 * * *"
+  },
+  "fuso_workflow": "Europe/Rome",
+  "foglio": {
+    "id": null,
+    "nome": "Prospect | Europa PMI | Search",
+    "schede": {
+      "Prospect AI": 101,
+      "Mailup": 102,
+      "Scartati": 103,
+      "Log": 104,
+      "Temi": 105,
+      "Esclusioni": 106
+    }
+  },
+  "colonne_prospect": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Città",
+    "Paese",
+    "Settore",
+    "Sito",
+    "Email certa",
+    "Tipo email",
+    "Fonte email",
+    "Stato email",
+    "Email probabili",
+    "LinkedIn",
+    "Settore Le Fonti",
+    "Comunità 1",
+    "Comunità 2",
+    "Apertura 1",
+    "Apertura 2",
+    "Tipo apertura"
+  ],
+  "colonne_mailup": [
+    "Nome",
+    "Cognome",
+    "Azienda",
+    "Ruolo",
+    "Settore",
+    "Email",
+    "Paese",
+    "Settore Le Fonti",
+    "Comunità 1",
+    "Comunità 2",
+    "Apertura 1",
+    "Apertura 2"
+  ],
+  "colonne_scartati": [
+    "Data",
+    "Nome",
+    "Azienda",
+    "Ruolo",
+    "Città",
+    "Paese",
+    "Settore",
+    "Sito",
+    "Email probabili",
+    "LinkedIn",
+    "Motivo scarto",
+    "Nome Mailup",
+    "Cognome Mailup"
+  ],
+  "accept_language": "en,de;q=0.9,fr;q=0.9,it;q=0.8,es;q=0.8,nl;q=0.7,pt;q=0.7,pl;q=0.7,sv;q=0.6,*;q=0.5",
+  "terza_pagina": true,
+  "descrizioni_gruppi": {
+    "4": "Riprende i \"Da riprovare\" (max 3 tentativi) e scarta persone e aziende (dominio) già in archivio.",
+    "5": "Esclude grandi aziende, gruppi quotati e grandi reti della scheda Esclusioni, prima di spendere crediti.",
+    "6": "Homepage, pagina contatti e impressum / privacy: email gratis dal sito, preferita quella col nome della persona."
+  },
+  "motore": {
+    "fuso_orario": "Europe/Rome",
+    "lotti": 5,
+    "target_lotto": 25,
+    "settore_default": "Startup",
+    "temi_riserva": [
+      [
+        "Germania",
+        "Mittelstand Familienunternehmen Geschäftsführer Industrie Dienstleistung"
+      ],
+      [
+        "Francia",
+        "PME familiales dirigeant industrie services"
+      ],
+      [
+        "Spagna",
+        "pymes familiares director general industria servicios"
+      ],
+      [
+        "Paesi Bassi",
+        "MKB familiebedrijven directeur-eigenaar"
+      ],
+      [
+        "Regno Unito",
+        "UK SMEs family businesses managing director"
+      ]
+    ],
+    "un_contatto_per_azienda": true,
+    "campi_extra": [
+      [
+        "Città",
+        "citta"
+      ]
+    ],
+    "colonna_data": true,
+    "mailup_paese": true,
+    "forme_societarie": "gmbh|ag|kg|ug|e k|sarl|sas|sasu|sa|eurl|sl|slu|sau|lda|unipessoal|bv|nv|vof|ltd|limited|llp|plc|oy|oyj|ab|as|asa|aps|a s|sp z o o|sp k|s r o|a s|kft|zrt|doo|d o o|srl|s r l|ood|eood|ou|sia|uab|sarl-s|bvba|srl|cvba",
+    "forme_quotate": [
+      {
+        "se": "\\bplc\\b",
+        "motivo": "societa quotata (plc)"
+      },
+      {
+        "se": "\\boyj\\b",
+        "motivo": "societa quotata in Finlandia (Oyj)"
+      },
+      {
+        "se": "\\basa\\b",
+        "motivo": "societa per azioni pubblica in Norvegia (ASA)"
+      }
+    ],
+    "siti_non_ufficiali": [
+      "crunchbase",
+      "dealroom",
+      "f6s",
+      "wellfound",
+      "producthunt",
+      "tracxn",
+      "pitchbook",
+      "cbinsights",
+      "eu-startups",
+      "sifted",
+      "startupblink",
+      "seedtable",
+      "techcrunch",
+      "startupitalia",
+      "medium",
+      "substack",
+      "github",
+      "notion",
+      "welcometothejungle",
+      "glassdoor",
+      "indeed",
+      "zoominfo",
+      "apollo",
+      "rocketreach",
+      "angellist",
+      "kickstarter",
+      "indiegogo",
+      "crowdcube",
+      "seedrs",
+      "mamacrowd",
+      "apps\\.apple",
+      "play\\.google"
+    ],
+    "email_generiche": [
+      "team",
+      "hi",
+      "hey",
+      "founders",
+      "founder",
+      "sales",
+      "support",
+      "business",
+      "partnerships",
+      "partners",
+      "press",
+      "ciao",
+      "bonjour",
+      "hallo",
+      "hola",
+      "hej",
+      "start"
+    ],
+    "email_gratuite": [],
+    "paesi_rocketreach": null,
+    "tetto_rocketreach": 40,
+    "max_tentativi": 3,
+    "max_riprova": 40,
+    "settore_fisso": null,
+    "comunita": {
+      "principale": "03 Comunità di CEO Internazionali",
+      "seconda": "tematica",
+      "seconda_riserva": "01 Comunità Business"
+    },
+    "specializzazione": null,
+    "mailup_extra": [
+      "Apertura 1",
+      "Apertura 2"
+    ],
+    "aperture": {
+      "contesto": "Small or medium-sized private company in Europe (outside Italy), annual revenue up to 50 million euro; the recipient is the CEO, founder, owner or managing director.",
+      "riserva": [
+        "We noticed [azienda] while researching growing European companies.",
+        "Your work is exactly the kind of business excellence our awards celebrate."
+      ],
+      "modello": "gpt-5.6-luna",
+      "ragionamento": "low"
+    },
+    "ruolo_richiesto": null,
+    "esclusioni_nuove": []
+  },
+  "colonne_nuove": {
+    "Prospect AI": [],
+    "Mailup": []
+  }
+}

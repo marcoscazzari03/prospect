@@ -28,7 +28,7 @@ Aggiornato: **6 novembre 2026**. Da aggiornare dopo ogni lavoro: è la memoria t
 2. ✅ (5 novembre) Punto di ripristino `ripristino-2026-11-05`; export del lunedì e pagina Download Mailup **disattivati**.
 3. Confermare col capo la frase sulle categorie del premio (penale / aziende emergenti) nei modelli.
 4. Contatti delle grandi reti già salvati in Asia (RSM, Andersen, Forvis Mazars, Crowe…): l'utente decide se toglierli dalla scheda Mailup.
-5. **Italia PMI**: decisioni dell'utente (dimensione, settori, regioni, ruoli, comunità 02 o 04, lingua email), poi repo → prova → foglio → workflow (ok per ogni passo).
+5. **Europa PMI** (decisa il 13 novembre, sostituisce l'idea "Italia PMI"): tutta Europa esclusa l'Italia, fatturato fino a 50 M€, tutti i settori, CEO/fondatore/titolare/amministratore delegato uno per azienda, email in inglese con frasi su misura, giri 00:00 e 12:00. Repo pronta (`campagne/europa-pmi/`, vedi la sua ROADMAP). **Da fare (ok, uno per passo): setup foglio → workflow vuoto + deploy → giro di prova manuale → attivazione.**
 6. Più avanti: repo privata (token GitHub), "non consumare i temi quando il lotto AI fallisce", storico completo da dividere quando supera ~4 MB.
 
 
