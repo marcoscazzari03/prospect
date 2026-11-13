@@ -201,7 +201,8 @@
       "ragionamento": "low"
     },
     "ruolo_richiesto": null,
-    "esclusioni_nuove": []
+    "esclusioni_nuove": [],
+    "rocketreach_se_generica": true
   },
   "colonne_nuove": {
     "Prospect AI": [],

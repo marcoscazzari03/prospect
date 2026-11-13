@@ -1,12 +1,14 @@
 const emailSito = String($json['Email trovata sito'] || '').trim();
 const emailRR = String($json['Email RocketReach'] || '').trim();
-const emailFinale = emailSito || emailRR || '';
+// Con _cerca_rr (sito con sola email generica) vince l'email RocketReach validata.
+const rrPrima = Boolean($json._cerca_rr && emailRR && $json['Stato RocketReach'] === 'EMAIL VALIDATA');
+const emailFinale = rrPrima ? emailRR : (emailSito || emailRR || '');
 
 let tipoEmail = '';
 let fonteEmail = '';
 let statoEmail = '';
 
-if (emailSito) {
+if (emailSito && !rrPrima) {
   tipoEmail = $json['Tipo email sito'] || 'SITO UFFICIALE';
   fonteEmail = $json['Fonte email'] || $json.Sito || '';
   statoEmail = 'EMAIL TROVATA';

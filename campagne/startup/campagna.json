@@ -3,7 +3,7 @@
   "etichetta": "Startup",
   "nome_workflow": "Prospect | Startup | Ricerca",
   "id_n8n": "iXkSFJOLpJq8gl3D",
-  "deploy": true,
+  "deploy": false,
   "trigger": {
     "nome": "Ogni 12 ore | 09:00 - 21:00",
     "cron": "0 9,21 * * *"
@@ -212,7 +212,8 @@
       "modello": "gpt-5.6-luna",
       "ragionamento": "low"
     },
-    "ruolo_richiesto": null
+    "ruolo_richiesto": null,
+    "rocketreach_se_generica": false
   },
   "colonne_nuove": {
     "Prospect AI": [

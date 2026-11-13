@@ -185,7 +185,7 @@
           "conditions": [
             {
               "id": "847cbe33-6018-4ac1-b1bf-e6be4eb66163",
-              "leftValue": "={{ $json[\"Email trovata sito\"] }}",
+              "leftValue": "={{ $json._cerca_rr ? '' : $json[\"Email trovata sito\"] }}",
               "rightValue": "",
               "operator": {
                 "type": "string",

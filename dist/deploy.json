@@ -1,26 +1,8 @@
 [
   {
-    "campagna": "asia-pmi",
-    "workflow": "Prospect | Asia PMI | Ricerca",
-    "id_n8n": "f03lATvrzkJYAOw6",
-    "file": "dist/asia-pmi.json"
-  },
-  {
-    "campagna": "avvocati",
-    "workflow": "Prospect | Avvocati | Ricerca",
-    "id_n8n": "rKUcaJepe2momTLB",
-    "file": "dist/avvocati.json"
-  },
-  {
     "campagna": "europa-pmi",
     "workflow": "Prospect | Europa PMI | Ricerca",
     "id_n8n": "StWwuSUputmE8fO8",
     "file": "dist/europa-pmi.json"
-  },
-  {
-    "campagna": "startup",
-    "workflow": "Prospect | Startup | Ricerca",
-    "id_n8n": "iXkSFJOLpJq8gl3D",
-    "file": "dist/startup.json"
   }
 ]

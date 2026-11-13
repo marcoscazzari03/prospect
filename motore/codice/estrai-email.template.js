@@ -168,7 +168,10 @@ const out = {
   'Email trovate sito': trovate.slice(0, 6).map(x => x.email).join(', '),
   'Tipo email sito': tipo,
   'Fonte email': migliore ? migliore.fonte : '',
-  'Stato ricerca email': (migliore ? 'TROVATA ' : 'NON TROVATA ') + FASE
+  'Stato ricerca email': (migliore ? 'TROVATA ' : 'NON TROVATA ') + FASE,
+  // Campagne con rocketreach_se_generica: se il sito ha solo un'email non nominativa
+  // (info@, sales@...) si cerca comunque la persona su RocketReach; l'email del sito resta di riserva.
+  ...(CFG.rocketreach_se_generica && migliore && migliore.p < 4.5 ? { _cerca_rr: true } : {})
 };
 
 //__PAGINE__

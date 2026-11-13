@@ -23,9 +23,11 @@ const ordinati = $input.all()
     it,
     i,
     paeseOk: !PAESI_ROCKETREACH || PAESI_ROCKETREACH.includes(String(it.json.Paese || '')),
-    prio: ripresi.has(norm(it.json.Nome)) ? 0 : 1
+    prio: ripresi.has(norm(it.json.Nome)) ? 0 : 1,
+    // Chi ha gia un'email generica dal sito (_cerca_rr) passa dopo chi non ne ha nessuna.
+    riserva: it.json._cerca_rr ? 1 : 0
   }))
-  .sort((a, b) => b.paeseOk - a.paeseOk || a.prio - b.prio || a.i - b.i);
+  .sort((a, b) => b.paeseOk - a.paeseOk || a.prio - b.prio || a.riserva - b.riserva || a.i - b.i);
 
 let pos = 0;
 return ordinati.map(x => ({
