@@ -72,6 +72,16 @@
       ]
     },
     {
+      "campagna": "europa-pmi",
+      "foglio_id": "1rWod1281ZoPVvUYHreqgTtHxyuZ8Q65pm5nIE9ovwGU",
+      "comunita": {
+        "principale": "03 Comunità di CEO Internazionali",
+        "seconda": "tematica",
+        "seconda_riserva": "01 Comunità Business"
+      },
+      "esclusioni_nuove": []
+    },
+    {
       "campagna": "startup",
       "foglio_id": "1ZohqcRYehq3dHvYeiqWtRs_hq1Vg23cqBrC_jlxId0M",
       "comunita": {
